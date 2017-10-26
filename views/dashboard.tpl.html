@@ -1,0 +1,172 @@
+<div class="layout-content-body">
+  <div class="title-bar">
+    <div class="title-bar-actions">
+      <div class="btn-group btn-group-sm dropdown">
+        <button class="mail-sort-btn btn btn-default dropdown-toggle" aria-haspopup="true" data-toggle="dropdown" type="button">
+          Last 7 days
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a href="#">Today</a></li>
+          <li><a href="#">Yesterday</a></li>
+          <li><a href="#">Last 7 days</a></li>
+          <li><a href="#">Last 30 days</a></li>
+          <li><a href="#">Last 90 days</a></li>
+          <li class="divider"></li>
+          <li><a href="#">More settings...</a></li>
+        </ul>
+      </div>
+    </div>
+    <h1 class="title-bar-title">
+      <span class="d-ib">Dashboard</span>
+    </h1>
+    <p class="title-bar-description">
+      <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</small>
+    </p>
+  </div>
+  <div class="row gutter-xs">
+    <div class="col-xs-6 col-md-3">
+      <div class="card">
+        <div class="card-values">
+          <div class="p-x">
+            <small>Visitors</small>
+            <h3 class="card-title fw-l">185,118</h3>
+          </div>
+        </div>
+        <div class="card-chart">
+          <canvas class="chart chart-line" chart-data='visitors.data' chart-labels='visitors.labels' chart-series='visitors.series' chart-colors='visitors.colors' chart-options='visitors.options' height="35"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="card">
+        <div class="card-values">
+          <div class="p-x">
+            <small>New visitors</small>
+            <h3 class="card-title fw-l">68,494</h3>
+          </div>
+        </div>
+        <div class="card-chart">
+          <canvas class="chart chart-line" chart-data='newVisitors.data' chart-labels='newVisitors.labels' chart-series='newVisitors.series' chart-colors='newVisitors.colors' chart-options='newVisitors.options' height="35"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="card">
+        <div class="card-values">
+          <div class="p-x">
+            <small>Pageviews</small>
+            <h3 class="card-title fw-l">925,590</h3>
+          </div>
+        </div>
+        <div class="card-chart">
+          <canvas class="chart chart-line" chart-data='pageviews.data' chart-labels='pageviews.labels' chart-series='pageviews.series' chart-colors='pageviews.colors' chart-options='pageviews.options' height="35"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="card">
+        <div class="card-values">
+          <div class="p-x">
+            <small>Average duration</small>
+            <h3 class="card-title fw-l">00:07:56</h3>
+          </div>
+        </div>
+        <div class="card-chart">
+          <canvas class="chart chart-line" chart-data='averageDuration.data' chart-labels='averageDuration.labels' chart-series='averageDuration.series' chart-colors='averageDuration.colors' chart-options='averageDuration.options' height="35"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row gutter-xs">
+    <div class="col-xs-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Audience Overview</h4>
+        </div>
+        <div class="card-body">
+          <div class="card-chart">
+            <canvas class="chart chart-line" chart-data='audienceOverview.data' chart-labels='audienceOverview.labels' chart-series='audienceOverview.series' chart-colors='audienceOverview.colors' chart-options='audienceOverview.options' height="150"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">19,429 Signups</h4>
+        </div>
+        <div class="card-body">
+          <div class="card-chart">
+            <canvas class="chart chart-bar" chart-data='signups.data' chart-labels='signups.labels' chart-series='signups.series' chart-colors='signups.colors' chart-options='signups.options' height="150"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row gutter-xs">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="media">
+            <div class="media-middle media-left">
+              <span class="bg-gray sq-64 circle">
+                <span class="icon icon-flag"></span>
+              </span>
+            </div>
+            <div class="media-middle media-body">
+              <h3 class="media-heading">
+                <span class="fw-l">1,256 Issues</span>
+                <span class="fw-b fz-sm text-danger">
+                  <span class="icon icon-caret-up"></span>
+                  15%
+                </span>
+              </h3>
+              <small>6 issues are unassigned</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="media">
+            <div class="media-middle media-left">
+              <div class="media-chart">
+                <canvas class="chart chart-doughnut" chart-data='resolvedIssues.data' chart-labels='resolvedIssues.labels' chart-series='resolvedIssues.series' chart-colors='resolvedIssues.colors' chart-options='resolvedIssues.options' height="64" width="64"></canvas>
+              </div>
+            </div>
+            <div class="media-middle media-body">
+              <h2 class="media-heading">
+                <span class="fw-l">879</span>
+                <small>Resolved</small>
+              </h2>
+              <small>More than 70% resolved issues</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="media">
+            <div class="media-middle media-left">
+              <div class="media-chart">
+                <canvas class="chart chart-doughnut" chart-data='unresolvedIssues.data' chart-labels='unresolvedIssues.labels' chart-series='unresolvedIssues.series' chart-colors='unresolvedIssues.colors' chart-options='unresolvedIssues.options' height="64" width="64"></canvas>
+              </div>
+            </div>
+            <div class="media-middle media-body">
+              <h2 class="media-heading">
+                <span class="fw-l">377</span>
+                <small>Unresolved</small>
+              </h2>
+              <small>Less than 30% unresolved issues</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,258 @@
+.table.dataTable {
+  border-collapse: separate;
+  clear: both;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  max-width: none;
+}
+
+.table.dataTable > thead > tr > th,
+.table.dataTable > thead > tr > td,
+.table.dataTable > tbody > tr > th,
+.table.dataTable > tbody > tr > td,
+.table.dataTable > tfoot > tr > th,
+.table.dataTable > tfoot > tr > td {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  outline: none;
+}
+
+.table.dataTable .sorting,
+.table.dataTable .sorting_asc,
+.table.dataTable .sorting_desc {
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+
+.table.dataTable .sorting:after,
+.table.dataTable .sorting_asc:after,
+.table.dataTable .sorting_desc:after {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  margin-left: 5px;
+  text-align: center;
+  width: 20px;
+}
+
+.table.dataTable .sorting_asc,
+.table.dataTable .sorting_desc {
+  border-bottom-color: #0ac29d;
+  color: #0ac29d;
+}
+
+.table.dataTable .sorting:after {
+  color: #999;
+  content: "\f0dc";
+}
+
+.table.dataTable .sorting_asc:after {
+  color: #0ac29d;
+  content: "\f0de";
+}
+
+.table.dataTable .sorting_desc:after {
+  color: #0ac29d;
+  content: "\f0dd";
+}
+
+.dataTables_length {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  text-align: left;
+}
+
+.dataTables_length > label {
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.dataTables_length > label > select {
+  display: inline-block;
+  width: 75px;
+}
+
+@media screen and (max-width: 767px) {
+  .dataTables_length {
+    text-align: center;
+  }
+}
+
+.dataTables_filter {
+  text-align: right;
+}
+
+.dataTables_filter > label {
+  background-color: transparent;
+  border: 0;
+  color: transparent;
+  font: 0/0 a;
+  font-weight: normal;
+  position: relative;
+  text-shadow: none;
+}
+
+.dataTables_filter > label:after {
+  color: #eee;
+  content: "\f002";
+  display: block;
+  font-family: FontAwesome;
+  font-size: 13px;
+  height: 30px;
+  left: 0;
+  line-height: 30px;
+  margin-left: 1px;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 30px;
+  z-index: 5;
+}
+
+.dataTables_filter > label > input {
+  display: inline-block;
+  font-family: "Roboto", sans-serif;
+  padding-left: 30px;
+  width: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .dataTables_filter > label {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .dataTables_filter > label > input {
+    display: block;
+    width: 100%;
+  }
+}
+
+.dataTables_info {
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+  .dataTables_info {
+    text-align: center;
+  }
+}
+
+.dataTables_paginate {
+  margin-top: 5px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.dataTables_paginate .pagination {
+  margin-bottom: 0;
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+  .dataTables_paginate {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+.dataTables_processing {
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -26px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 200px;
+}
+
+.table-bordered.dataTable > thead > tr > th,
+.table-bordered.dataTable > thead > tr > td,
+.table-bordered.dataTable > tbody > tr > th,
+.table-bordered.dataTable > tbody > tr > td,
+.table-bordered.dataTable > tfoot > tr > th,
+.table-bordered.dataTable > tfoot > tr > td {
+  border-left-width: 0;
+}
+
+.table-bordered.dataTable > thead > tr > th:last-child,
+.table-bordered.dataTable > thead > tr > td:last-child,
+.table-bordered.dataTable > tbody > tr > th:last-child,
+.table-bordered.dataTable > tbody > tr > td:last-child,
+.table-bordered.dataTable > tfoot > tr > th:last-child,
+.table-bordered.dataTable > tfoot > tr > td:last-child {
+  border-right-width: 0;
+}
+
+.table-bordered.dataTable > tbody > tr > th,
+.table-bordered.dataTable > tbody > tr > td {
+  border-bottom-width: 0;
+}
+
+.table-bordered.dataTable .sorting,
+.table-bordered.dataTable .sorting_asc,
+.table-bordered.dataTable .sorting_desc {
+  border-color: #eee;
+  padding-right: 30px;
+}
+
+.table-bordered.dataTable .sorting:after,
+.table-bordered.dataTable .sorting_asc:after,
+.table-bordered.dataTable .sorting_desc:after {
+  bottom: 8px;
+  display: block;
+  position: absolute;
+  right: 4px;
+}
+
+.dataTables_scrollHead .table {
+  margin-bottom: 0;
+}
+
+.dataTables_scrollHead .table.table-bordered {
+  border-bottom-width: 0;
+}
+
+.dataTables_scrollBody .table {
+  border-top: none;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.dataTables_scrollBody .table > tbody > tr:first-child > td,
+.dataTables_scrollBody .table > tbody > tr:first-child > td {
+  border-top: none;
+}
+
+.dataTables_scrollBody .table .sorting:after,
+.dataTables_scrollBody .table .sorting_asc:after,
+.dataTables_scrollBody .table .sorting_desc:after {
+  display: none;
+}
+
+.dataTables_scrollFoot .table {
+  border-top: none;
+  margin-top: 0;
+}
+
+.table-responsive > .dataTables_wrapper > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.table-responsive > .dataTables_wrapper > .row > [class^="col-"]:first-child {
+  padding-left: 0;
+}
+
+.table-responsive > .dataTables_wrapper > .row > [class^="col-"]:last-child {
+  padding-right: 0;
+}

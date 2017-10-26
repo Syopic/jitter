@@ -1,0 +1,212 @@
+<div class="layout-content-body">
+  <div class="title-bar">
+    <div class="title-bar-actions">
+      <div class="btn-group">
+        <button class="btn btn-default btn-sm hidden-md hidden-lg" data-toggle="modal" data-target="#filters" type="button">
+          <span class="icon icon-filter icon-lg icon-fw"></span>
+          Filter
+        </button>
+      </div>
+    </div>
+    <h1 class="title-bar-title">
+      <span class="d-ib">Elephant store</span>
+      <span class="d-ib">
+        <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+          <span class="sr-only">Add to shortcut list</span>
+        </a>
+      </span>
+    </h1>
+    <p class="title-bar-description">
+      <small>Your Recently Viewed Items and Featured Recommendations. Inspired by your browsing history.</small>
+    </p>
+  </div>
+  <div class="store">
+    <div class="store-sidebar">
+      <div id="filters" class="modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="widget">
+                <div class="widget-product-brands">
+                  <div class="product-brands">
+                    <div class="product-brands-search">
+                      <div class="form-group form-group-sm">
+                        <div class="input-with-icon">
+                          <input class="form-control thick" type="text" placeholder="Search available brands&hellip;">
+                          <span class="icon icon-search input-icon"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-brands-results">
+                      <div class="custom-scrollbar">
+                        <div class="custom-controls-stacked">
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="6759371977">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Burberry</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="5878427746">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Columbia</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="2880717259">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Patagonia</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="6966668593">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Kakadu Traders Australia</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="7373540452">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Kenneth Roberts</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="9692432928">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">The North Face</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="4316555574">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Tommy Hilfiger</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="5961756867">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Polo Ralph Lauren</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="2251694074">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Black Mountain</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="7695316167">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Boston Harbour</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="4309406181">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Oscar de la Renta</span>
+                          </label>
+                          <label class="custom-control custom-control-primary custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="4046255459">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-label">Paper Denim &amp; Cloth</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="widget">
+                <h5 class="widget-heading">Price range</h5>
+                <div class="widget-product-price-range">
+                  <div class="product-price-range">
+                    <div slider type="danger slider-circle" ng-from="priceFrom" ng-to="priceTo" start=0 end=150></div>
+                    Price: $ <span>{{priceFrom}}.00</span> — $ <span>{{priceTo}}.00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="widget">
+                <h5 class="widget-heading">Size</h5>
+                <div class="widget-product-size">
+                  <div class="product-size" data-toggle="buttons">
+                    <label class="btn btn-outline-primary btn-sm">
+                      <input type="checkbox" name="size" value="xs">XS
+                    </label>
+                    <label class="btn btn-outline-primary btn-sm">
+                      <input type="checkbox" name="size" value="s">S
+                    </label>
+                    <label class="btn btn-outline-primary btn-sm">
+                      <input type="checkbox" name="size" value="m">M
+                    </label>
+                    <label class="btn btn-outline-primary btn-sm">
+                      <input type="checkbox" name="size" value="l">L
+                    </label>
+                    <label class="btn btn-outline-primary btn-sm">
+                      <input type="checkbox" name="size" value="xl">XL
+                    </label>
+                    <label class="btn btn-outline-primary btn-sm">
+                      <input type="checkbox" name="size" value="2xl">2XL
+                    </label>
+                    <label class="btn btn-outline-primary btn-sm">
+                      <input type="checkbox" name="size" value="3xl">3XL
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="widget">
+                <h5 class="widget-heading">Color</h5>
+                <div class="widget-product-color">
+                  <div class="product-color" data-toggle="buttons">
+                    <label class="btn btn-primary btn-sm">
+                      <input type="checkbox" name="color" value="black">
+                    </label>
+                    <label class="btn btn-info btn-sm">
+                      <input type="checkbox" name="color" value="blue">
+                    </label>
+                    <label class="btn btn-danger btn-sm">
+                      <input type="checkbox" name="color" value="silver">
+                    </label>
+                    <label class="btn btn-default btn-sm">
+                      <input type="checkbox" name="color" value="white">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block">Apply filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="store-content">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul class="products">
+            <li class="product" ng-repeat="product in productsFiltered">
+              <div class="product-image">
+                <a class="overlay" href="product.html">
+                  <div class="overlay-image">
+                    <img class="img-responsive" ng-src="{{product.photo}}" alt="{{product.title}}">
+                  </div>
+                  <div class="overlay-content overlay-top">
+                    <span class="label label-success pull-right">SALE!</span>
+                  </div>
+                </a>
+              </div>
+              <div class="product-details">
+                <h5 class="product-name">
+                  <a class="link-muted" href="product.html">{{product.title}}</a>
+                </h5>
+                <span class="product-rating">
+                  <span class="divider">
+                    <span class="divider-content">
+                      <span class="icon icon-star" ng-class="{active: (product.rating >= 1)}"></span>
+                      <span class="icon icon-star" ng-class="{active: (product.rating >= 2)}"></span>
+                      <span class="icon icon-star" ng-class="{active: (product.rating >= 3)}"></span>
+                      <span class="icon icon-star" ng-class="{active: (product.rating >= 4)}"></span>
+                      <span class="icon icon-star" ng-class="{active: (product.rating >= 5)}"></span>
+                    </span>
+                  </span>
+                </span>
+                <span class="product-price">
+                  <span class="product-price-current">${{product.currentPrice}}.00</span>
+                  <span class="product-price-old">${{product.oldPrice}}.00</span>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

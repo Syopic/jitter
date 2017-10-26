@@ -1,0 +1,65 @@
+<h4 class="text-center m-y-md">
+  <span>Enter your payment details</span>
+</h4>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <div class="form-group">
+      <label class="control-label">Card type</label>
+      <select ng-model="creditCardType" class="custom-select" name="creditCardType" required>
+        <option value="" selected>Select a card</option>
+        <option value="v">Visa</option>
+        <option value="m">MasterCard</option>
+        <option value="a">American Express</option>
+        <option value="d">Discover</option>
+      </select>
+      <div ng-show="signupForm.$submitted || signupForm.creditCardType.$touched">
+        <small ng-show="signupForm.creditCardType.$error.required" class="has-error help-block">Please select a credit card type.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Card number</label>
+      <input ng-model="creditCardnumber" class="form-control" type="text" name="creditCardnumber" required>
+      <div ng-show="signupForm.$submitted || signupForm.creditCardnumber.$touched">
+        <small ng-show="signupForm.creditCardnumber.$error.required" class="has-error help-block">Please enter your credit card number.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row gutter-xs">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <label class="control-label">Expiration Date</label>
+            <div class="row gutter-xs">
+              <div class="col-xs-6">
+                <select class="custom-select" name="creditCardExpdateMonth">
+                  <option ng-repeat="value in [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12]">{{ value}}</option>
+                </select>
+              </div>
+              <div class="col-xs-6">
+                <select class="custom-select" name="creditCardexpdateYear">
+                  <option ng-repeat="value in [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027]">{{ value}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+          <div class="form-group">
+            <label class="control-label">Card Security Code</label>
+            <input ng-model="creditCardcsc" class="form-control" type="text" name="creditCardcsc" required>
+          </div>
+        </div>
+      </div>
+      <div ng-show="signupForm.$submitted || signupForm.creditCardcsc.$touched">
+        <small ng-show="signupForm.creditCardcsc.$error.required" class="has-error help-block">Please enter your credit card CVV.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Coupon code</label>
+      <input class="form-control" type="text" name="coupon_code">
+    </div>
+    <div class="form-group">
+      <p><small>By clicking Submit, you agree to our <a href="#">Terms</a> and that you have read our <a href="#">Data Policy</a>, including our <a href="#">Cookie Use</a>.</small></p>
+      <button class="btn btn-primary btn-block" type="submit">Submit</button>
+    </div>
+  </div>
+</div><!-- /.row -->

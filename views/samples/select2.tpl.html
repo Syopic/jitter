@@ -1,0 +1,74 @@
+<div class="layout-content-body">
+  <div class="title-bar">
+    <h1 class="title-bar-title">
+      <span class="d-ib">Select2</span>
+      <span class="d-ib">
+        <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+          <span class="sr-only">Add to shortcut list</span>
+        </a>
+      </span>
+    </h1>
+    <p class="title-bar-description">
+      <small>The jQuery replacement for select boxes with support for searching, tagging, remote data sets, infinite scrolling, and many other highly used options.</small>
+    </p>
+  </div><!-- /.title-bar -->
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="form-group">
+        <label class="form-label">Time zone</label>
+        <ui-select ng-model="currentTimezone.selected" theme="bootstrap">
+          <ui-select-match placeholder="Select the correct time zone">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="country in timezones | filter: $select.search">{{country}}</ui-select-choices>
+        </ui-select>
+        <span class="help-block">Select the desired local time and time zone. Dates and times throughout this app will be displayed using this time zone.</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Roles</label>
+        <ui-select ng-model="currentRoles" theme="bootstrap" multiple>
+          <ui-select-match placeholder="Select roles...">{{$item}}</ui-select-match>
+          <ui-select-choices repeat="role in roles | filter:$select.search">
+            {{role}}
+          </ui-select-choices>
+        </ui-select>
+        <span class="help-block">A role defines a group of users that have certain privileges.</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Languages</label>
+        <ui-select ng-model="currentLanguages" theme="bootstrap" multiple>
+          <ui-select-match placeholder="Select languages...">{{$item}}</ui-select-match>
+          <ui-select-choices repeat="language in languages | filter:$select.search">
+            {{language}}
+          </ui-select-choices>
+        </ui-select>
+        <span class="help-block">Enter a comma-separated list. For example: HTML, CSS, JavaScript, ...</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Country</label>
+        <ui-select ng-model="currentCountry.selected" on-select="updateCurrentCountryPhone($item, $model)" theme="bootstrap">
+          <ui-select-match placeholder="Select the correct Country">
+            <img class="img-flag" ng-src="img/flags/4x3/{{$select.selected.code}}.svg" alt="{{$select.selected.code}}"> {{$select.selected.name}}
+          </ui-select-match>
+          <ui-select-choices repeat="country in countries | filter: $select.search">
+            <img class="img-flag" ng-src="img/flags/4x3/{{country.code}}.svg" alt="{{country.code}}"> {{country.name}}
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">Country</label>
+          <ui-select ng-model="currentCountry.selected" on-select="updateCurrentCountryPhone($item, $model)" theme="bootstrap">
+            <ui-select-match placeholder="Select the correct Country">
+              <img class="img-flag" ng-src="img/flags/4x3/{{$select.selected.code}}.svg" alt="{{$select.selected.code}}"> {{$select.selected.name}}
+            </ui-select-match>
+            <ui-select-choices repeat="country in countries | filter: $select.search">
+              <img class="img-flag" ng-src="img/flags/4x3/{{country.code}}.svg" alt="{{country.code}}"> {{country.name}}
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="form-group">
+          <input class="form-control" ng-model="currentCountry.phone" type="text">
+        </div>
+      </div>
+    </div>
+  </div><!-- /.row -->
+</div><!-- /.layout-content-body -->

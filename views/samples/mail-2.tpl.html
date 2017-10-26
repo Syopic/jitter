@@ -1,0 +1,248 @@
+<div class="inbox">
+  <div ng-class="{active: sidebar.isActive}" class="inbox-inbox active">
+    <div class="inbox-inbox-header">
+      <div class="inbox-toolbar collapse" uib-collapse="toggleToolbar()" style="height: 0;">
+        <div class="inbox-toolbar-tools pull-xs-left">
+          <div class="btn-group">
+            <div class="bt-gnroup dropdown">
+              <button class="btn btn-link link-muted" type="button">
+                <span class="icon icon-square-o icon-lg icon-fw"></span>
+                Select
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="#">All</a></li>
+                <li><a href="#">None</a></li>
+                <li><a href="#">Unread</a></li>
+                <li><a href="#">Read</a></li>
+                <li><a href="#">Flagged</a></li>
+                <li><a href="#">Attachments</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="inbox-toolbar-tools pull-sm-left">
+          <div class="btn-group">
+            <div class="btn-group dropdown">
+              <button class="btn btn-link link-muted" type="button">
+                <span class="icon icon-reply icon-lg icon-fw"></span>
+                <span class="visible-lg-inline">Reply</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Reply</a></li>
+                <li><a href="#">Reply all</a></li>
+                <li><a href="#">Forward</a></li>
+              </ul>
+            </div>
+            <div class="btn-group dropdown">
+              <button class="btn btn-link link-muted" type="button">
+                <span class="icon icon-folder-open icon-lg icon-fw"></span>
+                <span class="visible-lg-inline">Move</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Inbox</a></li>
+                <li><a href="#">Archive</a></li>
+                <li><a href="#">Spam</a></li>
+                <li><a href="#">Trash</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Create folder</a></li>
+              </ul>
+            </div>
+            <button class="btn btn-link link-muted" type="button">
+              <span class="icon icon-trash icon-lg icon-fw"></span>
+              <span class="visible-lg-inline">Delete</span>
+            </button>
+            <button class="btn btn-link link-muted hidden-xs" type="button">
+              <span class="icon icon-rocket icon-lg icon-fw"></span>
+              <span class="visible-lg-inline">Spam</span>
+            </button>
+            <div class="btn-group dropdown">
+              <button class="btn btn-link link-muted" type="button">
+                <span class="icon icon-ellipsis-h icon-lg icon-fw"></span>
+                <span class="visible-lg-inline">More</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Mark as unread</a></li>
+                <li><a href="#">Mark as read</a></li>
+                <li><a href="#">Flag</a></li>
+                <li><a href="#">Unflag</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Print</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.mail-inbox-header -->
+    <div class="inbox-inbox-body">
+      <div class="title-bar">
+        <div class="title-bar-actions">
+          <div class="btn-group">
+            <div class="btn-group btn-group-sm dropdown">
+              <button class="inbox-sort-btn btn btn-default dropdown-toggle" type="button">
+                Sort by date
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Sort by Date</a></li>
+                <li><a href="#">Sort by Sender</a></li>
+                <li><a href="#">Sort by Subject</a></li>
+                <li><a href="#">Unread Messages</a></li>
+                <li><a href="#">Attachments</a></li>
+                <li><a href="#">Starred</a></li>
+                <li class="divider"></li>
+                <li><a href="#">More settings...</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <h1 class="title-bar-title">
+          <span class="d-ib">Inbox</span>
+          <span class="d-ib">
+            <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+              <span class="sr-only">Add to shortcut list</span>
+            </a>
+          </span>
+        </h1>
+      </div><!-- /.title-bar -->
+      <div class="inbox-list">
+        <div class="inbox-list-item" div ng-repeat="mail in mails" ng-class="{active: mail.isActive, active: mail.isSelected}">
+          <label class="inbox-list-checkbox custom-control custom-control-primary custom-checkbox">
+            <input class="custom-control-input" type="checkbox" name="mail[]" ng-model="mail.isSelected" value="{{ mail.id}}">
+            <span class="custom-control-indicator pos-r"></span>
+          </label>
+          <a class="inbox-list-link" ng-click="show(mail)">
+            <div class="inbox-list-meta">
+              <div ng-show="mail.files.length" class="inbox-list-attachments">
+                <span class="icon icon-paperclip icon-fw"></span>
+              </div>
+              <div class="inbox-list-date">{{ mail.timestamp | date:'mediumTime' }}</div>
+            </div>
+            <div class="inbox-list-name">{{ mail.name}}</div>
+            <div class="inbox-list-content">
+              <span class="inbox-list-subject">{{ mail.subject}}</span>
+              <span class="inbox-list-message">{{ mail.message}}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-class="{active:!sidebar.isActive}" class="inbox-content">
+    <div class="inbox-content-header">
+      <div class="inbox-toolbar">
+        <div class="inbox-toolbar-tools pull-xs-left">
+          <div class="btn-group">
+            <button class="btn btn-link link-muted" ng-click="setSidebarActive()" type="button">
+              <span class="icon icon-caret-left icon-lg icon-fw"></span>
+              Inbox
+            </button>
+          </div>
+        </div>
+        <div class="inbox-toolbar-tools pull-sm-left">
+          <div class="btn-group">
+            <div class="btn-group dropdown">
+              <button class="btn btn-link link-muted" type="button">
+                <span class="icon icon-reply icon-lg icon-fw"></span>
+                <span class="visible-lg-inline">Reply</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Reply</a></li>
+                <li><a href="#">Reply all</a></li>
+                <li><a href="#">Forward</a></li>
+              </ul>
+            </div>
+            <div class="btn-group dropdown">
+              <button class="btn btn-link link-muted" type="button">
+                <span class="icon icon-folder-open icon-lg icon-fw"></span>
+                <span class="visible-lg-inline">Move</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Inbox</a></li>
+                <li><a href="#">Archive</a></li>
+                <li><a href="#">Spam</a></li>
+                <li><a href="#">Trash</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Create folder</a></li>
+              </ul>
+            </div>
+            <button class="btn btn-link link-muted" type="button">
+              <span class="icon icon-trash icon-lg icon-fw"></span>
+              <span class="visible-lg-inline">Delete</span>
+            </button>
+            <button class="btn btn-link link-muted hidden-xs" type="button">
+              <span class="icon icon-rocket icon-lg icon-fw"></span>
+              <span class="visible-lg-inline">Spam</span>
+            </button>
+            <div class="btn-group dropdown">
+              <button class="btn btn-link link-muted" type="button">
+                <span class="icon icon-ellipsis-h icon-lg icon-fw"></span>
+                <span class="visible-lg-inline">More</span>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Mark as unread</a></li>
+                <li><a href="#">Mark as read</a></li>
+                <li><a href="#">Flag</a></li>
+                <li><a href="#">Unflag</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Print</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="inbox-toolbar-tools pull-xs-right">
+          <div class="btn-group hidden-xs">
+            <span><b>20</b> of 20</span>
+          </div>
+          <div class="btn-group hidden-xs">
+            <button class="btn btn-link link-muted" type="button">
+              <span class="icon icon-angle-left icon-lg"></span>
+            </button>
+            <button class="btn btn-link link-muted" type="button">
+              <span class="icon icon-angle-right icon-lg"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="inbox-content-body">
+      <h1 class="inbox-heading">{{ currentMail.subject}}</h1>
+      <div class="inbox-sender">
+        <div class="inbox-sender-avatar">
+          <img class="rounded" width="40" height="40" src="{{ currentMail.photo}}" alt="{{ currentMail.name}}">
+        </div>
+        <div class="inbox-sender-details">
+          <h5 class="inbox-sender-name">
+            {{ currentMail.name}}
+            <span aria-hidden="true">&lt;</span>{{ currentMail.email}}
+            <span aria-hidden="true">&gt;</span>
+          </h5>
+          <small class="inbox-sender-date">
+            <span class="truncate">{{ currentMail.timestamp | date:'medium' }}</span>
+          </small>
+        </div>
+      </div>
+      <p>{{ currentMail.message}}</p>
+      <div ng-if="currentMail.files.length">
+        <span class="icon icon-paperclip"></span> {{ currentMail.files.length}} attachments - <a href="#">Download all</a></p>
+        <ul class="file-list">
+          <li ng-repeat="file in currentMail.files" class="file">
+            <a class="file-link" href="#" title="{{ file.fileName}}{{ file.fileExt}}">
+              <div class="file-thumbnail file-thumbnail-{{ file.fileExt}}"></div>
+              <div class="file-info">
+                <span class="file-ext">{{ file.fileExt}}</span>
+                <span class="file-name">{{ file.fileName}}</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

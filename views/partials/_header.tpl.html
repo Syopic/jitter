@@ -1,0 +1,41 @@
+<div class="navbar navbar-default">
+  <div class="navbar-header">
+    <a class="navbar-brand navbar-brand-center" ui-sref="dashboards.dashboard-1">Infographics Risk Areas</a>
+    <button class="navbar-toggler collapsed visible-xs-block" type="button" data-toggle="collapse" data-target="#sidenav">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="bars">
+        <span class="bar-line bar-line-1 out"></span>
+        <span class="bar-line bar-line-2 out"></span>
+        <span class="bar-line bar-line-3 out"></span>
+      </span>
+      <span class="bars bars-x">
+        <span class="bar-line bar-line-4"></span>
+        <span class="bar-line bar-line-5"></span>
+      </span>
+    </button>
+    <button class="navbar-toggler collapsed visible-xs-block" type="button" data-toggle="collapse" data-target="#navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="arrow-up"></span>
+      <span class="ellipsis ellipsis-vertical"></span>
+    </button>
+  </div>
+  <div class="navbar-toggleable">
+    <nav class="navbar-collapse collapse" uib-collapse="app.navbar.isCollapsed">
+      <button class="sidenav-toggler hidden-xs" type="button"
+        ng-class="{collapsed: app.sidebar.isCollapsed}" ng-click="app.sidebar.toggle()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="bars">
+          <span class="bar-line bar-line-1 out"></span>
+          <span class="bar-line bar-line-2 out"></span>
+          <span class="bar-line bar-line-3 out"></span>
+          <span class="bar-line bar-line-4 in"></span>
+          <span class="bar-line bar-line-5 in"></span>
+          <span class="bar-line bar-line-6 in"></span>
+        </span>
+      </button>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Sign In</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>

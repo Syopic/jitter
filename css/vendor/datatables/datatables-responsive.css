@@ -1,0 +1,115 @@
+.dtr-inline.collapsed > tbody > tr > td.child,
+.dtr-inline.collapsed > tbody > tr > th.child,
+.dtr-inline.collapsed > tbody > tr > td.dataTables_empty {
+  cursor: default;
+}
+
+.dtr-inline.collapsed > tbody > tr > td.child:before,
+.dtr-inline.collapsed > tbody > tr > th.child:before,
+.dtr-inline.collapsed > tbody > tr > td.dataTables_empty:before {
+  display: none;
+}
+
+.dtr-inline.collapsed > tbody > tr > td:first-child,
+.dtr-inline.collapsed > tbody > tr > th:first-child {
+  cursor: pointer;
+  padding-left: 30px;
+  position: relative;
+}
+
+.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+  color: #999;
+  content: "\f196";
+  display: block;
+  font-family: FontAwesome;
+  font-size: 16px;
+  height: 16px;
+  left: 5px;
+  line-height: 16px;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  width: 16px;
+}
+
+.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
+.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+  content: "\f147";
+}
+
+.dtr-inline.collapsed > tbody > tr.child > td:before,
+.dtr-inline.collapsed > tbody > tr.child > th:before {
+  display: none;
+}
+
+.dtr-inline.collapsed > tbody > tr.child > td > ul,
+.dtr-inline.collapsed > tbody > tr.child > th > ul {
+  display: table;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.dtr-inline.collapsed > tbody > tr.child > td > ul > li,
+.dtr-inline.collapsed > tbody > tr.child > th > ul > li {
+  display: table-row;
+}
+
+.dtr-inline.collapsed > tbody > tr.child > td .dtr-title,
+.dtr-inline.collapsed > tbody > tr.child > th .dtr-title {
+  display: table-cell;
+  font-weight: 500;
+  padding-right: 16px;
+  white-space: nowrap;
+  width: 1%;
+}
+
+.dtr-inline.collapsed > tbody > tr.child > td .dtr-data,
+.dtr-inline.collapsed > tbody > tr.child > th .dtr-data {
+  display: table-cell;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  width: 99%;
+}
+
+.dtr-column > tbody > tr > td.control,
+.dtr-column > tbody > tr > th.control {
+  cursor: pointer;
+  position: relative;
+}
+
+.dtr-column > tbody > tr > td.control:before,
+.dtr-column > tbody > tr > th.control:before {
+  color: #999;
+  content: "\f196";
+  display: block;
+  font-family: FontAwesome;
+  font-size: 16px;
+  height: 16px;
+  left: 5px;
+  line-height: 16px;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  width: 16px;
+}
+
+.dtr-column > tbody > tr.parent > td.control:before,
+.dtr-column > tbody > tr.parent > th.control:before {
+  content: "\f147";
+}
+
+.dtr-column > tbody > tr.child {
+  padding: 10px 15px;
+}
+
+.dtr-column > tbody > tr.child:hover {
+  background-color: transparent;
+}
+
+.dtr-column > tbody > tr.child > td.control:before,
+.dtr-column > tbody > tr.child > th.control:before {
+  display: none;
+}

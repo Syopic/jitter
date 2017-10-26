@@ -1,0 +1,75 @@
+<div class="layout-content-body">
+  <div class="title-bar">
+    <h1 class="title-bar-title">
+      <span class="d-ib">Sliders</span>
+      <span class="d-ib">
+        <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+          <span class="sr-only">Add to shortcut list</span>
+        </a>
+      </span>
+    </h1>
+    <p class="title-bar-description">
+      <small>The slider component presented below use <a href="http://refreshless.com/nouislider/" target="_blank">noUiSlider</a>, the CSS of which is completely rewritten in SASS, without modifying however anything in JavaScript.</small>
+    </p>
+  </div><!-- /.title-bar -->
+  <div class="row gutter-xs">
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Default slider</h5>
+        <p><small class="text-muted">Horizontal slider with a single handle.</small></p>
+        <div slider type="default" ng-model="single" start=0 end=100></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Primary slider</h5>
+        <p><small class="text-muted">Horizontal slider with a single handle.</small></p>
+        <div slider type="primary" ng-model="single" start=0 end=100></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Success slider</h5>
+        <p><small class="text-muted">Horizontal slider with a single handle.</small></p>
+        <div slider type="success" ng-model="single" start=0 end=100></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Info Slider</h5>
+        <p><small class="text-muted">Horizontal slider with a single handle.</small></p>
+        <div slider type="info" ng-model="single" start=0 end=100></div>
+      </div>
+    </div>
+  </div><!-- /.row .gutter-xs -->
+  <div class="row gutter-xs">
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Warning slider</h5>
+        <p><small class="text-muted">Horizontal slider with a single handle.</small></p>
+        <div slider type="warning" ng-model="single" start=0 end=100></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Danger slider</h5>
+        <p><small class="text-muted">Horizontal slider with a single handle.</small></p>
+        <div slider type="danger" ng-model="single" start=0 end=100></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Circular handle ({{single}})</h5>
+        <p><small class="text-muted">A single handle with no value selected.</small></p>
+        <div slider type="danger" ng-model="single" start=0 end=100></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Range slider [{{from}}, {{to}}]</h5>
+        <p><small class="text-muted">Horizontal slider with two drag handles.</small></p>
+        <div slider type="danger slider-circle" ng-from="from" ng-to="to" start=0 end=100></div>
+      </div>
+    </div>
+  </div><!-- /.row .gutter-xs -->
+</div><!-- /.layout-content-body -->

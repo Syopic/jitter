@@ -1,0 +1,76 @@
+/*! Custom styles for this template */
+.signup-page-3 {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.signup-page-3 .signup {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.signup-page-3 .signup-body {
+  -webkit-animation-duration: 1s;
+       -o-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+       -o-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-name: fadeInUp;
+       -o-animation-name: fadeInUp;
+          animation-name: fadeInUp;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 480px;
+  padding: 30px;
+}
+
+.signup-page-3 .signup-brand {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 140px;
+}
+
+.signup-page-3 .signup-heading {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-align: center;
+}
+
+.signup-page-3 .signup-footer {
+  -webkit-animation-duration: 1s;
+       -o-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+       -o-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-name: fadeIn;
+       -o-animation-name: fadeIn;
+          animation-name: fadeIn;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  max-width: 480px;
+  text-align: center;
+}
+
+.signup-page-3 .md-help-block.has-error {
+  color: #b94a48;
+}
+
+@media (min-width: 768px) {
+  .signup-page-3 .signup-body {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 0;
+    -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+}

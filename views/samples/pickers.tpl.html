@@ -1,0 +1,57 @@
+<div class="layout-content-body">
+  <div class="title-bar">
+    <h1 class="title-bar-title">
+      <span class="d-ib">Datepicker</span>
+      <span class="d-ib">
+        <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+          <span class="sr-only">Add to shortcut list</span>
+        </a>
+      </span>
+    </h1>
+    <p class="title-bar-description">
+      <small>The CSS of <a href="https://bootstrap-datepicker.readthedocs.io/en/latest/" target="_blank">Bootstrap Datepicker</a> plugin is completely rewritten in SASS, without modifying however anything in JavaScript.</small>
+    </p>
+  </div>
+  <div class="row gutter-xs">
+    <div class="col-xs-6 col-md-3" ng-repeat="datepicker in datepickers">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Datepicker Popup</h5>
+        <p class="small text-muted">Date is: {{datepicker.date| date:'fullDate' }}</p>
+        <div class="input-with-icon">
+          <input class="form-control" type="text" ng-model="datepicker.date" ng-focus="open(datepicker)" uib-datepicker-popup="{{datepicker.format}}" is-open="datepicker.opened" show-button-bar="false" datepicker-options="datepicker.options">
+          <span class="icon icon-calendar input-icon"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row gutter-xs">
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Timepicker</h5>
+        <p class="small text-muted">Time is: {{timepicker| date:'shortTime' }}</p>
+        <div class="d-ib" uib-timepicker ng-model="timepicker" hour-step="hstep" minute-step="mstep" show-meridian="true"></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Timepicker</h5>
+        <p class="small text-muted">Time is: {{timepicker| date:'shortTime' }}</p>
+        <div class="d-ib" uib-timepicker ng-model="timepicker" hour-step="hstep" minute-step="mstep" show-meridian="false"></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Clear</h5>
+        <p class="small text-muted">Time is: {{timepicker| date:'shortTime' }}</p>
+        <button class="btn btn-sm btn-info" type="button" ng-click="clear()">Clear</button>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-body text-center" match-height>
+        <h5>Tomorrow</h5>
+        <p class="small text-muted">Time is: {{timepicker| date:'shortTime' }}</p>
+        <button class="btn btn-sm btn-info" type="button" ng-click="tomorrow()">Tomorrow</button>
+      </div>
+    </div>
+  </div>
+</div>

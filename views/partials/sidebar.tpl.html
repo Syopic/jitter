@@ -1,0 +1,105 @@
+<div class="layout-sidebar-backdrop"></div>
+<div class="layout-sidebar-body">
+  <div class="custom-scrollbar" ng-hide="app.sidebar.isFixed">
+    <nav class="sidenav-collapse collapse" uib-collapse="app.sidebar.xs.isCollapsed">
+      <ul class="sidenav" side-navigation ng-class="{'sidenav-collapsed': app.sidebar.isCollapsed}">
+        <li class="sidenav-heading">Navigation</li>
+        <li class="sidenav-item" ui-sref-active="open active">
+          <a ui-sref="root.dashboard">
+            <span class="sidenav-icon icon icon-pie-chart"></span>
+            <span class="sidenav-label">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidenav-item" ui-sref-active="open active">
+          <a ui-sref="root.datatable">
+            <span class="sidenav-icon icon icon-hospital-o"></span>
+            <span class="sidenav-label">Medical institutions</span>
+          </a>
+        </li>
+        <li class="sidenav-heading">Maps</li>
+        <li class="sidenav-item" ui-sref-active="open active">
+            <a ui-sref="root.country">
+              <span class="sidenav-icon icon icon-flag "></span>
+              <span class="sidenav-label">All country</span>
+            </a>
+          </li>
+        <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('forms'), active: $state.includes('forms')}">
+          <a href="#">
+            <span class="sidenav-icon">N</span>
+            <span class="sidenav-label">Northern region</span>
+          </a>
+          <ul class="sidenav-subnav collapse"><li class="sidenav-subheading">Northern region</li>
+            <li ui-sref-active="active"><a ui-sref="forms.cropper">All region</a></li>
+            <li ui-sref-active="active"><a ui-sref="forms.cropper">Chitipa</a></li>
+            <li ui-sref-active="active"><a ui-sref="forms.form-controls">Karonga</a></li>
+            <li ui-sref-active="active"><a ui-sref="forms.form-layouts">Likoma</a></li>
+            <li ui-sref-active="active"><a ui-sref="forms.form-validation">Mzimba</a></li>
+            <li ui-sref-active="active"><a ui-sref="forms.form-wizard.step-one">Nkhata Bay</a></li>
+            <li ui-sref-active="active"><a ui-sref="forms.input-mask">Rumphi</a></li>
+          </ul>
+        </li>
+        <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('tables'), active: $state.includes('tables')}">
+          <a href="#">
+            <span class="sidenav-icon">C</span>
+            <span class="sidenav-label">Central region</span>
+          </a>
+          <ul class="sidenav-subnav collapse">
+            <li class="sidenav-subheading">Central region</li>
+            <li ui-sref-active="active"><a ui-sref="forms.cropper">All region</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.static-tables">Dedza</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.responsive-tables">Dowa</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.datatables">Kasungu</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.datatables-responsive">Lilongwe</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.datatables-colreorder">Mchinji</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.datatables-scroller">Nkhotakota</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.datatables-scroller">Ntcheu</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.datatables-scroller">Ntchisi</a></li>
+            <li ui-sref-active="active"><a ui-sref="tables.datatables-scroller">Salima</a></li>
+          </ul>
+        </li>
+        <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('charts'), active: $state.includes('charts')}">
+          <a href="#">
+            <span class="sidenav-icon">S</span>
+            <span class="sidenav-label">Southern region</span>
+          </a>
+          <ul class="sidenav-subnav collapse">
+            <li class="sidenav-subheading">Southern region</li>
+            <li ui-sref-active="active"><a ui-sref="forms.cropper">All region</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.peity-charts">Balaka</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Blantyre</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Chikhwawa</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Chiradzulu</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Machinga</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Mangochi</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Mulanje</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Mwanza</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Neno</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Nsanje</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Phalombe</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Thyolo</a></li>
+            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Zomba</a></li>
+          </ul>
+        </li>
+
+        <li class="sidenav-heading">Pages</li>
+        <li class="sidenav-item" ui-sref-active="open active">
+          <a ui-sref="root.contacts">
+            <span class="sidenav-icon icon icon-users"></span>
+            <span class="sidenav-label">Contacts</span>
+          </a>
+        </li>
+
+        <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('charts'), active: $state.includes('charts')}">
+            <a href="#">
+              <span class="sidenav-icon icon icon-files-o"></span>
+              <span class="sidenav-label">Other Pages</span>
+            </a>
+            <ul class="sidenav-subnav collapse">
+              <li ui-sref-active="active"><a ui-sref="404" target="_blank" href="#!/404">404</a></li>
+              <li ui-sref-active="active"><a ui-sref="500" target="_blank" href="#!/500">500</a></li>
+            </ul>
+          </li>
+      </ul>
+    </nav>
+  </div><!-- /.custom-scrollbar -->
+</div><!-- /.layout-sidebar-body -->

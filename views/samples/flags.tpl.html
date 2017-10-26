@@ -1,0 +1,52 @@
+<div class="layout-content-body">
+  <div class="title-bar">
+    <h1 class="title-bar-title">
+      <span class="d-ib">Flags</span>
+      <span class="d-ib">
+        <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+          <span class="sr-only">Add to shortcut list</span>
+        </a>
+      </span>
+    </h1>
+    <p class="title-bar-description">
+      <small>A collection of all country flags in SVG — plus the CSS for easier integration..</small>
+    </p>
+  </div><!-- /.title-bar -->
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="form-group">
+        <label class="form-label">Country</label>
+        <ui-select ng-model="currentCountry.selected" on-select="updateCurrentCountryPhone($item, $model)" theme="bootstrap">
+          <ui-select-match placeholder="Select the correct Country">
+            <img class="img-flag" ng-src="img/flags/4x3/{{$select.selected.code}}.svg" alt="{{$select.selected.code}}"> {{$select.selected.name}}
+          </ui-select-match>
+          <ui-select-choices repeat="country in countries | filter: $select.search">
+            <img class="img-flag" ng-src="img/flags/4x3/{{country.code}}.svg" alt="{{country.code}}"> {{country.name}}
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="form-group">
+        <input class="form-control" ng-model="currentCountry.phone" type="text">
+      </div>
+      <table class="table no-background">
+        <thead>
+          <tr>
+            <th>Flag</th>
+            <th>Name</th>
+            <th>ISO 3166-2 Code</th>
+            <th>Prefixe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="country in countries">
+            <td>
+              <span class="flag-icon flag-icon-{{country.code}}"></span>
+            </td>
+            <td>{{country.code}}</td>
+            <td>{{country.name}}</td>
+            <td>{{country.phone}}</td>
+          </tr>
+      </table>
+    </div>
+  </div><!-- /.row -->
+</div><!-- /.layout-content-body -->

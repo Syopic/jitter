@@ -1,0 +1,83 @@
+<div class="navbar navbar-default">
+  <div class="navbar-header">
+    <a class="navbar-brand navbar-brand-center" ui-sref="root.dashboard">Malawi IRA</a>
+    <button class="navbar-toggler visible-xs-block collapsed" type="button" ng-class="{collapsed: app.sidebar.xs.isCollapsed}"
+      ng-click="app.sidebar.xs.toggle()">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="bars">
+        <span class="bar-line bar-line-1 out"></span>
+        <span class="bar-line bar-line-2 out"></span>
+        <span class="bar-line bar-line-3 out"></span>
+      </span>
+      <span class="bars bars-x">
+        <span class="bar-line bar-line-4"></span>
+        <span class="bar-line bar-line-5"></span>
+      </span>
+    </button>
+    <button class="navbar-toggler visible-xs-block collapsed" type="button" ng-class="{collapsed: app.navbar.isCollapsed}" ng-click="app.navbar.toggle()">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="arrow-up"></span>
+      <span class="ellipsis ellipsis-vertical">
+      </span>
+    </button>
+  </div>
+  <!-- /.navbar-header .bg-primary -->
+  <div class="navbar-toggleable">
+    <nav class="navbar-collapse collapse" uib-collapse="app.navbar.isCollapsed">
+      <button class="sidenav-toggler hidden-xs" type="button" ng-class="{collapsed: app.sidebar.isCollapsed}" ng-click="app.sidebar.toggle()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="bars">
+          <span class="bar-line bar-line-1 out"></span>
+          <span class="bar-line bar-line-2 out"></span>
+          <span class="bar-line bar-line-3 out"></span>
+          <span class="bar-line bar-line-4 in"></span>
+          <span class="bar-line bar-line-5 in"></span>
+          <span class="bar-line bar-line-6 in"></span>
+        </span>
+      </button>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown hidden-xs">
+          <div class="btn-group btn-group-sm dropdown">
+            <button class="navbar-account-btn center" data-toggle="dropdown" aria-haspopup="true" style="height: 50px;">
+              <span class="sidenav-icon icon icon-globe"></span>
+              English
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li>
+                <a href="#">English</a>
+              </li>
+              <li>
+                <a href="#">Russian</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="dropdown hidden-xs">
+          <button class="navbar-account-btn" style="height: 50px;">
+            <span class="sidenav-icon icon icon-user"></span>
+            Administration
+          </button>
+        </li>
+        <li class="visible-xs-block">
+          <a ui-sref="root.contacts">
+            English
+          </a>
+        </li>
+        <li class="visible-xs-block">
+          <a ui-sref="root.profile">
+            Russian
+          </a>
+        </li>
+        <li class="visible-xs-block">
+          <a ui-sref="login-1">
+            <span class="icon icon-user icon-lg icon-fw"></span>
+            Administration
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!-- /.navbar-toggleable -->
+</div>
+<!-- /.navbar .navbar-default -->

@@ -1,0 +1,47 @@
+.jqvmap-label {
+  background: #292929;
+  border-radius: 3px;
+  color: white;
+  display: none;
+  font-family: sans-serif, Verdana;
+  font-size: smaller;
+  padding: 3px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.jqvmap-pin {
+  pointer-events: none;
+}
+
+.jqvmap-zoomin,
+.jqvmap-zoomout {
+  background: #000000;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  height: 10px;
+  left: 10px;
+  line-height: 10px;
+  padding: 3px;
+  position: absolute;
+  text-align: center;
+  width: 10px;
+}
+
+.jqvmap-zoomin {
+  top: 10px;
+}
+
+.jqvmap-zoomout {
+  top: 30px;
+}
+
+.jqvmap-region {
+  cursor: pointer;
+}
+
+.jqvmap-ajax_response {
+  height: 500px;
+  width: 100%;
+}
