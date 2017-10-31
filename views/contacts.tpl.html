@@ -3,5 +3,69 @@
     <h1 class="title-bar-title">
       <span class="d-ib">Contacts</span>
     </h1>
+    <p class="title-bar-description">
+      <small>The best-known type of hospital is the general hospital.</small>
+    </p>
   </div><!-- /.title-bar -->
+  <!-- ******CONTACT MAIN****** --> 
+  <div class="container text-center">
+  <div class="row gutter-xs">
+    <div class="col-xs-12">
+      <div class="card">
+        <div class="card-body">
+
+            <div class="col-xs-4">
+                <div class="card">
+                  <div class="card-body">
+                      <span class="bg-gray sq-64 circle">
+                          <!-- <button class="btn btn-danger" type="button">Install</button> -->
+                           <span class="icon icon-phone"></span>
+                             </span>
+                             <div class="details">
+                              <h4>Call us on:</h4>
+                              <p class="phone">0800 123 456</p>
+                              <p class="day">Mon-Sat 9am-6pm (GMT)</p>
+                          </div><!--details-->
+                  </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="card">
+                  <div class="card-body">
+                      <span class="bg-gray sq-64 circle">
+                   <!-- <button class="btn btn-danger" type="button">Install</button> -->
+                    <span class="icon icon-map-marker"></span>
+                      </span>
+                      <div class="details">
+                        <h4>Find us at:</h4>
+                        <p class="address">123 Queen Square<br />Bristol, UK</p>
+                        <select id="form-type-clinic" class="form-control" ng-model="distinctDef" ng-options="o as o for o in distinct ">
+                       
+                        </select>
+                    </div><!--details-->
+                  </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="card">
+                  <div class="card-body">
+                    <span class="bg-gray sq-64 circle">
+                      <!-- <button class="btn btn-danger" type="button">Install</button> -->
+                       <span class="icon icon-envelope"></span>
+                    </span>
+                       <div class="details">
+                        <h4>Email:</h4>
+                        <p><a href="#">support@website.com</a></p>
+                        <p>{{distinctDef}}</p>
+                     </div><!--details-->
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!--//contact-->  
+
+  
 </div><!-- /.layout-content-body -->

@@ -1,4 +1,4 @@
-var app = angular.module("elephant");
+var app = angular.module("ira");
 
 app.service("StoreService", ["$q", "$timeout",
   function StoreService($q, $timeout) {

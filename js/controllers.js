@@ -1,5 +1,5 @@
-angular.module("elephant")
-  .controller("AppCtrl", ["$rootScope", function AppCtrl($rootScope) {
+angular.module("ira")
+  .controller("AppCtrl", ["$q", "$rootScope", "$http", function AppCtrl($q, $rootScope, $http) {
     var app = this,
         def = ["layout", "layout-header-fixed"];
 
@@ -31,5 +31,17 @@ angular.module("elephant")
       app.cssClasses = _.join(_.get(toState, "data.cssClasses", def), " ");
       app.sidebar.isFixed = _.includes(app.cssClasses, "layout-sidebar-fixed");
     });
+
+    $rootScope.allData;
+
+    this.loadData = function ($q, $http) {
+      console.log("loadData");
+      var deferred = $q.defer();
+      $http.get('data/data.json').then(function (data) {
+          deferred.resolve(data);
+          console.log(data);
+      });
+      return deferred.promise;
+    }
 
   }]);

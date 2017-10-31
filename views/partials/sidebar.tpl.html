@@ -18,25 +18,10 @@
         </li>
         <li class="sidenav-heading">Maps</li>
         <li class="sidenav-item" ui-sref-active="open active">
-            <a ui-sref="root.country">
-              <span class="sidenav-icon icon icon-flag "></span>
-              <span class="sidenav-label">All country</span>
-            </a>
-          </li>
-        <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('forms'), active: $state.includes('forms')}">
-          <a href="#">
-            <span class="sidenav-icon">N</span>
-            <span class="sidenav-label">Northern region</span>
+          <a ui-sref="root.map({areaId: 0})">
+            <span class="sidenav-icon icon icon-flag "></span>
+            <span class="sidenav-label">All country</span>
           </a>
-          <ul class="sidenav-subnav collapse"><li class="sidenav-subheading">Northern region</li>
-            <li ui-sref-active="active"><a ui-sref="forms.cropper">All region</a></li>
-            <li ui-sref-active="active"><a ui-sref="forms.cropper">Chitipa</a></li>
-            <li ui-sref-active="active"><a ui-sref="forms.form-controls">Karonga</a></li>
-            <li ui-sref-active="active"><a ui-sref="forms.form-layouts">Likoma</a></li>
-            <li ui-sref-active="active"><a ui-sref="forms.form-validation">Mzimba</a></li>
-            <li ui-sref-active="active"><a ui-sref="forms.form-wizard.step-one">Nkhata Bay</a></li>
-            <li ui-sref-active="active"><a ui-sref="forms.input-mask">Rumphi</a></li>
-          </ul>
         </li>
         <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('tables'), active: $state.includes('tables')}">
           <a href="#">
@@ -45,18 +30,69 @@
           </a>
           <ul class="sidenav-subnav collapse">
             <li class="sidenav-subheading">Central region</li>
-            <li ui-sref-active="active"><a ui-sref="forms.cropper">All region</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.static-tables">Dedza</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.responsive-tables">Dowa</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.datatables">Kasungu</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.datatables-responsive">Lilongwe</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.datatables-colreorder">Mchinji</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.datatables-scroller">Nkhotakota</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.datatables-scroller">Ntcheu</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.datatables-scroller">Ntchisi</a></li>
-            <li ui-sref-active="active"><a ui-sref="tables.datatables-scroller">Salima</a></li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 101})">All region</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 1})">Dedza</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 2})">Dowa</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 3})">Kasungu</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 4})">Lilongwe</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 5})">Mchinji</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 6})">Nkhotakota</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 7})">Ntcheu</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 8})">Ntchisi</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 9})">Salima</a>
+            </li>
           </ul>
         </li>
+        <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('forms'), active: $state.includes('forms')}">
+          <a href="#">
+            <span class="sidenav-icon">N</span>
+            <span class="sidenav-label">Northern region</span>
+          </a>
+          <ul class="sidenav-subnav collapse">
+            <li class="sidenav-subheading">Northern region</li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 102})">All region</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 10})">Chitipa</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 11})">Karonga</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 12})">Likoma</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 13})">Mzimba</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 14})">Nkhata Bay</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 15})">Rumphi</a>
+            </li>
+          </ul>
+        </li>
+
         <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('charts'), active: $state.includes('charts')}">
           <a href="#">
             <span class="sidenav-icon">S</span>
@@ -64,20 +100,48 @@
           </a>
           <ul class="sidenav-subnav collapse">
             <li class="sidenav-subheading">Southern region</li>
-            <li ui-sref-active="active"><a ui-sref="forms.cropper">All region</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.peity-charts">Balaka</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Blantyre</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Chikhwawa</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Chiradzulu</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Machinga</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Mangochi</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Mulanje</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Mwanza</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Neno</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Nsanje</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Phalombe</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Thyolo</a></li>
-            <li ui-sref-active="active"><a ui-sref="charts.chartjs">Zomba</a></li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 103})">All region</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 16})">Balaka</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 17})">Blantyre</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 18})">Chikhwawa</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 19})">Chiradzulu</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 20})">Machinga</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 21})">Mangochi</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 22})">Mulanje</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 23})">Mwanza</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 24})">Nsanje</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 25})">Phalombe</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 26})">Thyolo</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 27})">Zomba</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="root.map({areaId: 28})">Neno</a>
+            </li>
           </ul>
         </li>
 
@@ -90,16 +154,22 @@
         </li>
 
         <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('charts'), active: $state.includes('charts')}">
-            <a href="#">
-              <span class="sidenav-icon icon icon-files-o"></span>
-              <span class="sidenav-label">Other Pages</span>
-            </a>
-            <ul class="sidenav-subnav collapse">
-              <li ui-sref-active="active"><a ui-sref="404" target="_blank" href="#!/404">404</a></li>
-              <li ui-sref-active="active"><a ui-sref="500" target="_blank" href="#!/500">500</a></li>
-            </ul>
-          </li>
+          <a href="#">
+            <span class="sidenav-icon icon icon-files-o"></span>
+            <span class="sidenav-label">Other Pages</span>
+          </a>
+          <ul class="sidenav-subnav collapse">
+            <li ui-sref-active="active">
+              <a ui-sref="404" target="_blank" href="#!/404">404</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="500" target="_blank" href="#!/500">500</a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
-  </div><!-- /.custom-scrollbar -->
-</div><!-- /.layout-sidebar-body -->
+  </div>
+  <!-- /.custom-scrollbar -->
+</div>
+<!-- /.layout-sidebar-body -->

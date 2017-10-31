@@ -1,4 +1,4 @@
-angular.module("elephant")
+angular.module("ira")
   .animation('.sidenav', function() {
     return {
       beforeAddClass: function(element, className, done) {

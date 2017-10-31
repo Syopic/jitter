@@ -1,7 +1,7 @@
 "use strict";
 
 angular
-  .module("elephant", [
+  .module("ira", [
     "ngSanitize",
     "ngAnimate",
     "ui.router",

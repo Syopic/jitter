@@ -114,7 +114,7 @@ function fitHeight() {
 }
 
 angular
-  .module("elephant")
+  .module("ira")
   .directive('sideNavigation', sideNavigation)
   .directive('customScrollbar', customScrollbar)
   .directive('mdFormControl', mdFormControl)
