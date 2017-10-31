@@ -1,0 +1,151 @@
+<div class="signup">
+  <div class="signup-body">
+    <a class="signup-brand" ui-sref="dashboards.dashboard-1">
+      <img class="img-responsive" src="img/logo.svg" alt="Elephant">
+    </a>
+    <p class="signup-heading">
+      <em>Get started with a free account. 30 day free trial, unlimited users, no credit card required.</em>
+    </p>
+    <p class="signup-twitter">
+      <a class="btn btn-block bg-twitter" href="#">
+        <span class="icon icon-twitter icon-lg icon-fw"></span>
+        Log in with Twitter
+      </a>
+    </p>
+    <div class="signup-divider">
+      <div class="divider">
+        <div class="divider-content">OR</div>
+      </div>
+    </div>
+    <div class="signup-form">
+      <form name="signupForm" class="signup-form" novalidate>
+        <div class="row gutter-xs">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="firstName">First name</label>
+              <input ng-model="firstName" id="firstName" class="form-control" type="text" name="firstName" spellcheck="false" required>
+              <div ng-show="signupForm.$submitted || signupForm.firstName.$touched">
+                <small ng-show="signupForm.firstName.$error.required" class="has-error help-block">Please enter your first name.</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="lastName">Last name</label>
+              <input ng-model="lastName" id="lastName" class="form-control" type="text" name="lastName" spellcheck="false" required>
+              <div ng-show="signupForm.$submitted || signupForm.lastName.$touched">
+                <small ng-show="signupForm.lastName.$error.required" class="has-error help-block">Please enter your last name.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row gutter-xs">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input ng-model="email" id="email" class="form-control" type="email" name="email" spellcheck="false" required>
+              <div ng-show="signupForm.$submitted || signupForm.email.$touched">
+                <small ng-show="signupForm.email.$error.required" class="has-error help-block">Please enter your email address.</small>
+                <small ng-show="signupForm.email.$error.email" class="has-error help-block">Please enter a valid email address.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row gutter-xs">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input ng-model="password" id="password" class="form-control" type="password" name="password" minlength="6" required>
+              <div ng-show="signupForm.$submitted || signupForm.password.$touched">
+                <small ng-show="signupForm.password.$error.required" class="has-error help-block">Please enter your password.</small>
+                <small ng-show="signupForm.password.$error.minlength" class="has-error help-block">Password must be 6 characters or more.</small>
+              </div>
+              <small class="help-block">6-character minimum; case sensitive.</small>
+            </div>
+          </div>
+        </div>
+        <div class="row gutter-xs">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="birthMonth">Birthdate</label>
+              <div class="row gutter-xs">
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <select ng-model="birthMonth" id="birthMonth" class="custom-select" name="birthMonth" required>
+                      <option value="" disabled="disabled" selected="selected">Month</option>
+                      <option value="01">January</option>
+                      <option value="02">February</option>
+                      <option value="03">March</option>
+                      <option value="04">April</option>
+                      <option value="05">May</option>
+                      <option value="06">June</option>
+                      <option value="07">July</option>
+                      <option value="08">August</option>
+                      <option value="09">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    <input ng-model="birthDay" id="birthDay" class="form-control" type="number" name="birthDay" placeholder="Day" min="1" max="31" required>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    <input ng-model="birthYear" id="birthYear" class="form-control" type="number" name="birthYear" placeholder="Year" min="1900" max="2016" required>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="signupForm.$submitted || signupForm.birthMonth.$touched || signupForm.birthDay.$touched || signupForm.birthYear.$touched">
+                <small ng-show="signupForm.birthMonth.$error.required || signupForm.birthDay.$error.required || signupForm.birthYear.$error.required" class="has-error help-block">Please enter your birthday.</small>
+              </div>
+              <div ng-show="signupForm.$submitted || signupForm.birthDay.$touched">
+                <small ng-show="signupForm.birthDay.$error.min || signupForm.birthDay.$error.max" class="has-error help-block">Please enter a valid day of the month.</small>
+              </div>
+              <div ng-show="signupForm.$submitted || signupForm.birthYear.$touched">
+                <small ng-show="signupForm.birthYear.$error.min || signupForm.birthYear.$error.max" class="has-error help-block">Please enter a valid year.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row gutter-xs">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select ng-model="gender" id="gender" class="custom-select" name="gender" required>
+                <option value="" disabled="disabled" selected="selected">Select...</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+                <option value="3">Not specified</option>
+              </select>
+              <div ng-show="signupForm.$submitted || signupForm.gender.$touched">
+                <small ng-show="signupForm.gender.$error.required" class="has-error help-block">Please indicate your gender.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row gutter-xs">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label class="custom-control custom-control-primary custom-checkbox">
+                <input ng-model="agree" id="agree" class="custom-control-input" type="checkbox" name="agree" required>
+                <span class="custom-control-indicator"></span>
+                <small class="custom-control-label">I agree to the Elephant <a href="#">Terms of Service</a>.</small>
+              </label>
+              <div ng-show="signupForm.$submitted || signupForm.agree.$touched">
+                <small ng-show="signupForm.agree.$error.required" class="has-error help-block">In order to use our services, you must agree to the Terms of Service..</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Sign up</button>
+      </form>
+    </div>
+  </div>
+  <div class="signup-footer">
+    Already have an account? <a ui-sref="login-2">Log in</a>
+  </div>
+</div>

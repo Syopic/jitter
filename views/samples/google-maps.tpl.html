@@ -1,0 +1,144 @@
+<div class="layout-content-body">
+  <div class="title-bar">
+    <h1 class="title-bar-title">
+      <span class="d-ib">Google maps</span>
+      <span class="d-ib">
+        <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
+          <span class="sr-only">Add to shortcut list</span>
+        </a>
+      </span>
+    </h1>
+    <p class="title-bar-description">
+      <small>Maps presented below are created using <a href="http://hpneo.github.io/gmaps/" target="_blank">Gmaps.js</a> library. Gmaps.js allows you to use the potential of Google Maps in a simple way.</small>
+    </p>
+  </div>
+  <div class="demo-map">
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <h3>Basic example</h3>
+            <p>You must define
+              <strong>container ID</strong>,
+              <strong>latitude</strong> and
+              <strong>longitude</strong> of the map's center.</p>
+            <p>You also can define
+              <strong>zoom</strong>,
+              <strong>width</strong> and
+              <strong>height</strong>. By default, zoom is 15. Width an height in a CSS class will replace these values.</p>
+            <p>Map types are defined in the
+              <strong>mapType</strong> property. Allowed values are:
+              <strong>roadmap</strong> (default),
+              <strong>satellite</strong>,
+              <strong>hybrid</strong> and
+              <strong>terrain</strong>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+        <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+      </div>
+    </div>
+  </div>
+  <div class="demo-map">
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <h3>Markers &middot; 5 things not to miss in
+              <span class="nowrap">San Francisco</span>
+            </h3>
+            <p>
+              <strong>latitude</strong> and
+              <strong>longitude</strong> are required. You can also attach additional information with <code>details</code>, which will be passed to Event object (<code>e</code>) in the events previously defined.</p>
+            <p>Markers with click event.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+        <ui-gmap-google-map center="mapWithMarkers.center" zoom="mapWithMarkers.zoom">
+          <ui-gmap-marker ng-repeat="marker in mapWithMarkers.markers" coords="marker.coords" events="marker.events" idkey="marker.id">
+          </ui-gmap-marker>
+        </ui-gmap-google-map>
+      </div>
+    </div>
+  </div>
+  <div class="demo-map">
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <h3>Polylines</h3>
+            <p>The path of the polyline is defined by an array of array of two (latitude and longitude).</p>
+            <p>The example creates a 3-pixel-wide red polyline showing the path of William Kingsford Smith's first trans-Pacific flight between Oakland, CA, and Brisbane, Australia.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+        <ui-gmap-google-map center="mapWithPolylines.center" zoom="mapWithPolylines.zoom">
+          <ui-gmap-polyline ng-repeat="p in mapWithPolylines.polylines" path="p.path" stroke="p.stroke" visible='p.visible'
+                            geodesic='p.geodesic' fit="true" editable="p.editable" draggable="p.draggable" icons='p.icons'></ui-gmap-polyline>
+        </ui-gmap-google-map>
+      </div>
+    </div>
+  </div>
+  <div class="demo-map">
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <h3>Polygons &middot; Bermuda triangle</h3>
+            <p>The path of a polygon can be defined as an array of <code>google.maps.LatLng</code> objects, or arrays of coordinates, with index 0 and 1 as, respectively,
+              <b>latitude</b> and
+              <b>longitude</b> (as in the example).</p>
+            <p>Also, you can add a GeoJSON Polygon or MultiPolygon path using <code>useGeoJSON: true</code>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+        <ui-gmap-google-map center="mapWithPolygons.center" zoom="mapWithPolygons.zoom">
+          <ui-gmap-polygon ng-repeat="p in mapWithPolygons.polygons" path="p.path" stroke="p.stroke" fill="p.fill" visible='p.visible'
+                           geodesic='p.geodesic' editable="p.editable" draggable="p.draggable" icons='p.icons'></ui-gmap-polyline>
+        </ui-gmap-google-map>
+      </div>
+    </div>
+  </div>
+  <div class="demo-map">
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <h3>Route</h3>
+            <p>
+              <strong>From:</strong> Golden Gate Park
+              <strong>To:</strong> Golden Gate Bridge</p>
+            <p>Same as <code>drawRoute</code>, you must define an
+              <strong>origin</strong>,
+              <strong>destination</strong> and <code>travelMode</code>. Also, you must define the function that GMaps will call every step in the route.</p>
+            <button class="btn btn-primary btn-sm m-b" ng-click="mapWithRoute.getDirections()">Get Directions</button>
+            <div id="directionsList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+        <ui-gmap-google-map control="mapWithRoute.control" center='mapWithRoute.center' zoom='mapWithRoute.zoom'></ui-gmap-google-map>
+      </div>
+    </div>
+  </div>
+  <div class="demo-map">
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <h3>Color Schemes</h3>
+            <p>Customize colors, roads, labels, and more. Then use your custom style in your Google Maps APIs project.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+        <ui-gmap-google-map center='mapWithCustomStyle.center' zoom='mapWithCustomStyle.zoom' options="mapWithCustomStyle.options"></ui-gmap-google-map>
+      </div>
+    </div>
+  </div>
+</div>
+<toast-container></toast-container>

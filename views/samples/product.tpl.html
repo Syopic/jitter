@@ -1,0 +1,55 @@
+<div class="layout-content-body">
+  <div class="product" ng-show="product">
+    <div class="product-images">
+      <flex-slider direction-nav="false" flex-slide="photo in product.photos">
+        <li><img ng-src="{{photo}}"></li>
+      </flex-slider>
+    </div>
+    <div class="product-details">
+      <h1 class="product-name">{{product.name}}</h1>
+      <div class="product-divider"></div>
+      <div class="product-price">
+        <span class="product-price-current">${{product.currentPrice}}.00</span>
+        <span class="product-price-old">${{product.oldPrice}}.00</span>
+      </div>
+      <div class="product-rating">
+        <span class="icon icon-star active"></span>
+        <span class="icon icon-star active"></span>
+        <span class="icon icon-star active"></span>
+        <span class="icon icon-star active"></span>
+        <span class="icon icon-star-half-o active"></span>
+      </div>
+      <div class="product-description">{{product.description}}</div>
+      <div class="product-add">
+        <button class="btn btn-primary btn-labeled" type="button">
+          <span class="btn-label">
+            <span class="icon icon-shopping-cart icon-lg icon-fw"></span>
+          </span>
+          Add to cart
+        </button>
+      </div>
+      <div class="product-sku">
+        <strong>SKU:</strong> 4323
+      </div>
+      <div class="product-share">
+        <div class="social-list">
+          <a class="social-list-item" href="#" data-toggle="tooltip" title="Share on Facebook">
+            <span class="icon icon-facebook"></span>
+          </a>
+          <a class="social-list-item" href="#" data-toggle="tooltip" title="Share on Twitter">
+            <span class="icon icon-twitter"></span>
+          </a>
+          <a class="social-list-item" href="#" data-toggle="tooltip" title="Pin on Pinterest">
+            <span class="icon icon-pinterest"></span>
+          </a>
+          <a class="social-list-item" href="#" data-toggle="tooltip" title="Share on Google+">
+            <span class="icon icon-google-plus"></span>
+          </a>
+          <a class="social-list-item" href="#" data-toggle="tooltip" title="Share on Tumblr">
+            <span class="icon icon-tumblr"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
