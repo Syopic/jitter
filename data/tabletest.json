@@ -1,0 +1,238 @@
+﻿{
+    "GenXpert_errors": [
+        {
+            "District": "Balaka",
+            "Data": "39"
+        },
+        {
+            "District": "Likoma",
+            "Data": "0"
+        },
+        {
+            "District": "Chitipa",
+            "Data": "1"
+        },
+        {
+            "District": "Dowa",
+            "Data": "1"
+        },
+        {
+            "District": "Nsanje",
+            "Data": "1"
+        },
+        {
+            "District": "Mchinji",
+            "Data": "1"
+        },
+        {
+            "District": "Salima",
+            "Data": "2"
+        },
+        {
+            "District": "Dedza",
+            "Data": "2"
+        },
+        {
+            "District": "Ntcheu",
+            "Data": "2"
+        },
+        {
+            "District": "Phalombe",
+            "Data": "3"
+        },
+        {
+            "District": "Mzimba",
+            "Data": "4"
+        },
+        {
+            "District": "Blantyre",
+            "Data": "4"
+        },
+        {
+            "District": "Lilongwe",
+            "Data": "4"
+        },
+        {
+            "District": "Mangochi",
+            "Data": "5"
+        },
+        {
+            "District": "Kasungu",
+            "Data": "5"
+        },
+        {
+            "District": "Chiradzulu",
+            "Data": "5"
+        },
+        {
+            "District": "Mwanza",
+            "Data": "5"
+        },
+        {
+            "District": "Nkhotakota",
+            "Data": "5"
+        },
+        {
+            "District": "Mulanje",
+            "Data": "5"
+        },
+        {
+            "District": "Total",
+            "Data": "7"
+        },
+        {
+            "District": "Karonga",
+            "Data": "8"
+        },
+        {
+            "District": "Nkhata Bay",
+            "Data": "8"
+        },
+        {
+            "District": "Machinga",
+            "Data": "10"
+        },
+        {
+            "District": "Neno",
+            "Data": "11"
+        },
+        {
+            "District": "Thyolo",
+            "Data": "11"
+        },
+        {
+            "District": "Ntchisi",
+            "Data": "11"
+        },
+        {
+            "District": "Chikwawa",
+            "Data": "15"
+        },
+        {
+            "District": "Rumphi",
+            "Data": "17"
+        },
+        {
+            "District": "Zomba",
+            "Data": "25"
+        }
+    ],
+    "TB_testing": [
+        {
+            "Data": "381.6279482",
+            "District": "Balaka"
+        },
+        {
+            "Data": "175.4576633",
+            "District": "Kasungu"
+        },
+        {
+            "Data": "180.6240164",
+            "District": "Dedza"
+        },
+        {
+            "Data": "210.5380417",
+            "District": "Karonga"
+        },
+        {
+            "Data": "233.0238008",
+            "District": "Chitipa"
+        },
+        {
+            "Data": "256.4457248",
+            "District": "Dowa"
+        },
+        {
+            "Data": "267.22657",
+            "District": "Likoma"
+        },
+        {
+            "Data": "280.5312867",
+            "District": "Mchinji"
+        },
+        {
+            "Data": "286.375832",
+            "District": "Machinga"
+        },
+        {
+            "Data": "291.6823485",
+            "District": "Nkhata Bay"
+        },
+        {
+            "Data": "368.5737635",
+            "District": "Thyolo"
+        },
+        {
+            "Data": "378.8647421",
+            "District": "Nkhotakota"
+        },
+        {
+            "Data": "380.7596952",
+            "District": "Mzimba"
+        },
+        {
+            "Data": "393.3437517",
+            "District": "Mangochi"
+        },
+        {
+            "Data": "395.208756",
+            "District": "Chikwawa"
+        },
+        {
+            "Data": "401.8963611",
+            "District": "Phalombe"
+        },
+        {
+            "Data": "416.899823",
+            "District": "Ntchisi"
+        },
+        {
+            "Data": "431.1471961",
+            "District": "Total"
+        },
+        {
+            "Data": "444.238716",
+            "District": "Salima"
+        },
+        {
+            "Data": "466.8240601",
+            "District": "Lilongwe"
+        },
+        {
+            "Data": "488.0531496",
+            "District": "Rumphi"
+        },
+        {
+            "Data": "526.2713394",
+            "District": "Ntcheu"
+        },
+        {
+            "Data": "557.0629337",
+            "District": "Blantyre"
+        },
+        {
+            "Data": "665.6172968",
+            "District": "Zomba"
+        },
+        {
+            "Data": "695.5968228",
+            "District": "Mulanje"
+        },
+        {
+            "Data": "852.6529233",
+            "District": "Nsanje"
+        },
+        {
+            "Data": "903.8704982",
+            "District": "Chiradzulu"
+        },
+        {
+            "Data": "975.3961674",
+            "District": "Mwanza"
+        },
+        {
+            "Data": "1085.946083",
+            "District": "Neno"
+        }
+    ]
+}

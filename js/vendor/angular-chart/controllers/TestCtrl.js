@@ -1,4 +1,4 @@
-angular.module('ira').controller("TestCtrl", ['$scope', '$timeout', function ($scope, $timeout) {
+angular.module('ira').controller("TestCtrl", ['$scope', '$timeout','$translate','$translateProvider', function ($scope, $timeout, $translate,$translateProvider) {
 
     $scope.distinctDef = {};
   //////////////----------------------
@@ -9,6 +9,21 @@ angular.module('ira').controller("TestCtrl", ['$scope', '$timeout', function ($s
       //console.log("Sort by type!!! ", $scope.labels);
     //  console.log($scope.distinctDef);
   });
+////////////////////-------------
+$translateProvider.translations('en', {
+  'TITLE': 'Hello',
+  'FOO': 'This is a paragraph'
+});
+
+$translateProvider.translations('de', {
+  'TITLE': 'Hallo',
+  'FOO': 'Dies ist ein Absatz'
+});
+
+$translateProvider.preferredLanguage('en');
+}]);
+
+
     /////////////////////////--------Dashboard Doughnut-----------
 
     $scope.dashboardDataDough = [[12, 19, 3, 5, 2, 3]]; 
@@ -68,9 +83,6 @@ angular.module('ira').controller("TestCtrl", ['$scope', '$timeout', function ($s
       // ],
       borderWidth: 1
     }];
-
-   
-
 
     ////////////////////////-------Dashboard One-------------
     $scope.tabName = "Tabl";

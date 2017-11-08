@@ -12,7 +12,17 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         "js/vendor/peity/jquery.peity.min.js",
         "js/vendor/angular-peity/angular-peity.min.js"
       ]
-    }, {
+    },
+    {
+      name: "translationService.js",
+      serie: true,
+      files: [
+        "js/service/translationService.js"
+        
+      ]
+    },
+    
+    {
       name: "chart.js",
       serie: true,
       files: [

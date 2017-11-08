@@ -1,11 +1,4 @@
-angular.module('ira').controller('DashboardCtrl',  ['$scope','$translate', function($scope, $translate) {
-
-  
-  var langu = $scope.selectedLanguage;
-  console.log(langu);
-  $scope.changeLanguage = function(langu){
-    $translate.use(langu); 
-   }
+angular.module('ira').controller('DashboardCtrl', ['$scope', function($scope) {
     $scope.visitors = {
         series: ["Visitors"],
         data: [

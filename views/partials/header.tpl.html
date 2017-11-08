@@ -40,15 +40,15 @@
           <div class="btn-group btn-group-sm dropdown">
             <button class="navbar-account-btn center" data-toggle="dropdown" aria-haspopup="true" style="height: 50px;">
               <span class="sidenav-icon icon icon-globe"></span>
-              English
+              {{lang}}
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
               <li>
-                <a href="#">English</a>
+                <a ng-click="selectedLanguageEn('en')" ng-model="lang">English</a>
               </li>
               <li>
-                <a href="#">Russian</a>
+                <a ng-click="selectedLanguageRu('ru')" ng-model="lang">Russian</a>
               </li>
             </ul>
           </div>
@@ -60,7 +60,7 @@
           </button>
         </li>
         <li class="visible-xs-block">
-          <a ui-sref="root.contacts">
+          <a ui-sref="root.profile">
             English
           </a>
         </li>
