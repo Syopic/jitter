@@ -2,6 +2,150 @@
     "GenXpert_errors": [
         {
             "District": "Balaka",
+            "Region ": "South",
+            "Data": "0.391038697"
+        },
+        {
+            "District": "Blantyre",
+            "Region ": "South",
+            "Data": "0.041609636"
+        },
+        {
+            "District": "Chikwawa",
+            "Region ": "South",
+            "Data": "0.14673913"
+        },
+        {
+            "District": "Chiradzulu",
+            "Region ": "South",
+            "Data": "0.047399605"
+        },
+        {
+            "District": "Chitipa",
+            "Region ": "Nothern",
+            "Data": "0.00729927"
+        },
+        {
+            "District": "Dedza",
+            "Region ": "Central",
+            "Data": "0.016348774"
+        },
+        {
+            "District": "Dowa",
+            "Region ": "Central",
+            "Data": "0.008130081"
+        },
+        {
+            "District": "Karonga",
+            "Region ": "Nothern",
+            "Data": "0.082872928"
+        },
+        {
+            "District": "Kasungu",
+            "Region ": "Central",
+            "Data": "0.04719764"
+        },
+        {
+            "District": "Likoma",
+            "Region ": "Nothern",
+            "Data": "0"
+        },
+        {
+            "District": "Lilongwe",
+            "Region ": "Central",
+            "Data": "0.044212359"
+        },
+        {
+            "District": "Machinga",
+            "Region ": "South",
+            "Data": "0.104622871"
+        },
+        {
+            "District": "Mangochi",
+            "Region ": "South",
+            "Data": "0.046474359"
+        },
+        {
+            "District": "Mchinji",
+            "Region ": "Central",
+            "Data": "0.013986014"
+        },
+        {
+            "District": "Mulanje",
+            "Region ": "South",
+            "Data": "0.053821313"
+        },
+        {
+            "District": "Mwanza",
+            "Region ": "South",
+            "Data": "0.047486034"
+        },
+        {
+            "District": "Mzimba",
+            "Region ": "Nothern",
+            "Data": "0.03639"
+        },
+        {
+            "District": "Neno",
+            "Region ": "South",
+            "Data": "0.106837607"
+        },
+        {
+            "District": "Nkhata Bay",
+            "Region ": "Nothern",
+            "Data": "0.083333333"
+        },
+        {
+            "District": "Nkhotakota",
+            "Region ": "Central",
+            "Data": "0.048338369"
+        },
+        {
+            "District": "Nsanje",
+            "Region ": "South",
+            "Data": "0.010781671"
+        },
+        {
+            "District": "Ntcheu",
+            "Region ": "Central",
+            "Data": "0.024489796"
+        },
+        {
+            "District": "Ntchisi",
+            "Region ": "Central",
+            "Data": "0.113207547"
+        },
+        {
+            "District": "Phalombe",
+            "Region ": "South",
+            "Data": "0.025510204"
+        },
+        {
+            "District": "Rumphi",
+            "Region ": "Nothern",
+            "Data": "0.166253102"
+        },
+        {
+            "District": "Salima",
+            "Region ": "Central",
+            "Data": "0.016326531"
+        },
+        {
+            "District": "Thyolo",
+            "Region ": "South",
+            "Data": "0.112033195"
+        },
+      
+        {
+            "District": "Zomba",
+            "Region ": "South",
+            "Data": "0.249847654"
+        },
+        {}
+    ],
+    "GenXpert_errors_percent": [
+        {
+            "District": "Balaka",
             "Data": "39"
         },
         {

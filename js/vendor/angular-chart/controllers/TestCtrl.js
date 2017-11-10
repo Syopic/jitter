@@ -10,18 +10,6 @@ angular.module('ira').controller("TestCtrl", ['$scope', '$timeout','$translate',
     //  console.log($scope.distinctDef);
   });
 ////////////////////-------------
-$translateProvider.translations('en', {
-  'TITLE': 'Hello',
-  'FOO': 'This is a paragraph'
-});
-
-$translateProvider.translations('de', {
-  'TITLE': 'Hallo',
-  'FOO': 'Dies ist ein Absatz'
-});
-
-$translateProvider.preferredLanguage('en');
-}]);
 
 
     /////////////////////////--------Dashboard Doughnut-----------
@@ -309,12 +297,13 @@ $translateProvider.preferredLanguage('en');
         }
         //set default type for model
         $scope.distinctDef = $scope.distinct[0];
-        //get data by default type
+        console.log($scope.distinct);
+        
     });
 
     //watch data by selected type
     $scope.$watch('tabName', function () {
-        console.log("Change");
+       // console.log("Change");
     });
 
 
@@ -322,7 +311,7 @@ $translateProvider.preferredLanguage('en');
 
     $scope.AddData = function () {
         $scope.tabName = "1";
-        $scope.labelsHor = ["District Hospital000", "Health Centre", "Rural/Community Hospital", "Dispensary", "Clinic", "Health Post", "Central Hospital", "Other Hospital", "Maternity"];;
+        $scope.labelsHor = ["District Hospital", "Health Centre", "Rural/Community Hospital", "Dispensary", "Clinic", "Health Post", "Central Hospital", "Other Hospital", "Maternity"];;
         $scope.dataHor = [
             [983, 2232, 3057, 2238, 1613, 2194, 3874, 3874, 3874],
             [3089, 2132, 1854, 2326, 3274, 3679, 3075, 3075, 3075]

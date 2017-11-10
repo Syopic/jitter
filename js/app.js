@@ -15,7 +15,12 @@ angular
     var ru_translations = {
        
         "Dashboard" : "Графики",
-        "Medical_Institutions" : "Мед. учреждения"
+        "Medical_Institutions" : "Мед. учреждения",
+        "All_country": "Страна",
+        "Maps": "Карты",
+        "Central region": "Центральный регион",
+        "Northern region": "Северный регион",
+        "Southern region": "Южный регион"
         
     
     }
@@ -28,10 +33,15 @@ angular
   //   });
   //   return ru_data;
   // }
-  console.log("APP_ ",ru_translations);
+ // console.log("APP_ ",ru_translations);
   var en_translations = {  
     "Dashboard" : "Dashboard",
-    "Medical_Institutions" : "Medical Institutions"
+    "Medical_Institutions" : "Medical Institutions",
+    "All_country": "All country",
+    "Maps": "Maps",
+    "Central region": "Central region",
+    "Northern region": "Northern region",
+    "Southern region": "Southern region"
    
 }
   //  function(){

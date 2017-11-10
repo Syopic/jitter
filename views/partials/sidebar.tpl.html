@@ -7,29 +7,29 @@
         <li class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.dashboard">
             <span class="sidenav-icon icon icon-pie-chart"></span>
-            <span class="sidenav-label">Dashboard</span>
+            <span class="sidenav-label">{{"Dashboard" | translate}}</span>
           </a>
         </li>
         <li class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.datatable">
             <span class="sidenav-icon icon icon-hospital-o"></span>
-            <span class="sidenav-label">Medical institutions</span>
+            <span class="sidenav-label">{{'Medical_Institutions'| translate}}</span>
           </a>
         </li>
-        <li class="sidenav-heading">Maps</li>
+        <li class="sidenav-heading">{{"Maps" | translate}}</li>
         <li ng-class="getClass('/map/0')" class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.map({areaId: 0})">
             <span class="sidenav-icon icon icon-flag "></span>
-            <span class="sidenav-label">All country</span>
+            <span class="sidenav-label">{{"All_country" | translate}}</span>
           </a>
         </li>
         <li class="sidenav-item has-subnav" ng-class="{open: $state.params.areaId > 0 && $state.params.areaId < 10 || $state.params.areaId == 101, active: $state.params.areaId > 0 && $state.params.areaId < 10 || $state.params.areaId == 101}">
           <a href="#">
             <span class="sidenav-icon">C</span>
-            <span class="sidenav-label">Central region</span>
+            <span class="sidenav-label">{{"Central region" | translate}}</span>
           </a>
           <ul class="sidenav-subnav collapse" >
-            <li class="sidenav-subheading">Central region</li>
+            <li class="sidenav-subheading">{{"Central region" | translate}}</li>
             <li ng-class="getClass('/map/101')" ui-sref-active="active">
               <a ui-sref="root.map({areaId: 101})">All region</a>
             </li>
@@ -65,10 +65,10 @@
         <li class="sidenav-item has-subnav" ng-class="{open: $state.params.areaId > 9 && $state.params.areaId < 16 || $state.params.areaId == 102, active: $state.params.areaId > 9 && $state.params.areaId < 16 || $state.params.areaId == 102}">
           <a href="#">
             <span class="sidenav-icon">N</span>
-            <span class="sidenav-label">Northern region</span>
+            <span class="sidenav-label">{{"Northern region" | translate}}</span>
           </a>
           <ul class="sidenav-subnav collapse">
-            <li class="sidenav-subheading">Northern region</li>
+            <li class="sidenav-subheading">{{"Northern region" | translate}}</li>
             <li ng-class="getClass('/map/102')" ui-sref-active="active">
               <a ui-sref="root.map({areaId: 102})">All region</a>
             </li>
@@ -96,10 +96,10 @@
         <li class="sidenav-item has-subnav" ng-class="{open: $state.params.areaId > 16 && $state.params.areaId < 29 || $state.params.areaId == 103, active: $state.params.areaId > 16 && $state.params.areaId < 29 || $state.params.areaId == 103}">
           <a href="#">
             <span class="sidenav-icon">S</span>
-            <span class="sidenav-label">Southern region</span>
+            <span class="sidenav-label">{{"Southern region" | translate}}</span>
           </a>
           <ul class="sidenav-subnav collapse">
-            <li class="sidenav-subheading">Southern region</li>
+            <li class="sidenav-subheading">{{"Southern region" | translate}}</li>
             <li ng-class="getClass('/map/103')" ui-sref-active="active">
               <a ui-sref="root.map({areaId: 103})">All region</a>
             </li>
