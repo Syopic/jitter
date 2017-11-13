@@ -2,28 +2,6 @@
   <div class="title-bar">
     <div class="title-bar-actions">
       <div class="btn-group btn-group-sm dropdown">
-        <button class="mail-sort-btn btn btn-default dropdown-toggle" aria-haspopup="true" data-toggle="dropdown" type="button">
-          Last year
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-right">
-          <li>
-            <a href="#">Years</a>
-          </li>
-          <li>
-            <a href="#">2017</a>
-          </li>
-          <li>
-            <a href="#">2016</a>
-          </li>
-          <li>
-            <a href="#">2015</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="#">More settings...</a>
-          </li>
-        </ul>
       </div>
     </div>
     <h1 class="title-bar-title">
@@ -37,6 +15,7 @@
   </div>
   <!-- Main chart and parametrs  -->
   <div class="row gutter-xs">
+
 
 
     <div class="col-xs-12 col-md-4">
@@ -76,10 +55,10 @@
                   <h5 class="media-heading">Switch select percentage or absolute values</h5>
                 </div>
                 <div class="media-middle media-right">
-                   
+                   <!-- <select id="form-control-6" class="form-control"> -->
                     <label class="switch switch-primary">
-                      <input class="switch-input" type="checkbox" checked="checked" >
-                      <span class="switch-track"  ></span>
+                      <input class="switch-input" type="checkbox" checked="checked"  ng-model="typeCheked" ng-click="changeChartType()" >
+                      <span class="switch-track" ng-checked="typeCheked"></span>
                       <span class="switch-thumb" ></span>
                     </label>
                   
@@ -109,10 +88,8 @@
         </div>
         <div class="card-body">
           <div class="card-chart">
-            <canvas class="chart chart-base" chart-type="selectedType" chart-data="dashboardTwoData" chart-labels="dashboardTwoLabel" chart-refresh="labels" chart-colors="colorsTwo"
-              chart-series="dashboardTwoSeries" chart-options='dashboardTwoOptions'></canvas>
-              <!-- <canvas class="chart chart-line" chart-data="dashboardOneData"  chart-labels="dashboardOneLabel" 
-              chart-colors= "dashboardOneColor" chart-series="dashboardOneSeries" chart-options='dashboardOneOptions' ></canvas>    -->
+            <canvas class="chart chart-base" chart-type="selectedType" chart-data="dashboardMainData" chart-labels="dashboardTwoLabel" chart-refresh="labels" chart-colors="dashboardMainColor"
+              chart-series="dashboardTwoSeries" chart-options='dashboardMainOptions'></canvas>
           </div>
         </div>
       </div>

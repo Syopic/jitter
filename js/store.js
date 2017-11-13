@@ -82,15 +82,32 @@ angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
 
     this.getFacilityTypes = function getFacilityTypes() {
       var result = [
+        "Show All",
         "Village Clinic",
         "Outreach",
         "Dispensary",
         "Hospital",
-        "Health Centre"
+        "Health Centre",
+        "Health Post"
       ];
       
       return result;
     },
+
+    this.getFacilitColors = function getFacilitColors() {
+      var result = [
+        "#ffffff",
+        "#4c97e4",
+        "#5ab21a",
+        "#ab58ce",
+        "#00aa90",
+        "#ff0000",
+        "#ffa800"
+      ];
+      
+      return result;
+    },
+
 
     this.getStatByDistrictName = function getStatByDistrictName(data, name) {
       var result = 0;

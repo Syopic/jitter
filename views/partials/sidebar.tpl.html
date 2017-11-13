@@ -1,6 +1,16 @@
-<div class="layout-sidebar-backdrop"></div>
-<div class="layout-sidebar-body">
-  <div class="custom-scrollbar" ng-hide="app.sidebar.isFixed">
+<div class="layout-sidebar-backdrop">
+  <div class="layout-sidebar-body">
+    <div class="custom-scrollbar" ng-hide="app.sidebar.isFixed">
+      <div class="row hidden-xs">
+        <br>
+        <br>
+        <br>
+        <a ui-sref="root.dashboard">
+          <img class="img-responsive" src="img/logo.png">
+        </a>
+        <br>
+      </div>
+    </div>
     <nav class="sidenav-collapse collapse" uib-collapse="app.sidebar.xs.isCollapsed">
       <ul class="sidenav" side-navigation ng-class="{'sidenav-collapsed': app.sidebar.isCollapsed}">
         <li class="sidenav-item" ui-sref-active="open active">
@@ -17,7 +27,7 @@
         </li>
         <li class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.map({areaId: 0})">
-            <span class="sidenav-icon icon icon-flag "></span>
+            <span class="sidenav-icon fa fa-map-marker "></span>
             <span class="sidenav-label">{{"Map" | translate}}</span>
           </a>
         </li>
@@ -30,4 +40,16 @@
       </ul>
     </nav>
   </div>
-</div>
+
+  <div class="card-body " style="position: absolute;  bottom: 0;" ng-show="!app.sidebar.isCollapsed">
+    <!-- <h4>Ministry of Health,</h4> -->
+    <p>P.O. Box 30377,
+      <br> Lilongwe 3, MALAWI
+      <br> Telephone:
+      <b>+265 1 789 400</b>
+      <br> Fax:
+      <b> +265 1 789 534 / 1 789 536</b>
+      <br>
+      <a href="http://www.health.gov.mw" target="_blank">www.health.gov.mw</a>
+    </p>
+  </div>

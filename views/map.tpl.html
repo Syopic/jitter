@@ -1,7 +1,7 @@
 <div class="layout-content-body">
   <div class="title-bar">
     <h1 class="title-bar-title">
-      <span class="d-ib">{{areaInfo.District}}</span><span class="pull-right"><small ng-show="areaInfo.District != 'Malawi'">Region Type: {{areaInfo["Region Type"]}},</small> <small>Population: {{areaInfo.Population}}</small></span>
+      <span class="d-ib">{{areaInfo.District}}</span>
     </h1>
   </div>
   <!-- /.title-bar -->
@@ -35,7 +35,7 @@
           </div>
           <div class="col-md-4 col-lg-4" ng-show="areaInfo.District != 'Malawi'">
             <h5>Facility types</h5>
-            <select class="form-control" ng-init="currentFacilityType = facilityTypesCollection[0]" ng-model="currentFacilityType" ng-options="item as item for item in facilityTypesCollection">
+            <select class="form-control" ng-init="currentFacilityType = facilityTypesCollection[0]" ng-model="currentFacilityType" ng-options="item as item for item in facilityTypesCollection" ng-change="onParamsUpdate()">
               <option value="All region">Clinic</option>
             </select>
           </div>
@@ -49,18 +49,18 @@
           </div>
 
           <!-- <div class="col-md-12 col-lg-12" ng-show="areaInfo.District != 'Malawi'">
-                <div class="media">
-                  <div class="media-middle media-body">
-                    <h5 class="media-heading">Show coverage</h5>
-                  </div>
-                  <div class="media-middle media-right">
-                    <label class="custom-control custom-control-primary custom-checkbox">
-                      <input class="custom-control-input" type="checkbox" checked="checked">
-                      <span class="custom-control-indicator"></span>
-                    </label>
-                  </div>
-                </div>
-              </div> -->
+            <div class="media">
+              <div class="media-middle media-body">
+                <h5 class="media-heading">Show coverage</h5>
+              </div>
+              <div class="media-middle media-right">
+                <label class="custom-control custom-control-primary custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" checked="checked">
+                  <span class="custom-control-indicator"></span>
+                </label>
+              </div>
+            </div>
+          </div> -->
         </form>
       </div>
     </div>

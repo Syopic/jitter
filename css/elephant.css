@@ -4042,7 +4042,7 @@ tbody.collapse.in {
 }
 
 .navbar-default .navbar-brand {
-  color: #555;
+  color: rgb(255, 255, 255);
 }
 
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
@@ -11952,7 +11952,7 @@ select.md-form-control option {
 .sidenav-icon {
   display: block;
   float: left;
-  font-size: 13px;
+  font-size: 16px;
   height: 18px;
   line-height: 18px;
   margin-right: 10px;

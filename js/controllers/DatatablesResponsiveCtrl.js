@@ -21,7 +21,9 @@ dt.options = DTOptionsBuilder
 
     dt.columns = [
         DTColumnBuilder.newColumn("Name").withTitle("Name"),
-        DTColumnBuilder.newColumn("Status").withTitle("Status"),
+        DTColumnBuilder.newColumn("Status").withTitle("Status").renderWith(function(data, type, full, meta) {
+            return data == "Functional" ? '<span class="label label-primary">' + data + '</span>' : '<span class="label label-danger">' + data + '</span>';
+          }),
         DTColumnBuilder.newColumn("Village").withTitle("Village"),
         DTColumnBuilder.newColumn("District").withTitle("District"),
         DTColumnBuilder.newColumn("Region").withTitle("Region"),
@@ -29,7 +31,9 @@ dt.options = DTOptionsBuilder
         DTColumnBuilder.newColumn("ControllingAgency").withTitle("Controlling Agency"),
         DTColumnBuilder.newColumn("ContactName").withTitle("Contact Name"),
         DTColumnBuilder.newColumn("Phone").withTitle("Phone"),
-        DTColumnBuilder.newColumn("Email").withTitle("Email"),
+        DTColumnBuilder.newColumn("Email").withTitle("Email").renderWith(function(data, type, full, meta) {
+            return data != "N/A" ? '<a href="mailto:' + data +'">' + data + '</a>' : data;
+          }),
         DTColumnBuilder.newColumn("Cluster").withTitle("Cluster")
     ];
     
