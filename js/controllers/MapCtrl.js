@@ -113,7 +113,8 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         }
         $scope.coverageChanged = function(e) {
             $scope.isShowCoverage = e.checked;
-            fillMarkers(areaId);
+            var id = StoreService.getStatByDistrictName(boundsData.getData(), $scope.currentAreaName);
+            fillMarkers(id);
         }
         
 
