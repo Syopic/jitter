@@ -318,8 +318,10 @@ angular.module('ira').controller("TestCtrl", ['$scope', '$timeout', function ($s
 
         console.log("Btn ");
     };
-//------------GAUGE--------------
+//------------GAUGE----------
+
    
+///////////////---------------------
 // var opts = {
 //   angle: 0.15, // The span of the gauge arc
 //   lineWidth: 0.44, // The line thickness

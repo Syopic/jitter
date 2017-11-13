@@ -3,7 +3,6 @@
   <div class="custom-scrollbar" ng-hide="app.sidebar.isFixed">
     <nav class="sidenav-collapse collapse" uib-collapse="app.sidebar.xs.isCollapsed">
       <ul class="sidenav" side-navigation ng-class="{'sidenav-collapsed': app.sidebar.isCollapsed}">
-        <li class="sidenav-heading">Navigation</li>
         <li class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.dashboard">
             <span class="sidenav-icon icon icon-pie-chart"></span>
@@ -16,160 +15,19 @@
             <span class="sidenav-label">{{'Medical_Institutions'| translate}}</span>
           </a>
         </li>
-        <li class="sidenav-heading">{{"Maps" | translate}}</li>
-        <li ng-class="getClass('/map/0')" class="sidenav-item" ui-sref-active="open active">
+        <li class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.map({areaId: 0})">
             <span class="sidenav-icon icon icon-flag "></span>
-            <span class="sidenav-label">{{"All_country" | translate}}</span>
+            <span class="sidenav-label">{{"Map" | translate}}</span>
           </a>
         </li>
-        <li class="sidenav-item has-subnav" ng-class="{open: $state.params.areaId > 0 && $state.params.areaId < 10 || $state.params.areaId == 101, active: $state.params.areaId > 0 && $state.params.areaId < 10 || $state.params.areaId == 101}">
-          <a href="#">
-            <span class="sidenav-icon">C</span>
-            <span class="sidenav-label">{{"Central region" | translate}}</span>
-          </a>
-          <ul class="sidenav-subnav collapse" >
-            <li class="sidenav-subheading">{{"Central region" | translate}}</li>
-            <li ng-class="getClass('/map/101')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 101})">All region</a>
-            </li>
-            <li ng-class="getClass('/map/1')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 1})">Dedza</a>
-            </li>
-            <li ng-class="getClass('/map/2')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 2})">Dowa</a>
-            </li>
-            <li ng-class="getClass('/map/3')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 3})">Kasungu</a>
-            </li>
-            <li ng-class="getClass('/map/4')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 4})">Lilongwe</a>
-            </li>
-            <li ng-class="getClass('/map/5')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 5})">Mchinji</a>
-            </li>
-            <li ng-class="getClass('/map/6')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 6})">Nkhotakota</a>
-            </li>
-            <li ng-class="getClass('/map/7')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 7})">Ntcheu</a>
-            </li>
-            <li ng-class="getClass('/map/8')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 8})">Ntchisi</a>
-            </li>
-            <li ng-class="getClass('/map/9')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 9})">Salima</a>
-            </li>
-          </ul>
-        </li>
-        <li class="sidenav-item has-subnav" ng-class="{open: $state.params.areaId > 9 && $state.params.areaId < 16 || $state.params.areaId == 102, active: $state.params.areaId > 9 && $state.params.areaId < 16 || $state.params.areaId == 102}">
-          <a href="#">
-            <span class="sidenav-icon">N</span>
-            <span class="sidenav-label">{{"Northern region" | translate}}</span>
-          </a>
-          <ul class="sidenav-subnav collapse">
-            <li class="sidenav-subheading">{{"Northern region" | translate}}</li>
-            <li ng-class="getClass('/map/102')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 102})">All region</a>
-            </li>
-            <li ng-class="getClass('/map/10')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 10})">Chitipa</a>
-            </li>
-            <li ng-class="getClass('/map/11')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 11})">Karonga</a>
-            </li>
-            <li ng-class="getClass('/map/12')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 12})">Likoma</a>
-            </li>
-            <li ng-class="getClass('/map/13')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 13})">Mzimba</a>
-            </li>
-            <li ng-class="getClass('/map/14')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 14})">Nkhata Bay</a>
-            </li>
-            <li ng-class="getClass('/map/15')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 15})">Rumphi</a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="sidenav-item has-subnav" ng-class="{open: $state.params.areaId > 16 && $state.params.areaId < 29 || $state.params.areaId == 103, active: $state.params.areaId > 16 && $state.params.areaId < 29 || $state.params.areaId == 103}">
-          <a href="#">
-            <span class="sidenav-icon">S</span>
-            <span class="sidenav-label">{{"Southern region" | translate}}</span>
-          </a>
-          <ul class="sidenav-subnav collapse">
-            <li class="sidenav-subheading">{{"Southern region" | translate}}</li>
-            <li ng-class="getClass('/map/103')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 103})">All region</a>
-            </li>
-            <li ng-class="getClass('/map/16')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 16})">Balaka</a>
-            </li>
-            <li ng-class="getClass('/map/17')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 17})">Blantyre</a>
-            </li>
-            <li ng-class="getClass('/map/18')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 18})">Chikhwawa</a>
-            </li>
-            <li ng-class="getClass('/map/19')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 19})">Chiradzulu</a>
-            </li>
-            <li ng-class="getClass('/map/20')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 20})">Machinga</a>
-            </li>
-            <li ng-class="getClass('/map/21')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 21})">Mangochi</a>
-            </li>
-            <li ng-class="getClass('/map/22')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 22})">Mulanje</a>
-            </li>
-            <li ng-class="getClass('/map/23')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 23})">Mwanza</a>
-            </li>
-            <li ng-class="getClass('/map/24')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 24})">Nsanje</a>
-            </li>
-            <li ng-class="getClass('/map/25')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 25})">Phalombe</a>
-            </li>
-            <li ng-class="getClass('/map/26')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 26})">Thyolo</a>
-            </li>
-            <li ng-class="getClass('/map/27')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 27})">Zomba</a>
-            </li>
-            <li ng-class="getClass('/map/28')" ui-sref-active="active">
-              <a ui-sref="root.map({areaId: 28})">Neno</a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="sidenav-heading">Pages</li>
         <li class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.contacts">
             <span class="sidenav-icon icon icon-users"></span>
             <span class="sidenav-label">Contacts</span>
           </a>
         </li>
-
-        <li class="sidenav-item has-subnav" ng-class="{open: $state.includes('charts'), active: $state.includes('charts')}">
-          <a href="#">
-            <span class="sidenav-icon icon icon-files-o"></span>
-            <span class="sidenav-label">Other Pages</span>
-          </a>
-          <ul class="sidenav-subnav collapse">
-            <li ui-sref-active="active">
-              <a ui-sref="404" target="_blank" href="#!/404">404</a>
-            </li>
-            <li ui-sref-active="active">
-              <a ui-sref="500" target="_blank" href="#!/500">500</a>
-            </li>
-          </ul>
-        </li>
       </ul>
     </nav>
   </div>
-  <!-- /.custom-scrollbar -->
 </div>
-<!-- /.layout-sidebar-body -->

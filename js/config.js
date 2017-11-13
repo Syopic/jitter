@@ -13,7 +13,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         "js/vendor/angular-peity/angular-peity.min.js"
       ]
     }, {
-      name: "chart.js",
+      name: "chart",
       serie: true,
       files: [
         "js/vendor/numeral/numeral.min.js",
@@ -22,7 +22,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         "js/vendor/angular-chart/angular-chart.min.js"
       ]
     }, {
-      name: "gauge.min.js",
+      name: "gauge.min",
       serie: true,
       files: [
         "js/vendor/gauge/gauge.min.js"
@@ -129,9 +129,20 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       abstract: true,
       templateUrl: "views/app.tpl.html",
       resolve: {
-        "commonData": function ($q, $http) {
+        "facilitiesData": function ($q, $http) {
           var deferred = $q.defer();
-          $http.get('data/data.json').then(function (data) {
+          $http.get('data/facilitiesData.json').then(function (data) {
+            deferred.resolve({
+              getData: function () {
+                return data.data;
+              }
+            });
+          });
+          return deferred.promise;
+        },
+        "statisticData": function ($q, $http) {
+          var deferred = $q.defer();
+          $http.get('data/statisticData.json').then(function (data) {
             deferred.resolve({
               getData: function () {
                 return data.data;
@@ -159,7 +170,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       templateUrl: "views/dashboard.tpl.html",
       resolve: {
         loadChartJS: function ($ocLazyLoad) {
-          return $ocLazyLoad.load("chart.js");
+          return $ocLazyLoad.load("chart");
+        },
+        loadGaugeJS: function ($ocLazyLoad) {
+          return $ocLazyLoad.load("gauge.min");
         },
         loadPlugins: function ($ocLazyLoad) {
           return $ocLazyLoad.load([
@@ -202,18 +216,17 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       templateUrl: "views/test.tpl.html",
       resolve: {
         loadChartJS: function ($ocLazyLoad) {
-          return $ocLazyLoad.load("chart.js");
+          return $ocLazyLoad.load("chart");
         },
         loadGaugeJS: function ($ocLazyLoad) {
-          return $ocLazyLoad.load("gauge.min.js");
+          return $ocLazyLoad.load("gauge.min");
           // "js/vendor/gauge/gauge.min.js"
         },
         loadPlugins: function ($ocLazyLoad) {
           return $ocLazyLoad.load([
             "css/vendor/jqvmap/jqvmap.min.css",
             "js/vendor/jqvmap/jquery.vmap.min.js",
-            "js/vendor/jqvmap/maps/jquery.vmap.world.js",
-            "js/vendor/gauge/gauge.min.js"
+            "js/vendor/jqvmap/maps/jquery.vmap.world.js"            
           ]);
         }
       }

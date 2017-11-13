@@ -1,57 +1,174 @@
 <div class="layout-content-body">
   <div class="title-bar">
     <h1 class="title-bar-title">
-      <span class="d-ib">{{areaName}} map page</span>
-      <span class="d-ib">
-        <a class="title-bar-shortcut" href="#" title="Add to shortcut list" data-container="body" data-toggle-text="Remove from shortcut list" data-trigger="hover" data-placement="right" data-toggle="tooltip">
-          <span class="sr-only">Add to shortcut list</span>
-        </a>
-      </span>
+      <span class="d-ib">{{areaInfo.District}}</span><span class="pull-right"><small ng-show="areaInfo.District != 'Malawi'">Region Type: {{areaInfo["Region Type"]}},</small> <small>Population: {{areaInfo.Population}}</small></span>
     </h1>
-  </div><!-- /.title-bar -->
+  </div>
+  <!-- /.title-bar -->
   <div class="row gutter-xs">
     <div class="col-md-6 col-lg-6">
       <div class="card">
         <div class="card-body">
-            <div id="map" style="height:750px;"></div>
+          <div id="map" style="height:750px;"></div>
         </div>
       </div>
     </div>
     <div class="col-md-6 col-lg-6">
-        <div class="card">
-          <div class="card-body">
-              <div class="col-md-12">
-                  <h4>Navigation</h4>
-                  <button class="btn btn-primary" type="button">All country</button>
-                  <button class="btn btn-primary" type="button">Regions</button>
-                  <button class="btn btn-primary" type="button">Districts</button>
-                  <hr>
-                  <h4>Country Health Statistics</h4>
-                  <p>Harmful use of alcohol, defined according to the national context as alcohol per capita consumption (aged 15 years and older) within a calendar year in litres of pure alcohol.</p>
-                  <p></p>
-                  <p>Projected estimated consumption (litres)</p>
-                  <ul class="list-unstyled">
-                    <li>
-                      <span class="icon icon-square icon-fw" style="color: #b2dfdb"></span>&lt; 2.5</li>
-                    <li>
-                      <span class="icon icon-square icon-fw" style="color: #4db6ac"></span>2.5 – 5.4</li>
-                    <li>
-                      <span class="icon icon-square icon-fw" style="color: #009688"></span>5.5 – 8.4</li>
-                    <li>
-                      <span class="icon icon-square icon-fw" style="color: #00796b"></span>8.5 – 11.9</li>
-                    <li>
-                      <span class="icon icon-square icon-fw" style="color: #004d40"></span>&gt; 12.0</li>
-                    <li>
-                      <span class="icon icon-square-o icon-fw"></span>Data not available</li>
-                    <li>
-                      <span class="icon icon-square-o icon-fw"></span>Not applicable</li>
-                  </ul>
-                  <hr>
-                  <p>Source: <a href="http://www.who.int/gho/publications/en/" target="_blank">World Health Organization</a></p>
-                </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-4 col-lg-4">
+            <h5>District</h5>
+            <select class="form-control" ng-model="currentAreaName" ng-options="item as item for item in areasCollection" ng-change="onParamsUpdate()">
+            </select>
           </div>
+          <div class="col-md-4 col-lg-4">
+            <h5>Year</h5>
+            <select class="form-control">
+              <option value="All region">2017</option>
+            </select>
+          </div>
+          <div class="col-md-4 col-lg-4" ng-show="areaInfo.District == 'Malawi'">
+            <h5>Disease</h5>
+            <select class="form-control">
+              <option value="All region">Tuberculosis</option>
+            </select>
+          </div>
+          <div class="col-md-4 col-lg-4" ng-show="areaInfo.District != 'Malawi'">
+            <h5>Facility types</h5>
+            <select class="form-control" ng-init="currentFacilityType = facilityTypesCollection[0]" ng-model="currentFacilityType" ng-options="item as item for item in facilityTypesCollection">
+              <option value="All region">Clinic</option>
+            </select>
+          </div>
+
+
+          <div class="col-md-12 col-lg-12" ng-show="areaInfo.District == 'Malawi'">
+            <h5>Cases</h5>
+            <select class="form-control" ng-init="currentCase = caseCollection[2]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
+              ng-change="onParamsUpdate()">
+            </select>
+          </div>
+
+          <!-- <div class="col-md-12 col-lg-12" ng-show="areaInfo.District != 'Malawi'">
+                <div class="media">
+                  <div class="media-middle media-body">
+                    <h5 class="media-heading">Show coverage</h5>
+                  </div>
+                  <div class="media-middle media-right">
+                    <label class="custom-control custom-control-primary custom-checkbox">
+                      <input class="custom-control-input" type="checkbox" checked="checked">
+                      <span class="custom-control-indicator"></span>
+                    </label>
+                  </div>
+                </div>
+              </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="col-md-12">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["TB Registarion Facilitis"]}}</b>
+              </span>
+              Number of TB registarion facilitis
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo.GenXpert}}</b>
+              </span>
+              GenXpert
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["TB Case Notification Rate Per 100000"] | number:4}}</b>
+              </span>
+              TB Case notification rate per 100,000 population
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percentage of all facilities offering screening and referral for TB diagnosis"] | number:4}}
+                  %
+                </b>
+              </span>
+              All facilities offering screening and referral for TB diagnosis
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percentage of all facilities that have  functional TB smear microscopy "] | number:4}} %</b>
+              </span>
+              All facilities that have functional TB smear microscopy
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percentage of all facilities that provide diagnosis of TB by using sputum smear"] | number:4}}
+                  %
+                </b>
+              </span>
+              All facilities that provide diagnosis of TB by using sputum smear
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percentage of facilities that provide diagnosis of TB by using X-ray"] | number:4}} %</b>
+              </span>
+              Facilities that provide diagnosis of TB by using X-ray
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percentage of facilities that provide diagnosis of TB based on clinical symptoms"] | number:4}}
+                  %
+                </b>
+              </span>
+              Facilities that provide diagnosis of TB based on clinical symptoms
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percent of TB cases diagnosed out of Presumed cases referred from Community "] | number:4}} %
+                </b>
+              </span>
+              TB cases diagnosed out of Presumed cases referred from Community
+            </li>
+
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percent of all facilities offering HIV testing and counselling"] | number:4}} %</b>
+              </span>
+              All facilities offering HIV testing and counselling
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percent of all facilities offering ART prescription or ART follow-up services"] | number:4}}
+                  %
+                </b>
+              </span>
+              All facilities offering ART prescription or ART follow-up services
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percent of all facilities that offering TB or HIV diagnosis services or treatment"] | number:4}}
+                  %
+                </b>
+              </span>
+              All facilities that offering TB or HIV diagnosis services or treatment
+            </li>
+            <li class="list-group-item">
+              <span class="pull-right">
+                <b>{{areaInfo["Percent of all facilities that offering TB and HIV diagnosis services or treatment"] | number:4}}
+                  %
+                </b>
+              </span>
+              All facilities that offering TB and HIV diagnosis services or treatment
+            </li>
+          </ul>
         </div>
       </div>
+    </div>
   </div>
-</div><!-- /.layout-content-body -->
 
+</div>
+</div>
+<!-- /.layout-content-body -->
