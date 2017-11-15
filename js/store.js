@@ -2,31 +2,40 @@ angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
   function StoreService($q, $timeout, $filter) {
     this.facilityTypes = {
       "Central Hospital": {
-        icon: "marker_hospital.png"
+        icon: "marker_hospital.png",
+        color: ""
       },
       "District Hospital": {
-        icon: "marker_hospital.png"
+        icon: "marker_hospital.png",
+        color: ""
       },
       "Health Centre": {
-        icon: "marker_health_center.png"
+        icon: "marker_health_center.png",
+        color: "#ff0000"
       },
       "Village Clinic": {
-        icon: "marker_clinic.png"
+        icon: "marker_clinic.png",
+        color: "#4c97e4"
       },
       "Outreach": {
-        icon: "marker_maternity.png"
+        icon: "marker_maternity.png",
+        color: "#5ab21a"
       },
       "Hospital": {
-        icon: "marker_hospital.png"
+        icon: "marker_hospital.png",
+        color: "#00aa90"
       },
       "Rural/Community Hospital": {
-        icon: "marker_hospital.png"
+        icon: "marker_hospital.png",
+        color: ""
       },
       "Dispensary": {
-        icon: "marker_dispensary.png"
+        icon: "marker_dispensary.png",
+        color: "#ab58ce"
       },
       "Health Post": {
-        icon: "marker_health_post.png"
+        icon: "marker_health_post.png",
+        color: "#ffa800"
       }
     },
 
@@ -70,7 +79,7 @@ angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
         "Percentage of all facilities that provide diagnosis of TB by using sputum smear",
         "Percentage of facilities that provide diagnosis of TB by using X-ray",
         "Percentage of facilities that provide diagnosis of TB based on clinical symptoms",
-        "Percent of TB cases diagnosed out of Presumed cases referred from Community ",
+       /// "Percent of TB cases diagnosed out of Presumed cases referred from Community ",
         "Percent of all facilities offering HIV testing and counselling",
         "Percent of all facilities offering ART prescription or ART follow-up services",
         "Percent of all facilities that offering TB or HIV diagnosis services or treatment",
@@ -118,6 +127,18 @@ angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
       });
       return result;
     },
+
+    this.getDataByCase = function getDataByCase(data, cases){
+      var dataCollection = [];
+      var idCase = cases;
+      angular.forEach(data, function(cases, key) {
+        var value = cases[idCase];
+        var fix = value.toFixed(2);
+        this.push(fix);
+      }, dataCollection);
+      return dataCollection;
+    },
+
 
     this.getColorByName = function getColorByName(name) {
       var result = '#ffffff';

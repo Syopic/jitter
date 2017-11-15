@@ -8,12 +8,14 @@
       <span class="d-ib">{{'Dashboard'| translate}}</span>
       <!-- <span class="d-ib"><a translate="Dashboard"></a></span> -->
     </h1>
-    <p class="title-bar-description">
+    <!-- <p class="title-bar-description">
       <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
         aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</small>
-    </p>
+    </p> -->
   </div>
   <!-- Main chart and parametrs  -->
+
+  <!--  -->
   <div class="row gutter-xs">
 
 
@@ -25,58 +27,75 @@
           <form>
             <div class="form-group">
               <h5>Region</h5>
-              <select id="form-control-6" class="form-control">
+              <select id="form-control-region" class="form-control">
                 <option value="Malawi">Malawi</option>
-                <option value="Central region">Central region</option>
-                <option value="Northern region">Northern region</option>
-                <option value="Southern region">Southern region</option>
+                <option value="Central">Central</option>
+                <option value="Nothern">Nothern</option>
+                <option value="South">South</option>
               </select>
-              <h5>District</h5>
-              <select class="form-control" ng-model="currentAreaName" ng-options="item as item for item in areasCollection" ng-change="onParamsUpdate()">
-                </select>
+              <h5>Year</h5>
+              <select class="form-control" class="form-control">
+                <option value="2017">2017</option>
+                <!-- <option value="2016">2016</option> -->
+              </select>
               <h5>Disease</h5>
               <select id="form-control-6" class="form-control">
-                <option value="All region">TB_testing</option>
-                <option value="Central region">TB_testing</option>
+                <option value="TB_testing">TB testing</option>
+                <option value="TB_testing">TB testing</option>
               </select>
-              <h5>Cases</h5>
-              <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection" ng-change="onParamsUpdate()">
-              </select> 
-              <!-- <select ng-change="changeChartType(selectedType)" ng-model="selectedType" >
-                  <option ng-repeat="t in chartType" value={{t.chart_type}}>{{t.name}}</option>
-            </select>
-            <p>{{selectedType}}</p> -->
-                        
-            </div>
-
-            <div class="form-group">
+              <!--  -->
               <div class="media">
                 <div class="media-middle media-body">
                   <h5 class="media-heading">Switch select percentage or absolute values</h5>
                 </div>
                 <div class="media-middle media-right">
-                   <!-- <select id="form-control-6" class="form-control"> -->
-                    <label class="switch switch-primary">
-                      <input class="switch-input" type="checkbox" checked="checked"  ng-model="typeCheked" ng-click="changeChartType()" >
-                      <span class="switch-track" ng-checked="typeCheked"></span>
-                      <span class="switch-thumb" ></span>
-                    </label>
-                  
-                  </div>
-                
+                  <!-- <select id="form-control-6" class="form-control"> -->
+                  <label class="switch switch-primary">
+                    <input class="switch-input" type="checkbox" checked="checked" ng-model="typeCheked" ng-click="changeChartType()">
+                    <span class="switch-track" ng-checked="typeCheked"></span>
+                    <span class="switch-thumb"></span>
+                  </label>
+                </div>
               </div>
+
+              <!--  -->
               <div class="media">
+                <h5>Cases </h5>
                 <div class="media-middle media-body">
-                  <!-- <h5 class="media-heading">Indicators of absolute values</h5> -->
+                  <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
+                    ng-change="onParamsUpdate()">
+                  </select>
                 </div>
                 <div class="media-middle media-right">
-                  <!-- <label class="custom-control custom-control-primary custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" checked="checked">
-                    <span class="custom-control-indicator"></span>
-                  </label> -->
+                  <span class="icon icon-square icon-fw" style="color: #ec4657"></span>
                 </div>
+                <div class="media-middle media-body">
+                    <select class="form-control" ng-init="currentCaseTwo = caseCollection[1]" ng-model="currentCaseTwo" ng-options="item as item for item in caseCollection"
+                      ng-change="onParamsUpdate()">
+                    </select>
+                  </div>
+                  <div class="media-middle media-right">
+                    <span class="icon icon-square icon-fw" style="color:#0ac29d""></span>
+                  </div>
               </div>
+              <!--  -->
+
+              <!-- <h5>Case
+                <span class="icon icon-square icon-fw" style="color: #0ac29d"></span>
+              </h5>
+              <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
+                ng-change="onParamsUpdate(currentCase)">
+              </select>
+              <h5>Case
+                <span class="icon icon-square icon-fw" style="color: #ec4657"></span>
+              </h5>
+              <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
+                ng-change="onParamsUpdate(currentCase)">
+              </select> -->
+
             </div>
+
+           
           </form>
         </div>
       </div>
@@ -88,8 +107,8 @@
         </div>
         <div class="card-body">
           <div class="card-chart">
-            <canvas class="chart chart-base" chart-type="selectedType" chart-data="dashboardMainData" chart-labels="dashboardTwoLabel" chart-refresh="labels" chart-colors="dashboardMainColor"
-              chart-series="dashboardTwoSeries" chart-options='dashboardMainOptions'></canvas>
+            <canvas class="chart chart-base" chart-type="selectedType" chart-data="dashboardMainData" chart-labels="dashboardMainLabel"
+              chart-refresh="labels" chart-colors="dashboardMainColor" chart-series="dashboardMainSeries" chart-options='dashboardMainOptions'></canvas>
           </div>
         </div>
       </div>

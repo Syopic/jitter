@@ -6,24 +6,25 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
 
         $scope.areaInfo = "";
         $scope.currentAreaName = "";
-        $scope.currentCase = "";
         $scope.currentFacilityType = ""
         $scope.isShowCoverage = true;
-
-        $scope.isGlobalMap = false;
-
-        var cGrades = [0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5];
+        $scope.pointData = [];
+        
+        $scope.isGlobalMap = areaId == 0;
+        
+        var cGrades = [];
         var currentLayer = null;
-
-
+        
+        
         // ------------ Collections ------------
         $scope.areasCollection = [];
         $scope.facilityTypesCollection = [];
         $scope.caseCollection = [];
-
+        
         $scope.areasCollection = StoreService.getAreaCollection(boundsData.getData());
         $scope.facilityTypesCollection = StoreService.getFacilityTypes();
         $scope.caseCollection = StoreService.getCaseCollection();
+        $scope.currentCase =  $scope.caseCollection[0];
 
         // ------------ Map configure ------------
         var map = L.map('map', {
@@ -43,11 +44,6 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
             $state.go('root.map', { areaId: 0 }, { notify: false });
         }).addTo(map);
 
-        
-        
-
-        //L.control.scale().addTo(map);
-
         var info = L.control();
 
         info.onAdd = function (map) {
@@ -56,13 +52,15 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
             return this._div;
         };
 
-        // method that we will use to update the control based on feature properties passed
         info.update = function (props) {
             if (props && $scope.isGlobalMap) {
                 var value = statisticData.getData()[props.name][$scope.currentCase];
-                this._div.innerHTML = '<h4>' + props.name + '</h4>' + $scope.currentCase + ':<br />' + value.toFixed(2);
+                this._div.innerHTML = '<h4>' + props.name + '</h4>' + $scope.currentCase + ': <b>' + value.toFixed(2) + '</b>';
             } else {
-                this._div.innerHTML = $scope.isGlobalMap ? $scope.currentCase : '<h4>' + $scope.currentAreaName + '</h4>Region Type: <b>' + $scope.areaInfo["Region Type"] + '</b><br>Population: <b>' + $scope.areaInfo["Population"] + '</b>';
+                this._div.innerHTML = $scope.isGlobalMap ? $scope.currentCase : '<h4>' + $scope.currentAreaName + 
+                '</h4>Region Type: <b>' + $scope.areaInfo["Region Type"] + 
+                '</b><br>Population: <b>' + $scope.areaInfo["Population"] + 
+                '</b><br>Facilities available: <b>' + $scope.pointData.length + '</b>';
             }
         };
 
@@ -71,15 +69,19 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         var legend = L.control({ position: 'bottomleft' });
 
         function updateLegend() {
-
-            var maxValue = 0;
+            var minValue = Infinity;
+            var maxValue = -Infinity;
+            cGrades = [];
             if ($scope.isGlobalMap) {
                 angular.forEach(statisticData.getData(), function (area, key) {
-                    maxValue = Math.max(maxValue, area[$scope.currentCase]);
+                    if (key != "Malawi") {
+                        minValue = Math.min(minValue, area[$scope.currentCase]);
+                        maxValue = Math.max(maxValue, area[$scope.currentCase]);
+                    }
                 });
-                var step = maxValue / 7;
+                var step = (maxValue - minValue ) / 7;
                 for (var i = 0; i < 7; i++) {
-                    cGrades[i] = (i * step).toFixed(2);
+                    cGrades[i] = (i * step + minValue).toFixed(2);
                 }
             }
 
@@ -98,10 +100,10 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
                 } else {
 
                     div = L.DomUtil.create('div', 'maplegendinfo maplegend'), labels = StoreService.getFacilityTypes();
-                    div.innerHTML = '<label class="checkbox-inline" ><input id="checkbox1" type="checkbox" value="" checked onchange="angular.element(this).scope().coverageChanged(this)">Show coverage</label><br><br>';
+                    div.innerHTML = '<label class="checkbox-inline" ><input id="checkbox1" type="checkbox" value="" ' + ($scope.isShowCoverage ? 'checked' : 'unchecked') + ' onchange="angular.element(this).scope().coverageChanged(this)">Show coverage</label><br><br>';
 
                     for (var i = 1; i < labels.length; i++) {
-                        div.innerHTML += '<i style="background:' + StoreService.getFacilitColors()[i] + '"></i> ' + ' &ndash; ' +labels[i] + '<br>';
+                        div.innerHTML += '<i style="background:' + StoreService.getFacilitColors()[i] + '"></i> ' + labels[i] + '<br>';
                     }
                     
                 }
@@ -122,23 +124,30 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
 
         $scope.onParamsUpdate = function () {
             var id = StoreService.getStatByDistrictName(boundsData.getData(), $scope.currentAreaName);
-            //if (id != areaId) {
-                setFocusOnArea(id);
-            //}
-            console.log($scope.currentCase); 
-            info.update();
             updateLegend();
+            setFocusOnArea(id);
+            info.update();
             geojson.setStyle(style);
         }
 
         setGeoJson(areaId);
+        updateLegend();
         
-        function setFocusOnArea(areaId) {
-            this.areaId = areaId;
+        function setFocusOnArea(aId) {
+            areaId = aId;
             $scope.isGlobalMap = areaId == 0;
             var areaInfo = boundsData.getData()[areaId];
             var bounds = [[areaInfo.bounds[1], areaInfo.bounds[0]], [areaInfo.bounds[3], areaInfo.bounds[2]]];
             map.fitBounds(bounds);
+            
+            $scope.pointData = [];
+            var pData = facilitiesData.getData();
+            for (var i = 0; i < pData.length; i++) {
+                var element = pData[i];
+                if (element.District == areaInfo.name && ($scope.currentFacilityType == "Show All" || element.FacilityType == $scope.currentFacilityType)) {
+                    $scope.pointData.push(element);
+                }
+            }
 
             updateLegend();
             info.update();
@@ -180,9 +189,11 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
 
         function onAreaClick(e) {
             var layer = e.target;
-            var areaId = layer.feature.id;
-            setFocusOnArea(areaId);
-            currentLayer = layer;
+            if (areaId != layer.feature.id) {
+                areaId = layer.feature.id;
+                setFocusOnArea(areaId);
+                currentLayer = layer;
+            }
         }
         
         function highlightFeature(e) {
@@ -211,8 +222,8 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
             geojson.resetStyle(e.target);
             info.update();
 
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-               // currentLayer.bringToFront();
+            if (currentLayer && !L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                currentLayer.bringToFront();
             }
         }
 
@@ -228,7 +239,7 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
 
         var markers = L.markerClusterGroup({
             showCoverageOnHover: false,
-            maxClusterRadius: 10,
+            maxClusterRadius: 40,
             singleMarkerMode: false,
             iconCreateFunction: function (cluster) {
 				return L.divIcon({ html: cluster.getChildCount(), className: 'mycluster', iconSize: L.point(20, 20) });
@@ -237,14 +248,14 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         map.addLayer(markers);
 
         function fillMarkers(areaId) {
-           // console.log($scope.currentFacilityType);
+            // console.log($scope.currentFacilityType);
             clearMarkers(areaId);
             var areaInfo = boundsData.getData()[areaId];
-            var pointData = facilitiesData.getData();
-            for (var i = 0; i < pointData.length; i++) {
-                var element = pointData[i];
-                if (element.District == areaInfo.name && ($scope.currentFacilityType == "Show All" || element.FacilityType == $scope.currentFacilityType)) {
+            for (var i = 0; i < $scope.pointData.length; i++) {
+                var element = $scope.pointData[i];
+                if (element && StoreService.facilityTypes[element.FacilityType]) {
                     var iconImg = StoreService.facilityTypes[element.FacilityType].icon;
+                    var color = StoreService.facilityTypes[element.FacilityType].color;
                     if (!iconImg) iconImg = "marker-icon.png";
 
                     var icon = L.icon({
@@ -257,29 +268,28 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
                         popupAnchor: [0, -32] // point from which the popup should open relative to the iconAnchor
                     });
                     if ($scope.isShowCoverage) {
-                        var c1 = L.circle([element.Latitude, element.Longitude], { color: '#004d40', fillColor: '#009688', fillOpacity: 0.1, opacity: 0, radius: Math.random() * 10000 });
-                        var c2 = L.circle([element.Latitude, element.Longitude], { color: '#004d40', fillColor: '#009688', opacity: 0, fillOpacity: 0.2, radius: Math.random() * 3000 });
+                        var c1 = L.circle([element.Latitude, element.Longitude], { color: '#004d40', fillColor: color, fillOpacity: 0.04, opacity: 0, radius: Math.random() * 100 + 5000 });
+                        //var c2 = L.circle([element.Latitude, element.Longitude], { color: '#004d40', fillColor: color, opacity: 0, fillOpacity: 0.2, radius: Math.random() * 100 + 1000 });
                         c1.addTo(map);
-                        c2.addTo(map);
+                        //c2.addTo(map);
                         mapMarkers.push(c1);
-                        mapMarkers.push(c2);
+                        //mapMarkers.push(c2);
                     }
-                
+
                     var marker = L.marker([element.Latitude, element.Longitude], { icon: icon });
                     markers.addLayer(marker);
-                    marker.bindPopup("<b>" + element.Name + "</b><hr>Facility type: <b>" + element.FacilityType + '</b>' + 
-                    "<br>Status:    <b>" + element.Status + '</b>' +
-                    "<br>Village:   <b>" + element.Village + '</b>' +
-                    "<br>Region:    <b>" + element.Region + '</b>' +
-                    "<br>ControllingAgency: <b>" + element.ControllingAgency + '</b>' +
-                    "<br>Cluster:   <b>" + element.Cluster + '</b>' +
-                    "<br>ContactName:   <b>" + element.ContactName + '</b><hr>');
+                    marker.bindPopup("<b>" + element.Name + "</b><hr>Facility type: <b>" + element.FacilityType + '</b>' +
+                        "<br>Status:    <b>" + element.Status + '</b>' +
+                        "<br>Village:   <b>" + element.Village + '</b>' +
+                        "<br>Region:    <b>" + element.Region + '</b>' +
+                        "<br>ControllingAgency: <b>" + element.ControllingAgency + '</b>' +
+                        "<br>Cluster:   <b>" + element.Cluster + '</b>' +
+                        "<br>ContactName:   <b>" + element.ContactName + '</b><hr>');
                 }
             }
         }
 
         function getColor(grades, d) {
-            d *= 1.1;
             return  d > grades[6] ?   '#BD0026' :
                     d > grades[5] ?   '#E31A1C' :
                     d > grades[4] ?   '#FC4E2A' :
@@ -290,6 +300,8 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         }
 
         function style(feature) {
+            var d = statisticData.getData();
+            var cc = statisticData.getData()[feature.properties.name][$scope.currentCase];
             return {
                 color: feature.properties.name == $scope.currentAreaName ? '#666' : $scope.isGlobalMap ? '#fff' : '#ccc',
                 weight: $scope.isGlobalMap ? 2 : 3,

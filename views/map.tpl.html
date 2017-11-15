@@ -43,7 +43,7 @@
 
           <div class="col-md-12 col-lg-12" ng-show="areaInfo.District == 'Malawi'">
             <h5>Cases</h5>
-            <select class="form-control" ng-init="currentCase = caseCollection[2]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
+            <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
               ng-change="onParamsUpdate()">
             </select>
           </div>
