@@ -27,7 +27,7 @@
           <form>
             <div class="form-group">
               <h5>Region</h5>
-              <select id="form-control-region" class="form-control">
+              <select class="form-control" ng-model="currentArea" ng-change="onParamsUpdate()">
                 <option value="Malawi">Malawi</option>
                 <option value="Central">Central</option>
                 <option value="Nothern">Nothern</option>
@@ -40,7 +40,6 @@
               </select>
               <h5>Disease</h5>
               <select id="form-control-6" class="form-control">
-                <option value="TB_testing">TB testing</option>
                 <option value="TB_testing">TB testing</option>
               </select>
               <!--  -->
@@ -60,7 +59,17 @@
 
               <!--  -->
               <div class="media">
-                <h5>Cases </h5>
+                  <h5 class="media-heading">Cases </h5>
+                <div class="media-middle media-body">
+                  <select class="form-control" ng-init="currentCaseTwo = caseCollection[1]" ng-model="currentCaseTwo" ng-options="item as item for item in caseCollection"
+                    ng-change="onParamsUpdate()">
+                  </select>
+                </div>
+                <div class="media-middle media-right">
+                  <span class="icon icon-square icon-fw" style="color:#0ac29d"></span>
+                </div>
+              </div>
+              <div class="media">
                 <div class="media-middle media-body">
                   <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
                     ng-change="onParamsUpdate()">
@@ -69,33 +78,10 @@
                 <div class="media-middle media-right">
                   <span class="icon icon-square icon-fw" style="color: #ec4657"></span>
                 </div>
-                <div class="media-middle media-body">
-                    <select class="form-control" ng-init="currentCaseTwo = caseCollection[1]" ng-model="currentCaseTwo" ng-options="item as item for item in caseCollection"
-                      ng-change="onParamsUpdate()">
-                    </select>
-                  </div>
-                  <div class="media-middle media-right">
-                    <span class="icon icon-square icon-fw" style="color:#0ac29d""></span>
-                  </div>
               </div>
-              <!--  -->
-
-              <!-- <h5>Case
-                <span class="icon icon-square icon-fw" style="color: #0ac29d"></span>
-              </h5>
-              <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
-                ng-change="onParamsUpdate(currentCase)">
-              </select>
-              <h5>Case
-                <span class="icon icon-square icon-fw" style="color: #ec4657"></span>
-              </h5>
-              <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
-                ng-change="onParamsUpdate(currentCase)">
-              </select> -->
-
             </div>
 
-           
+
           </form>
         </div>
       </div>
@@ -103,7 +89,7 @@
     <div class="col-xs-12 col-md-8">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">TB testing</h4>
+          <h4 class="card-title">TB testing in {{currentArea}}</h4>
         </div>
         <div class="card-body">
           <div class="card-chart">
@@ -168,11 +154,11 @@
       <div class="card">
         <div class="card-values">
           <div class="p-x">
-            <small>Average duration</small>
+            <small>Map</small>
           </div>
         </div>
         <div class="card-chart">
-          <canvas id="foo"></canvas>
+          <!-- <canvas id="foo"></canvas> -->
 
 
         </div>

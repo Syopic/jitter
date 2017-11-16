@@ -239,7 +239,7 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
 
         var markers = L.markerClusterGroup({
             showCoverageOnHover: false,
-            maxClusterRadius: 40,
+            maxClusterRadius: 30,
             singleMarkerMode: false,
             iconCreateFunction: function (cluster) {
 				return L.divIcon({ html: cluster.getChildCount(), className: 'mycluster', iconSize: L.point(20, 20) });

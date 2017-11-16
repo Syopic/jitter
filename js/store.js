@@ -89,6 +89,19 @@ angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
       return result;
     },
 
+    this.getCaseCollectionDashboard = function getCaseCollectionDashboard() {
+      var result = [
+        "Percentage of all facilities offering screening and referral for TB diagnosis",
+        "Percent of all facilities offering any TB diagnosis services",
+        "Percentage of all facilities that provide diagnosis of TB by using sputum smear",
+        "Percentage of facilities that provide diagnosis of TB by using X-ray",
+        "Percentage of facilities that provide diagnosis of TB by both sputum and X-ray",
+        "Percentage of facilities that provide diagnosis of TB based on clinical symptoms",
+      ];
+      
+      return result;
+    },
+
     this.getFacilityTypes = function getFacilityTypes() {
       var result = [
         "Show All",
@@ -132,13 +145,25 @@ angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
       var dataCollection = [];
       var idCase = cases;
       angular.forEach(data, function(cases, key) {
-        var value = cases[idCase];
-        var fix = value.toFixed(2);
-        this.push(fix);
+        if(cases.District != "Malawi"){
+        this.push(cases[idCase]);
+      }
       }, dataCollection);
       return dataCollection;
     },
-
+    this.getDataByArea = function getDataByArea(data, cases, area){
+      var result = [];
+      var region = "Region";
+      angular.forEach(data, function(value, key) {
+       if(value[region] == area){
+         this.push(value[cases]);
+        }
+       }, result);
+       return result;
+      
+    
+    return result;
+    },
 
     this.getColorByName = function getColorByName(name) {
       var result = '#ffffff';

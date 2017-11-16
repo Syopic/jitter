@@ -4,9 +4,9 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
 
   $scope.districtDef = "All";
   $scope.areaInfo = "";
-  $scope.currentAreaName = "Malawi";
-  $scope.currentCase = "TB Registarion Facilitis";
-  $scope.currentCaseTwo = "TB Registarion Facilitis";
+  $scope.currentArea = "Malawi";
+  $scope.currentCase = "Percentage of all facilities offering screening and referral for TB diagnosis";
+  $scope.currentCaseTwo = "Percent of all facilities offering any TB diagnosis services";
   $scope.selectedType = "bar";
   $scope.typeCheked = true;
   $scope.facilityTypes = "";
@@ -18,21 +18,38 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
   var data2 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCase);
   $scope.dashboardTwoData = [data1, data2];
   $scope.dashboardOneData = [data1, data2];
-
-  $scope.areasCollection = StoreService.getAreaCollection(boundsData.getData());
-  $scope.caseCollection = StoreService.getCaseCollection();
+  
+  var areas = StoreService.getDataByCase(statisticData.getData(), "District");
+  $scope.areasCollection = areas;
+  
+  $scope.caseCollection = StoreService.getCaseCollectionDashboard();
   $scope.facilityTypesCollection = StoreService.getFacilityTypes();
-
-
+  
+  
 
 
   $scope.onParamsUpdate = function () {
+
+    if($scope.currentArea == "Malawi"){
     var data1 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCaseTwo);
     var data2 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCase);
+    $scope.dashboardLabel =$scope.areasCollection;
     $scope.dashboardTwoData = [data1, data2];
     uptateChart($scope.selectedType);
     getDataPie();
-      
+  }else{
+   // var distinct = "District";
+    var data1 = StoreService.getDataByArea(statisticData.getData(), $scope.currentCaseTwo,  $scope.currentArea);
+    var data2 = StoreService.getDataByArea(statisticData.getData(), $scope.currentCase,  $scope.currentArea);
+    var label = StoreService.getDataByArea(statisticData.getData(), "District",  $scope.currentArea);
+    $scope.dashboardLabel = label;
+    $scope.dashboardTwoData = [data1, data2];
+    uptateChart($scope.selectedType);
+    getDataPie();
+     //console.log( label);
+  
+  }
+   
   };
 
 
@@ -50,7 +67,7 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
       cGrades[i] = (k * step).toFixed(2);
     }
     $scope.dashboardDataDough = [cGrades];
-    console.log(cGrades, maxValue);
+   // console.log(cGrades, maxValue);
   }
   /////////////-------Data main dashboard----------------- 
 
@@ -58,19 +75,16 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
     $scope.dashboardMainOptions = $scope.dashboardTwoOptions;
     $scope.dashboardMainColor = $scope.dashboardTwoColor;
     $scope.dashboardMainData = $scope.dashboardTwoData;
+    $scope.dashboardLabel = $scope.areasCollection;
     $scope.dashboardMainLabel = $scope.areasCollection;
-    $scope.dashboardTwoLabel = $scope.areasCollection;
     $scope.dashboardMainSeries = [$scope.currentCaseTwo, $scope.currentCase];
   }, 1000);
 
   $scope.changeChartType = function () {
     if ($scope.typeCheked == true) {
       uptateChart("bar");
-
-
     } else {
       uptateChart("line");
-
     }
   };
 
@@ -80,7 +94,7 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
       $scope.dashboardMainOptions = $scope.dashboardTwoOptions;
       $scope.dashboardMainColor = $scope.dashboardTwoColor;
       $scope.dashboardMainData = $scope.dashboardTwoData;
-      $scope.dashboardMainLabel = $scope.areasCollection;
+      $scope.dashboardMainLabel = $scope.dashboardLabel;
       $scope.dashboardMainSeries = [$scope.currentCaseTwo, $scope.currentCase];
 
     } else {
@@ -88,7 +102,7 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
       $scope.dashboardMainOptions = $scope.dashboardOneOptions;
       $scope.dashboardMainColor = $scope.dashboardOneColor;
       $scope.dashboardMainData = $scope.dashboardTwoData;
-      $scope.dashboardMainLabel = $scope.areasCollection;
+      $scope.dashboardMainLabel = $scope.dashboardLabel;
       $scope.dashboardMainSeries = [$scope.currentCaseTwo, $scope.currentCase];
     }
 
@@ -152,7 +166,7 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
   $scope.dashboardOneSeries = ['TB testing'];
   $scope.dashboardOneColor = [{
     // backgroundColor: "rgba(0, 0, 0, 0)",
-    borderColor: "#0ac29d",
+   borderColor: "#0ac29d",
     pointBackgroundColor: "#0ac29d",
     yAxisID: "y-axis-1"
   }, {
@@ -225,11 +239,11 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
 
   $scope.dashboardTwoColor = [{
     backgroundColor: "#0ac29d",
-    borderColor: "#0ac29d",
+   // borderColor: "#0ac29d",
     yAxisID: 'y-axis-1'
   }, {
     backgroundColor: "#ec4657",
-    borderColor: "#ec4657",
+   // borderColor: "#ec4657",
     yAxisID: 'y-axis-2'
   }];
   $scope.dashboardTwoOptions = {
@@ -251,20 +265,21 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
           ticks: {
             // Include a dollar sign in the ticks
             callback: function (value, index, values) {
-              return value.toFixed(2) + '%';
+              return (value*100).toFixed(0) + '%';
             }
           },
 
         },
         {
-          type: "linear", "id": "y-axis-2", display: true, position: "right",
+          type: "linear", "id": "y-axis-2", display: false, position: "right",
           ticks: {
             // Include a dollar sign in the ticks
             callback: function (value, index, values) {
-              return value.toFixed(2) + '%';
+              return (value*100).toFixed(0) + '%';
             }
           }
-        }]
+        }
+      ]
     },
     tooltips: {
       mode: "index",
@@ -272,15 +287,15 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
       callbacks: {
         label: function (tooltipItem, data) {
           var dat = data.datasets[tooltipItem.datasetIndex].data;
-          var datasetLabel = dat[tooltipItem.index] || 'Other';
+          var datasetLabel = dat[tooltipItem.index] || '0';
           var label = data.labels[tooltipItem.index];
          // console.log("Ind ", data.datasets, "Dat ");
 
           if (tooltipItem.datasetIndex == 1) {
-            return datasetLabel + ' in District ' + label;
+            return (datasetLabel*100).toFixed(2) + '% in District ' + label;
 
           } else {
-            return datasetLabel + '% in District ' + label;
+            return (datasetLabel*100).toFixed(2) + '% in District ' + label;
 
           }
         }
@@ -293,7 +308,7 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
 
     }
   };
-  $scope.dashboardTwoSeries = ['GenXpert Errors %', $scope.currentCase];
+ // $scope.dashboardTwoSeries = ['GenXpert Errors %', $scope.currentCase];
 
   /////////////////////////--------Dashboard Doughnut-----------
 
@@ -340,8 +355,9 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
       'rgba(255, 206, 86, 1)',
       'rgba(75, 192, 42, 1)',
 
-    ],
-    borderColor: "#0ac29d",
+    ]
+    // ,
+    // borderColor: "#0ac29d",
     // borderColor: [
     //     'rgba(255,99,132,1)',
     //     'rgba(54, 162, 235, 1)',
@@ -350,57 +366,57 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
     //     'rgba(153, 102, 255, 1)',
     //     'rgba(255, 159, 64, 1)'
     // ],
-    borderWidth: 1
-  }];
+  //   borderWidth: 1
+   }];
 
 
   //------------GAUGE--------------
-  var opts = {
-    angle: 0.15, // The span of the gauge arc
-    lineWidth: 0.44, // The line thickness
-    radiusScale: 1, // Relative radius
-    pointer: {
-      length: 0.6, // // Relative to gauge radius
-      strokeWidth: 0.035, // The thickness
-      color: '#000000' // Fill color
-    },
-    staticZones: [
-      { strokeStyle: "#F03E3E", min: 0, max: 1300 }, // Red from 0 to 1300
-      { strokeStyle: "#FFDD00", min: 1300, max: 1500 }, // Yellow
-      { strokeStyle: "#30B32D", min: 1500, max: 2200 }, // Green
-      { strokeStyle: "#FFDD00", min: 2200, max: 2600 }, // Yellow
-      { strokeStyle: "#F03E3E", min: 2600, max: 3000 }  // Red
-    ],
-    limitMax: false,     // If false, max value increases automatically if value > maxValue
-    limitMin: false,     // If true, the min value of the gauge will be fixed
-    //colorStart: '#6FADCF',   // Colors
-    // colorStop: '#8FC0DA',    // just experiment with them
-    // strokeColor: '#E0E0E0',  // to see which ones work best for you
-    // generateGradient: true,
-    // highDpiSupport: true     // High resolution support
-  };
-  var target = document.getElementById('foo'); // your canvas element
-  var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-  gauge.maxValue = 3000; // set max gauge value
-  gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
-  gauge.animationSpeed = 32; // set animation speed (32 is default value)
-  gauge.set(1250); // set actual value
+  // var opts = {
+  //   angle: 0.15, // The span of the gauge arc
+  //   lineWidth: 0.44, // The line thickness
+  //   radiusScale: 1, // Relative radius
+  //   pointer: {
+  //     length: 0.6, // // Relative to gauge radius
+  //     strokeWidth: 0.035, // The thickness
+  //     color: '#000000' // Fill color
+  //   },
+  //   staticZones: [
+  //     { strokeStyle: "#F03E3E", min: 0, max: 1300 }, // Red from 0 to 1300
+  //     { strokeStyle: "#FFDD00", min: 1300, max: 1500 }, // Yellow
+  //     { strokeStyle: "#30B32D", min: 1500, max: 2200 }, // Green
+  //     { strokeStyle: "#FFDD00", min: 2200, max: 2600 }, // Yellow
+  //     { strokeStyle: "#F03E3E", min: 2600, max: 3000 }  // Red
+  //   ],
+  //   limitMax: false,     // If false, max value increases automatically if value > maxValue
+  //   limitMin: false,     // If true, the min value of the gauge will be fixed
+  //   //colorStart: '#6FADCF',   // Colors
+  //   // colorStop: '#8FC0DA',    // just experiment with them
+  //   // strokeColor: '#E0E0E0',  // to see which ones work best for you
+  //   // generateGradient: true,
+  //   // highDpiSupport: true     // High resolution support
+  // };
+  // var target = document.getElementById('foo'); // your canvas element
+  // var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+  // gauge.maxValue = 3000; // set max gauge value
+  // gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+  // gauge.animationSpeed = 32; // set animation speed (32 is default value)
+  // gauge.set(1250); // set actual value
 
-  $.fn.gauge = function (opts) {
-    this.each(function () {
-      var $this = $(this),
-        data = $this.data();
+  // $.fn.gauge = function (opts) {
+  //   this.each(function () {
+  //     var $this = $(this),
+  //       data = $this.data();
 
-      if (data.gauge) {
-        data.gauge.stop();
-        delete data.gauge;
-      }
-      if (opts !== false) {
-        data.gauge = new Gauge(this).setOptions(opts);
-      }
-    });
-    return this;
-  };
+  //     if (data.gauge) {
+  //       data.gauge.stop();
+  //       delete data.gauge;
+  //     }
+  //     if (opts !== false) {
+  //       data.gauge = new Gauge(this).setOptions(opts);
+  //     }
+  //   });
+  //   return this;
+  // };
   ////////////////-------------------------
 
   ////////////////------------Dashboard Pie--------------
@@ -432,12 +448,12 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
     {
       backgroundColor: ["#80bf41", "#f2d548", "#c62934", "#0359a5", "#e86203",
         "#d9184b", "#b441bf", "#bf7b41", "#e2e21b", "#0d1366", "#ededed"],
-      borderColor: "#0ac29d"
+     // borderColor: "#0ac29d"
 
     }, {
       backgroundColor: ["#80bf41", "#f2d548", "#0359a5", "#e86203",
         "#d9184b", "#b441bf", "#bf7b41", "#e2e21b", "#0d1366", "#ededed"],
-      borderColor: "#0ac29d"
+    //  borderColor: "#0ac29d"
 
     }];
 
@@ -503,11 +519,11 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
   $scope.colorsHor = [{
     backgroundColor: ["#80bf41", "#f2d548", "#c62934", "#0359a5", "#e86203",
       "#d9184b", "#b441bf", "#bf7b41", "#e2e21b", "#0d1366", "#ededed"],
-    borderColor: "#0ac29d"
+   // borderColor: "#0ac29d"
 
   }, {
     backgroundColor: "#ec4657",
-    borderColor: "#ec4657"
+   // borderColor: "#ec4657"
 
   }];
   ///////////////////////////////---------------
