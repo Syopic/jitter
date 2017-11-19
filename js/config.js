@@ -1,6 +1,7 @@
 "use strict";
 
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+  
   $urlRouterProvider.otherwise("/dashboard");
 
   $ocLazyLoadProvider.config({
@@ -129,6 +130,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       abstract: true,
       templateUrl: "views/app.tpl.html",
       resolve: {
+        // "regionsAll": function ($q, $http, DataService) {
+        //   return DataService.getRegionsAll();
+        // },
         "facilitiesData": function ($q, $http) {
           var deferred = $q.defer();
           $http.get('data/facilitiesData.json').then(function (data) {
@@ -185,8 +189,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       }
     })
     .state("root.datatable", {
-      url: "/datatable",
-      controller: "DatatablesResponsiveCtrl as dt",
+      url: "/datatable/:searchText",
+      controller: "DatatableCtrl as dt",
       templateUrl: "views/datatables.tpl.html",
       resolve: {
         loadDatatables: function ($ocLazyLoad) {

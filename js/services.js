@@ -1,31 +1,54 @@
 var app = angular.module("ira");
-app.factory('dataService', ['$rootScope', "commonData", "boundsData", function ($rootScope, commonData, boundsData) {
-  
-      var service = {
-  
-          markersDict : {
-            "Central Hospital": "marker_hospital.png",
-            "District Hospital": "marker_hospital.png",
-            "Health Centre": "marker_health_center.png",
-            "Clinic": "marker_clinic.png",
-            "Maternity": "marker_maternity.png",
-            "Other Hospital": "marker_hospital.png",
-            "Rural/Community Hospital": "marker_hospital.png",
-            "Dispensary": "marker_dispensary.png",
-            "Health Post": "marker_health_post.png"
-          },
-  
-          getFacilityData: function () {
-              sessionStorage.userService = angular.toJson(service.model);
-          },
-  
-          RestoreState: function () {
-              service.model = angular.fromJson(sessionStorage.userService);
-          }
-      }
-  
-      $rootScope.$on("savestate", service.SaveState);
-      $rootScope.$on("restorestate", service.RestoreState);
-  
-      return service;
-  }]);
+app.factory('DataService', ['$rootScope', "$http", function ($rootScope, $http) {
+    var service = {
+        getRegionsAll: function (postDetail) {
+            var postData = '{"query":"{ regionsAll { id, name, code, districtSet { id } } } ","variables":null,"operationName":""}';
+            
+             return $http.post($rootScope.serverURL, postData, {withCredentials: false, headers:{'Content-Type': 'application/json'}})
+             .then(
+                 function(response){
+                     console.log(response.data.data);
+                 }, 
+                 function(response){
+                     console.log("Error: " + response);
+                 }
+              );
+        },
+
+        getFacilityData: function (params) {
+            var request = '{facilitiesCount facilitiesPagedCount(text: "' + params.text + '", offset: ' + params.start + ', limit: ' + params.limit + ', orderby: "' + params.orderby + '") facilitiesPaged(text: "' + params.text + '", offset: ' + params.start + ', limit: ' + params.limit + ', orderby: "' + params.orderby + '") { id, name, village, services { status, serviceType, controllingAgency { name } },  district { name, region { name } }, contactName, contactPhones, contactEmails, cluster { name } } }';
+            var postData = '{"query":"' + request + '","variables":null,"operationName":""}';
+            var r= {};
+            r.operationName = null;
+            r.query = request;
+            r.variables = null;
+            return $http.post($rootScope.serverURL, r, {withCredentials: false, headers:{'Content-Type': 'application/json'}});
+        },
+
+        getFacilityMapData: function (params) {
+            var request = '{facilitiesByDistrictName(name: "' + params.text + '") { id, location, services{serviceType} } }';
+            var postData = '{"query":"' + request + '","variables":null,"operationName":""}';
+            var r= {};
+            r.operationName = null;
+            r.query = request;
+            r.variables = null;
+            return $http.post($rootScope.serverURL, r, {withCredentials: false, headers:{'Content-Type': 'application/json'}});
+        },
+
+        getFacilityById: function (params) {
+            var request = '{facilityById(id: ' + params.id + ')  { name, village, contactName }} ';
+            var postData = '{"query":"' + request + '","variables":null,"operationName":""}';
+            var r= {};
+            r.operationName = null;
+            r.query = request;
+            r.variables = null;
+            return $http.post($rootScope.serverURL, r, {withCredentials: false, headers:{'Content-Type': 'application/json'}});
+        }
+
+    }
+
+    $rootScope.$on("savestate", service.SaveState);
+    $rootScope.$on("restorestate", service.RestoreState);
+
+    return service;
+}]);

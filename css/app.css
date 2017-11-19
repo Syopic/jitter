@@ -282,11 +282,12 @@ body {
 }
 
 .sidenav-toggler.collapsed {
+  background-color: #282c30;
   width: 60px;
 }
 
 .navbar-default .navbar-header {
-  background-color: #0ac29d;
+  background-color: #282c30;
 }
 
 .navbar-default .navbar-toggler .arrow-up:before,
@@ -347,7 +348,7 @@ body {
 }
 
 .navbar-default .sidenav-toggler.collapsed {
-  background-color: #0ac29d;
+  background-color: #283745;
 }
 
 .navbar-default .sidenav-toggler .bar-line.in {
@@ -839,13 +840,15 @@ body {
 }
 .maplegendinfo {
   padding: 6px 8px;
-  font: 14px/16px Arial, Helvetica, sans-serif;
+  font: 12px/14px Arial, Helvetica, sans-serif;
   background: white;
   background: rgba(255,255,255,0.8);
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   border-radius: 5px;
 }
 .maplegend {
+  /* border: 2px solid; */
+  border-radius: 5px;
   line-height: 18px;
   color: #555;
 }
@@ -864,4 +867,39 @@ body {
   background-color: rgb(96, 131, 163);
   text-align: center;
   font-size: 14px;
+}
+
+.img-logo {
+  display: block;
+  max-width: 75%;
+  height: auto;
+  margin: 0 auto;
+  padding: 20 auto;
+}
+.navbar-toggler2 {
+  background-color: transparent;
+  background-color: #283745;
+  background-image: none;
+  border: none;
+  display: block;
+  float: left;
+  height: 50px;
+  line-height: 50px;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  width: 50px;
+}
+ul.list-group.list-group-striped 
+li:nth-of-type(odd){
+  background: white;
+}
+ul.list-group.list-group-striped 
+li:nth-of-type(even){
+  background: #f9f9f9;
+}
+ul.list-group.list-group-hover 
+li:hover{
+  background: #bdb9b9;
 }

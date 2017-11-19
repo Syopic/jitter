@@ -1,6 +1,105 @@
-angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "StoreService", "boundsData", "$timeout", function ($scope, statisticData, StoreService, boundsData, $timeout) {
+angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "StoreService", "boundsData", "$timeout",
+  function ($scope, statisticData, StoreService, boundsData, $timeout) {
 
-  ///////-----------
+    // ------------ Map configure ------------
+
+    var cGrades = [];
+
+    var map = L.map('map', {
+      doubleClickZoom: false,
+      zoomControl: false,
+      dragging: false,
+      tap: false,
+      center: [51.505, -0.09],
+      zoom: 13
+    });
+
+    map.scrollWheelZoom.disable();
+
+    var mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    mainLayer.setOpacity(0.2);
+
+    var legend = L.control({ position: 'topright' });
+
+    function setGeoJson(areaId) {
+      var areaInfo = boundsData.getData()[areaId];
+      $.getJSON('data/geojson/' + areaInfo.geojson, function (data) {
+        geojson = L.geoJson(data, {
+          clickable: true,
+          style: style,
+          //onEachFeature: onEachFeature
+        }).addTo(map);
+        updateMap();
+      })
+
+
+    }
+    function setFocusOnArea(aId) {
+      var areaId = aId;
+      var areaInfo = boundsData.getData()[areaId];
+      var bounds = [[areaInfo.bounds[1], areaInfo.bounds[0]], [areaInfo.bounds[3], areaInfo.bounds[2]]];
+      map.fitBounds(bounds);
+    }
+
+    function updateMap() {
+      var cAreaId = 0;
+      switch ($scope.currentArea) {
+        case "Central": cAreaId = 101; break;
+        case "Nothern": cAreaId = 102; break;
+        case "South": cAreaId = 103; break;
+      }
+      setFocusOnArea(cAreaId)
+      geojson.setStyle(style);
+
+      // legend
+      var minValue = Infinity;
+      var maxValue = -Infinity;
+      cGrades = [];
+      angular.forEach(statisticData.getData(), function (area, key) {
+        if (key != "Malawi") {
+          minValue = Math.min(minValue, area[$scope.currentCase]);
+          maxValue = Math.max(maxValue, area[$scope.currentCase]);
+        }
+      });
+      var step = (maxValue - minValue) / 7;
+      for (var i = 0; i < 7; i++) {
+        cGrades[i] = (i * step + minValue).toFixed(2);
+      }
+
+      legend.onAdd = function (map) {
+        var div;
+        div = L.DomUtil.create('div', 'maplegendinfo maplegend'),
+          grades = cGrades,
+          labels = [];
+
+        for (var i = 0; i < grades.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + StoreService.getColor(grades, grades[i]) + '; border-radius: 3px; border: 1px solid; border-color: white;"></i> ' +
+            grades[i] + (grades[i + 1] ? ' &ndash; ' + grades[i + 1] + '<br>' : '+');
+        }
+        return div;
+      };
+
+      legend.addTo(map);
+    }
+
+    setGeoJson(0);
+
+    function style(feature) {
+      return {
+        color: '#fff',
+        weight: 2,
+        fillColor: StoreService.getColor(cGrades, statisticData.getData()[feature.properties.name][$scope.currentCase]),
+        fill: true,
+        opacity: 1,
+        fillOpacity: 0.9,
+      };
+    }
+
+  /////-----------LOAD DATA DEFAULT--------------------
 
   $scope.districtDef = "All";
   $scope.areaInfo = "";
@@ -9,67 +108,101 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
   $scope.currentCaseTwo = "Percent of all facilities offering any TB diagnosis services";
   $scope.selectedType = "bar";
   $scope.typeCheked = true;
+  $scope.disableForm = false;
   $scope.facilityTypes = "";
+ 
+  var doughnut1LenghtData = 0;
+  var doughnut2LenghtData = 0;
 
-
-
-  /////-----------
   var data1 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCaseTwo);
   var data2 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCase);
+  var dataLine1 = StoreService.getDataByCase(statisticData.getData(), "TB Case Notification Rate Per 100000");
+  var dataLine2 = StoreService.getDataByCase(statisticData.getData(), "Number Of Estimated TB Cases");
+  var dataDoughnut1 = StoreService.getDataByCase(statisticData.getData(), "TB Case Notification Rate Per 100000");
+  var dataDoughnut2 = StoreService.getDataByCase(statisticData.getData(), "Number of examinations per week per functional microscopy");
+
   $scope.dashboardTwoData = [data1, data2];
-  $scope.dashboardOneData = [data1, data2];
+  $scope.dashboardOneData = [dataLine1, dataLine2];
   
   var areas = StoreService.getDataByCase(statisticData.getData(), "District");
   $scope.areasCollection = areas;
   
   $scope.caseCollection = StoreService.getCaseCollectionDashboard();
-  $scope.facilityTypesCollection = StoreService.getFacilityTypes();
+  $scope.facilityTypesCollection = StoreService.getFacilityTypeParam("name");
   
   
-
+////////////---------UPDATE DATA DASHBOARD IF CONTROL PANEL PARAMETERS CHANGE----------------
 
   $scope.onParamsUpdate = function () {
-
     if($scope.currentArea == "Malawi"){
-    var data1 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCaseTwo);
-    var data2 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCase);
-    $scope.dashboardLabel =$scope.areasCollection;
-    $scope.dashboardTwoData = [data1, data2];
-    uptateChart($scope.selectedType);
-    getDataPie();
-  }else{
-   // var distinct = "District";
-    var data1 = StoreService.getDataByArea(statisticData.getData(), $scope.currentCaseTwo,  $scope.currentArea);
-    var data2 = StoreService.getDataByArea(statisticData.getData(), $scope.currentCase,  $scope.currentArea);
-    var label = StoreService.getDataByArea(statisticData.getData(), "District",  $scope.currentArea);
-    $scope.dashboardLabel = label;
-    $scope.dashboardTwoData = [data1, data2];
-    uptateChart($scope.selectedType);
-    getDataPie();
-     //console.log( label);
-  
-  }
-   
+      var data1 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCaseTwo);
+      var data2 = StoreService.getDataByCase(statisticData.getData(), $scope.currentCase);
+      var dataDoughnut1 = StoreService.getDataByCase(statisticData.getData(), "TB Case Notification Rate Per 100000");
+      var dataDoughnut2 = StoreService.getDataByCase(statisticData.getData(), "Number of examinations per week per functional microscopy");
+      $scope.dashboardLabel =$scope.areasCollection;
+      $scope.dashboardTwoData = [data1, data2];
+      uptateChart($scope.selectedType);
+      getDataDoughnut(dataDoughnut1, "One");
+      getDataDoughnut(dataDoughnut2, "Two");
+      doughnut1LenghtData = dataDoughnut1.length;
+      doughnut2LenghtData = dataDoughnut2.length;
+    }else{
+      // var distinct = "District";
+      var data1 = StoreService.getDataByArea(statisticData.getData(), $scope.currentCaseTwo,  $scope.currentArea);
+      var data2 = StoreService.getDataByArea(statisticData.getData(), $scope.currentCase,  $scope.currentArea);
+      var label = StoreService.getDataByArea(statisticData.getData(), "District",  $scope.currentArea);
+      var dataDoughnut1 = StoreService.getDataByArea(statisticData.getData(), "TB Case Notification Rate Per 100000",  $scope.currentArea);
+      var dataDoughnut2 = StoreService.getDataByArea(statisticData.getData(), "Number of examinations per week per functional microscopy",  $scope.currentArea);
+      $scope.dashboardLabel = label;
+      $scope.dashboardTwoData = [data1, data2];
+      uptateChart($scope.selectedType);
+      getDataDoughnut(dataDoughnut1, "One");
+      getDataDoughnut(dataDoughnut2, "Two");
+      doughnut1LenghtData = dataDoughnut1.length;
+      doughnut2LenghtData = dataDoughnut2.length;
+    }
+    updateMap();
   };
-
-
-
-  //////------
-  var cGrades = [0, 0.05, 0.5];
-  function getDataPie() {
+  //////------------Get Data Doughnut-----------
+  
+  function getDataDoughnut(data, doughnut) {
+    var dGrades = [];
     var maxValue = 0;
-    angular.forEach(statisticData.getData(), function (area, key) {
-      maxValue = Math.max(maxValue, area[$scope.currentCase]);
+    var Zone1 = 0;
+    var Zone2 = 0;
+    var Zone3 = 0;
+    angular.forEach(data, function (value, key) {
+      maxValue = Math.max(maxValue, value);
     });
     var step = maxValue / 3;
     for (var i = 0; i < 3; i++) {
       var k = i + 1;
-      cGrades[i] = (k * step).toFixed(2);
+      dGrades[i] = (k * step).toFixed(0);
     }
-    $scope.dashboardDataDough = [cGrades];
-   // console.log(cGrades, maxValue);
+    for (var i = 0; i < data.length; i++){
+    if(data[i] < dGrades[0] ){
+      Zone1++;
+    }
+    if(data[i]>=dGrades[0] && data[i]<=dGrades[1]){
+      Zone2++
+    }
+    if(data[i]> dGrades[1]){
+      Zone3++
+    }
+    }
+    if(doughnut == "One"){
+    $scope.dashboardDataDoughOne = [[Zone1, Zone2, Zone3]];
+    $scope.dashboardLabelsDoughOne = ["<" + dGrades[0], dGrades[0]+"-"+dGrades[1] , ">"+dGrades[1]];
+   // console.log(data, dGrades, maxValue,  $scope.dashboardDataDough);4
+     }
+     if(doughnut == "Two"){
+      $scope.dashboardDataDoughTwo = [[Zone1, Zone2, Zone3]];
+      $scope.dashboardLabelsDoughTwo = ["<" + dGrades[0], dGrades[0]+"-"+dGrades[1] , ">"+dGrades[1]];
+     // console.log(data,  $scope.dashboardDataDoughTwo);
+       }
+  
   }
-  /////////////-------Data main dashboard----------------- 
+  /////////////-------ASYNCHRONOUS LOADING DATA MAIN DASHBOARD------------------------------- 
 
   $timeout(function () {
     $scope.dashboardMainOptions = $scope.dashboardTwoOptions;
@@ -78,16 +211,22 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
     $scope.dashboardLabel = $scope.areasCollection;
     $scope.dashboardMainLabel = $scope.areasCollection;
     $scope.dashboardMainSeries = [$scope.currentCaseTwo, $scope.currentCase];
+    getDataDoughnut(dataDoughnut1, "One");
+    getDataDoughnut(dataDoughnut2, "Two");
+    doughnut1LenghtData = dataDoughnut1.length;
+    doughnut2LenghtData = dataDoughnut2.length;
   }, 1000);
-
+  //////////////-----------SWITCH Absolute or Percent----------------------------------------
   $scope.changeChartType = function () {
     if ($scope.typeCheked == true) {
+      $scope.disableForm = false;
       uptateChart("bar");
     } else {
       uptateChart("line");
+      $scope.disableForm = true;
     }
   };
-
+  /////////////------------CHANGE TYPE bar or line-------------------------------------------  
   function uptateChart(type) {
     if (type == "bar") {
       $scope.selectedType = "bar";
@@ -101,84 +240,32 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
       $scope.selectedType = "line";
       $scope.dashboardMainOptions = $scope.dashboardOneOptions;
       $scope.dashboardMainColor = $scope.dashboardOneColor;
-      $scope.dashboardMainData = $scope.dashboardTwoData;
+      $scope.dashboardMainData = $scope.dashboardOneData;
       $scope.dashboardMainLabel = $scope.dashboardLabel;
-      $scope.dashboardMainSeries = [$scope.currentCaseTwo, $scope.currentCase];
+      $scope.dashboardMainSeries = ["TB Case Notification Rate Per 100000", "Number Of Estimated TB Cases"];
     }
 
 
   };
 
-
-  ///////////------------sel checkbox
-  $scope.items = [1, 2, 3, 4, 5];
-  $scope.selected = [1];
-  $scope.toggle = function (item, list) {
-    var idx = list.indexOf(item);
-    if (idx > -1) {
-      list.splice(idx, 1);
-    }
-    else {
-      list.push(item);
-    }
-  };
-
-  $scope.exists = function (item, list) {
-    return list.indexOf(item) > -1;
-  };
-
-  $scope.isIndeterminate = function () {
-    return ($scope.selected.length !== 0 &&
-      $scope.selected.length !== $scope.items.length);
-  };
-
-  $scope.isChecked = function () {
-    return $scope.selected.length === $scope.items.length;
-  };
-
-  $scope.toggleAll = function () {
-    if ($scope.selected.length === $scope.items.length) {
-      $scope.selected = [];
-    } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
-      $scope.selected = $scope.items.slice(0);
-    }
-  };
-
-
-
-  function getTab1(id) {
-
-  };
-
-
-  ////////////////
-  $scope.colors = [{
-    backgroundColor: "#0ac29d",
-    borderColor: "#0ac29d"
-
-  }, {
-    backgroundColor: "#ec4657",
-    borderColor: "#ec4657"
-
-  }];
-
-  /////////////-----------line dash-----
-  $scope.dashboardOneSeries = ['TB testing'];
+  /////////////-----------Dashboard MAIN line type-------------------------------------------
+ 
   $scope.dashboardOneColor = [{
     // backgroundColor: "rgba(0, 0, 0, 0)",
-   borderColor: "#0ac29d",
-    pointBackgroundColor: "#0ac29d",
+   borderColor: "#575d63",
+    pointBackgroundColor: "#575d63",
     yAxisID: "y-axis-1"
   }, {
     //backgroundColor: "rgba(0, 0, 0, 0)",
-    borderColor: "#ec4657",
-    pointBackgroundColor: "#ec4657",
+    borderColor: "#2bb095",
+    pointBackgroundColor: "#2bb095",
     yAxisID: "y-axis-2"
   }];
 
   $scope.dashboardOneOptions = {
     animation: false,
     responsive: true,
+    maintainAspectRatio: false,
     legend: {
       display: true,
       onClick: function (event, legendItem) { }
@@ -221,10 +308,10 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
           //console.log("Ind ", data.datasets, "Dat ");
 
           if (tooltipItem.datasetIndex == 1) {
-            return datasetLabel + ' in District ' + label;
+            return datasetLabel.toFixed(2) + ' in District ' + label;
 
           } else {
-            return datasetLabel + '% in District ' + label;
+            return datasetLabel.toFixed(2) + ' in District ' + label;
 
           }
         }
@@ -235,20 +322,21 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
     // }
   };
 
-  ////////////////------------Dashboard MAIN--------------
+  ////////////////------------Dashboard MAIN bar type----------------------------------------
 
   $scope.dashboardTwoColor = [{
-    backgroundColor: "#0ac29d",
+    backgroundColor: "#575d63",
    // borderColor: "#0ac29d",
     yAxisID: 'y-axis-1'
   }, {
-    backgroundColor: "#ec4657",
+    backgroundColor: "#2bb095",
    // borderColor: "#ec4657",
     yAxisID: 'y-axis-2'
   }];
   $scope.dashboardTwoOptions = {
     animation: false,
     responsive: true,
+    maintainAspectRatio: false,
     legend: {
       display: true,
       onClick: function (event, legendItem) { }
@@ -271,7 +359,7 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
 
         },
         {
-          type: "linear", "id": "y-axis-2", display: false, position: "right",
+          type: "linear", "id": "y-axis-2", display: true, position: "right",
           ticks: {
             // Include a dollar sign in the ticks
             callback: function (value, index, values) {
@@ -308,19 +396,19 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
 
     }
   };
- // $scope.dashboardTwoSeries = ['GenXpert Errors %', $scope.currentCase];
 
-  /////////////////////////--------Dashboard Doughnut-----------
 
-  $scope.dashboardDataDough = [[95, 400, 832]];
+  /////////////////////////--------Dashboard Doughnut type-----------------------------------
 
-  $scope.dashboardLabelsDough = ["0-100", "100-500", "500-1000",];
-  $scope.dashboardDougOptions = {
+  $scope.dashboardDougOneOptions = {
     rotation: 1 * Math.PI,
     circumference: 1 * Math.PI,
     legend: {
       display: true,
-      position: 'top'
+      position: 'top',
+      labels:{
+        boxWidth:30 //Width legend colorbox
+    }
 
     },
     animation: {
@@ -334,7 +422,7 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
         var fontSize = 25;
         ctx.font = fontSize;
 
-        var text = "Current 82%";
+        var text = "Target 82%";
 
         ///console.log( this.data.datasets);
         this.data.datasets.forEach(function (dataset) {
@@ -347,125 +435,92 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
         });
       }
     },
-  };
-
-  $scope.dashboardDougColor = [{
-    backgroundColor: [
-      'rgba(198, 41, 52, 1)',
-      'rgba(255, 206, 86, 1)',
-      'rgba(75, 192, 42, 1)',
-
-    ]
-    // ,
-    // borderColor: "#0ac29d",
-    // borderColor: [
-    //     'rgba(255,99,132,1)',
-    //     'rgba(54, 162, 235, 1)',
-    //     'rgba(255, 206, 86, 1)',
-    //     'rgba(75, 192, 192, 1)',
-    //     'rgba(153, 102, 255, 1)',
-    //     'rgba(255, 159, 64, 1)'
-    // ],
-  //   borderWidth: 1
-   }];
-
-
-  //------------GAUGE--------------
-  // var opts = {
-  //   angle: 0.15, // The span of the gauge arc
-  //   lineWidth: 0.44, // The line thickness
-  //   radiusScale: 1, // Relative radius
-  //   pointer: {
-  //     length: 0.6, // // Relative to gauge radius
-  //     strokeWidth: 0.035, // The thickness
-  //     color: '#000000' // Fill color
-  //   },
-  //   staticZones: [
-  //     { strokeStyle: "#F03E3E", min: 0, max: 1300 }, // Red from 0 to 1300
-  //     { strokeStyle: "#FFDD00", min: 1300, max: 1500 }, // Yellow
-  //     { strokeStyle: "#30B32D", min: 1500, max: 2200 }, // Green
-  //     { strokeStyle: "#FFDD00", min: 2200, max: 2600 }, // Yellow
-  //     { strokeStyle: "#F03E3E", min: 2600, max: 3000 }  // Red
-  //   ],
-  //   limitMax: false,     // If false, max value increases automatically if value > maxValue
-  //   limitMin: false,     // If true, the min value of the gauge will be fixed
-  //   //colorStart: '#6FADCF',   // Colors
-  //   // colorStop: '#8FC0DA',    // just experiment with them
-  //   // strokeColor: '#E0E0E0',  // to see which ones work best for you
-  //   // generateGradient: true,
-  //   // highDpiSupport: true     // High resolution support
-  // };
-  // var target = document.getElementById('foo'); // your canvas element
-  // var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-  // gauge.maxValue = 3000; // set max gauge value
-  // gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
-  // gauge.animationSpeed = 32; // set animation speed (32 is default value)
-  // gauge.set(1250); // set actual value
-
-  // $.fn.gauge = function (opts) {
-  //   this.each(function () {
-  //     var $this = $(this),
-  //       data = $this.data();
-
-  //     if (data.gauge) {
-  //       data.gauge.stop();
-  //       delete data.gauge;
-  //     }
-  //     if (opts !== false) {
-  //       data.gauge = new Gauge(this).setOptions(opts);
-  //     }
-  //   });
-  //   return this;
-  // };
-  ////////////////-------------------------
-
-  ////////////////------------Dashboard Pie--------------
-  $scope.labels = ["2015", "2016", "2017"];
-  $scope.series = ['Series A', 'Series B'];
-  $scope.data = [
-    [10, 30, 60]
-  ];
-  $scope.dashboardPieOptions = {
-    animation: false,
-    responsive: true,
-    legend: {
-      display: true
-    },
-
     tooltips: {
+      mode: "index",
+      intersect: false,
       callbacks: {
         label: function (tooltipItem, data) {
           var dat = data.datasets[tooltipItem.datasetIndex].data;
-          var datasetLabel = dat[tooltipItem.index] || 'Other';
+          var datasetLabel = dat[tooltipItem.index] || '0';
           var label = data.labels[tooltipItem.index];
-          // console.log("Ind ",tooltipItem.datasetIndex,"Dat ", dat);
-          return datasetLabel + '% : ' + label;
+            return (datasetLabel/doughnut1LenghtData*100).toFixed(0) + '% in range ' + label;
+           // return (datasetLabel);
         }
       }
+
+
     }
-  };
-  $scope.dashboardPieColors = [
-    {
-      backgroundColor: ["#80bf41", "#f2d548", "#c62934", "#0359a5", "#e86203",
-        "#d9184b", "#b441bf", "#bf7b41", "#e2e21b", "#0d1366", "#ededed"],
-     // borderColor: "#0ac29d"
 
-    }, {
-      backgroundColor: ["#80bf41", "#f2d548", "#0359a5", "#e86203",
-        "#d9184b", "#b441bf", "#bf7b41", "#e2e21b", "#0d1366", "#ededed"],
-    //  borderColor: "#0ac29d"
-
-    }];
-
-  $scope.onClick = function (points, evt) {
-    console.log(points, evt);
 
   };
+  $scope.dashboardDougTwoOptions = {
+    rotation: 1 * Math.PI,
+    circumference: 1 * Math.PI,
+    legend: {
+      display: true,
+      position: 'top',
+      labels:{
+        boxWidth:30 //Width legend colorbox
+    }
+
+    },
+    animation: {
+      onComplete: function () {
+        var ctx = this.chart.ctx;
+
+        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+        ctx.fillStyle = "gray";
+        ctx.textAlign = 'center';
+        ctx.textBaseline = "middle";
+        var fontSize = 25;
+        ctx.font = fontSize;
+
+        var text = "Target 62%";
+
+        ///console.log( this.data.datasets);
+        this.data.datasets.forEach(function (dataset) {
+          for (var i = 0; i < dataset.data.length; i++) {
+            for (var key in dataset._meta) {
+              var model = dataset._meta[key].data[i]._model;
+              ctx.fillText(text, model.x, model.y - 5);
+            }
+          }
+        });
+      }
+    },
+    tooltips: {
+      mode: "index",
+      intersect: false,
+      callbacks: {
+        label: function (tooltipItem, data) {
+          var dat = data.datasets[tooltipItem.datasetIndex].data;
+          var datasetLabel = dat[tooltipItem.index] || '0';
+          var label = data.labels[tooltipItem.index];
+            return (datasetLabel/doughnut2LenghtData*100).toFixed(0) + '% in range ' + label;
+           // return (datasetLabel);
+        }
+      }
 
 
+    }
 
-  ////////////////------------Dashboard Horizontal--------------
+
+  };
+
+  $scope.dashboardDougColor = [{
+    backgroundColor: ["#599259", "#cd6062","#575d63",     "#ededed"],
+ // borderColor: "#0ac29d"
+
+}, {
+  backgroundColor: ["#80bf41", "#f2d548", "#0359a5", "#e86203",
+    "#d9184b", "#b441bf", "#bf7b41", "#e2e21b", "#0d1366", "#ededed"],
+//  borderColor: "#0ac29d"
+
+}];
+
+  ////////////////------------Dashboard Horizontal type--------------
   $scope.dashboardHorizOptions = {
+    responsive: true,
     legend: {
       display: false
     },
@@ -514,19 +569,22 @@ angular.module('ira').controller('DashboardCtrl', ['$scope', "statisticData", "S
       //mode: 'point'
     }
   };
+  $scope.seriesHor = ["Quantity"];
   $scope.labelsHor = ["District Hospital", "Health Centre", "Rural/Community Hospital", "Dispensary", "Clinic", "Health Post", "Central Hospital", "Other Hospital", "Maternity"];
   $scope.dataHor = [[3089, 2132, 1854, 2326, 3274, 3679, 3075, 3075, 3075]];
   $scope.colorsHor = [{
-    backgroundColor: ["#80bf41", "#f2d548", "#c62934", "#0359a5", "#e86203",
-      "#d9184b", "#b441bf", "#bf7b41", "#e2e21b", "#0d1366", "#ededed"],
+    backgroundColor: ["#2bb095", "#feb250", "#599259", "#6293c1", "#a37db9",
+      "#cd6062", "#7b6a5f", "#f1868e", "#575d63", "#0d1366", "#ededed"],
    // borderColor: "#0ac29d"
 
-  }, {
-    backgroundColor: "#ec4657",
-   // borderColor: "#ec4657"
+  }]
+  // , {
+  //   backgroundColor: "#ec4657",
+  //  // borderColor: "#ec4657"
 
-  }];
+  // };
   ///////////////////////////////---------------
+
 
 
 }]);

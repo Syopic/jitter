@@ -103,8 +103,8 @@
     "Diagnostic actual/urban population " : 10000,
     "Diagnostic target achievement/urban population " : 0.646769921867768
   },
-  "Chikhwawa" : {
-    "District" : "Chikhwawa",
+  "Chikwawa" : {
+    "District" : "Chikwawa",
     "Region" : "South",
     "Region Type" : "Rural",
     "TB Registarion Facilitis" : 9,
@@ -496,7 +496,7 @@
     "TB microscopy testing density per 100000 population" : 267.22656995609844,
     "First time ART initiations in 2016" : 4920,
     "Cumulative of First time ART initiations (total patients)" : 757,
-    "Number of examinations per week per functional microscopy" : "X",
+    "Number of examinations per week per functional microscopy" : 0,
     "Average number of days between sputum collection and testing " : 7,
     "Laboratory commodities stock outs " : "Y",
     "GenXpert errors " : 0,
@@ -987,8 +987,8 @@
     "Diagnostic actual/urban population " : "",
     "Diagnostic target achievement/urban population " : ""
   },
-  "Nkhotakhota" : {
-    "District" : "Nkhotakhota",
+  "Nkhotakota" : {
+    "District" : "Nkhotakota",
     "Region" : "Central",
     "Region Type" : "Rural",
     "TB Registarion Facilitis" : 12,

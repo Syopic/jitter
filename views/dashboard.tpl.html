@@ -6,161 +6,159 @@
     </div>
     <h1 class="title-bar-title">
       <span class="d-ib">{{'Dashboard'| translate}}</span>
-      <!-- <span class="d-ib"><a translate="Dashboard"></a></span> -->
+      <button class="btn btn-primary btn-sm btn-labeled " data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+        aria-controls="collapseExample">
+        <span class="btn-label">
+          <span class="icon icon-bar-chart icon-lg icon-fw"></span>
+        </span>
+        Control panel
+      </button>
     </h1>
-    <!-- <p class="title-bar-description">
-      <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</small>
-    </p> -->
   </div>
   <!-- Main chart and parametrs  -->
-
-  <!--  -->
   <div class="row gutter-xs">
-
-
-
-    <div class="col-xs-12 col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Control panel</h4>
-          <form>
+    <div class="col-xs-12 col-md-9">
+      <div class="collapse" id="collapseExample">
+        <div class="card">
+          <div class="card-body">
             <div class="form-group">
-              <h5>Region</h5>
-              <select class="form-control" ng-model="currentArea" ng-change="onParamsUpdate()">
-                <option value="Malawi">Malawi</option>
-                <option value="Central">Central</option>
-                <option value="Nothern">Nothern</option>
-                <option value="South">South</option>
-              </select>
-              <h5>Year</h5>
-              <select class="form-control" class="form-control">
-                <option value="2017">2017</option>
-                <!-- <option value="2016">2016</option> -->
-              </select>
-              <h5>Disease</h5>
-              <select id="form-control-6" class="form-control">
-                <option value="TB_testing">TB testing</option>
-              </select>
-              <!--  -->
-              <div class="media">
-                <div class="media-middle media-body">
-                  <h5 class="media-heading">Switch select percentage or absolute values</h5>
-                </div>
-                <div class="media-middle media-right">
-                  <!-- <select id="form-control-6" class="form-control"> -->
-                  <label class="switch switch-primary">
-                    <input class="switch-input" type="checkbox" checked="checked" ng-model="typeCheked" ng-click="changeChartType()">
-                    <span class="switch-track" ng-checked="typeCheked"></span>
-                    <span class="switch-thumb"></span>
-                  </label>
-                </div>
-              </div>
-
-              <!--  -->
-              <div class="media">
-                  <h5 class="media-heading">Cases </h5>
-                <div class="media-middle media-body">
-                  <select class="form-control" ng-init="currentCaseTwo = caseCollection[1]" ng-model="currentCaseTwo" ng-options="item as item for item in caseCollection"
-                    ng-change="onParamsUpdate()">
+              <div class="row gutter-xs">
+                <div class="col-md-12 col-lg-2">
+                  <h5>Year</h5>
+                  <select class="form-control" class="form-control">
+                    <option value="2017">2017</option>
                   </select>
                 </div>
-                <div class="media-middle media-right">
-                  <span class="icon icon-square icon-fw" style="color:#0ac29d"></span>
-                </div>
-              </div>
-              <div class="media">
-                <div class="media-middle media-body">
-                  <select class="form-control" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
-                    ng-change="onParamsUpdate()">
+                <div class="col-md-12 col-lg-2">
+                  <h5>Region</h5>
+                  <select class="form-control" ng-model="currentArea" ng-change="onParamsUpdate()">
+                    <option value="Malawi">Malawi</option>
+                    <option value="Central">Central</option>
+                    <option value="Nothern">Nothern</option>
+                    <option value="South">South</option>
                   </select>
                 </div>
-                <div class="media-middle media-right">
-                  <span class="icon icon-square icon-fw" style="color: #ec4657"></span>
+                <div class="col-md-12 col-lg-2">
+                  <h5>Disease</h5>
+                  <select id="form-control-6" class="form-control">
+                    <option value="TB_testing">TB testing</option>
+                  </select>
+                </div>
+                <!--  -->
+                <div class="media col-md-12 col-lg-3">
+                  <h5 class="media-heading">Case
+                    <span class="icon icon-square icon-fw" style="color:#575d63"></span>
+                  </h5>
+                  <div class="media-middle media-body">
+                    <select class="form-control" ng-disabled="disableForm" ng-init="currentCaseTwo = caseCollection[1]" ng-model="currentCaseTwo"
+                      ng-options="item as item for item in caseCollection" ng-change="onParamsUpdate()">
+                    </select>
+                  </div>
+                </div>
+                <div class="media col-md-12 col-lg-3">
+                  <h5 class="media-heading">Case
+                    <span class="icon icon-square icon-fw" style="color: #2bb095"></span>
+                  </h5>
+                  <div class="media-middle media-body">
+                    <select class="form-control" ng-disabled="disableForm" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
+                      ng-change="onParamsUpdate()">
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
-
-
-          </form>
+          </div>
         </div>
       </div>
+      <!-- MAIN CHART -->
+      <div class="row gutter-xs">
+        <div class="col-xs-12 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="media-middle media-body">
+                <h4 class="card-title">TB testing in {{currentArea}}</h4>
+              </div>
+              <div class="media-middle media-body">
+                <h5 class="text-right">Switch select percentage or absolute values</h5>
+              </div>
+              <div class="media-middle media-right">
+                <label class="switch switch-primary">
+                  <input class="switch-input" type="checkbox" checked="checked" ng-model="typeCheked" ng-click="changeChartType()">
+                  <span class="switch-track" ng-checked="typeCheked"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="card-chart" style="height: 450px;">
+                <canvas class="chart chart-base" chart-type="selectedType" chart-data="dashboardMainData" chart-labels="dashboardMainLabel"
+                  chart-refresh="labels" chart-colors="dashboardMainColor" chart-series="dashboardMainSeries" chart-options='dashboardMainOptions'></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Other chart block -->
+      <div class="row gutter-xs">
+        <div class="col-xs-12 col-md-12">
+          <div class="row gutter-xs">
+            <div class="col-xs-6 col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>Number of examinations per week
+                        <br>per functional microscopy in {{currentArea}}</small>
+                    </div>
+                  </div>
+                  <div class="card-chart">
+                    <canvas class="chart chart-doughnut" chart-colors="dashboardDougColor" chart-data="dashboardDataDoughTwo" chart-labels="dashboardLabelsDoughTwo"
+                      chart-options='dashboardDougTwoOptions'></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>TB Case Notification Rate
+                        <br>Per 100000 in {{currentArea}}</small>
+                    </div>
+                  </div>
+                  <div class="card-chart">
+                    <canvas class="chart chart-doughnut" chart-colors="dashboardDougColor" chart-data="dashboardDataDoughOne" chart-labels="dashboardLabelsDoughOne"
+                      chart-options='dashboardDougOneOptions'></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>Hospital type
+                        <br>in {{currentArea}}</small>
+                    </div>
+                  </div>
+                  <div class="card-chart">
+                    <canvas class="chart chart-horizontal-bar" chart-data="dataHor" chart-labels="labelsHor" chart-series="seriesHor" chart-colors="colorsHor"
+                      chart-options='dashboardHorizOptions' height="300"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="col-xs-12 col-md-8">
+    <div class="col-xs-12 col-md-3">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">TB testing in {{currentArea}}</h4>
-        </div>
-        <div class="card-body">
-          <div class="card-chart">
-            <canvas class="chart chart-base" chart-type="selectedType" chart-data="dashboardMainData" chart-labels="dashboardMainLabel"
-              chart-refresh="labels" chart-colors="dashboardMainColor" chart-series="dashboardMainSeries" chart-options='dashboardMainOptions'></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Other chart block -->
-  <div class="row gutter-xs">
-    <div class="col-xs-6 col-md-3">
-      <div class="card">
-        <div class="card-values">
-          <div class="p-x">
-            <small>Hospital type</small>
-            <!-- <h3 class="card-title fw-l">185,118</h3> -->
-          </div>
-        </div>
-        <div class="card-chart">
-          <canvas class="chart chart-horizontal-bar" chart-data="dataHor" chart-labels="labelsHor" chart-series="series" chart-colors="colorsHor"
-            chart-options='dashboardHorizOptions' height="255"></canvas>
-
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-md-3">
-      <div class="card">
-        <div class="card-values">
-          <div class="p-x">
-            <small>TB testing by year</small>
-            <!-- <h3 class="card-title fw-l">68,494</h3> -->
-          </div>
-        </div>
-        <div class="card-chart">
-          <canvas class="chart chart-pie" chart-colors="dashboardPieColors" chart-data="data" chart-labels="labels" chart-options='dashboardPieOptions'
-            chart-series="series" height="255"></canvas>
-          <!-- <canvas class="chart chart-line" chart-data='newVisitors.data' chart-labels='newVisitors.labels' chart-series='newVisitors.series'
-                      chart-colors='newVisitors.colors' chart-options='newVisitors.options' height="35"></canvas> -->
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-md-3">
-      <div class="card">
-        <div class="card-values">
-          <div class="p-x">
-            <small>Pageviews</small>
-            <!-- <h3 class="card-title fw-l">925,590</h3> -->
-          </div>
-        </div>
-        <div class="card-chart">
-
-          <canvas class="chart chart-doughnut" chart-colors="dashboardDougColor" chart-data="dashboardDataDough" chart-labels="dashboardLabelsDough"
-            chart-options='dashboardDougOptions' height="255"></canvas>
-
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6 col-md-3">
-      <div class="card">
-        <div class="card-values">
-          <div class="p-x">
-            <small>Map</small>
-          </div>
-        </div>
-        <div class="card-chart">
-          <!-- <canvas id="foo"></canvas> -->
-
-
+          <div id="map" style="height: 755px;"></div>
         </div>
       </div>
     </div>

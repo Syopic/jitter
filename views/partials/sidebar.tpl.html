@@ -1,17 +1,22 @@
 <div class="layout-sidebar-backdrop">
   <div class="layout-sidebar-body">
-    <div class="custom-scrollbar" ng-hide="app.sidebar.isFixed">
-      <div class="row hidden-xs">
-        <br>
-        <br>
-        <br>
-        <a ui-sref="root.dashboard">
-          <img class="img-responsive" src="img/logo.png">
-        </a>
-        <br>
-      </div>
-    </div>
+    <h4>
+      <br> </h4>
+
+
     <nav class="sidenav-collapse collapse" uib-collapse="app.sidebar.xs.isCollapsed">
+      <div class="panel-body" ng-hide="app.sidebar.isFixed">
+
+
+        <div class="row hidden-xs">
+          <div class="text-center">
+            <a ui-sref="root.dashboard">
+              <img class="img-logo" src="img/logo_main.png" align="center">
+            </a>
+            <h4 ng-show="!app.sidebar.isCollapsed">Rebublic of Malawi</h4>
+          </div>
+        </div>
+      </div>
       <ul class="sidenav" side-navigation ng-class="{'sidenav-collapsed': app.sidebar.isCollapsed}">
         <li class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.dashboard">
@@ -39,17 +44,23 @@
         </li>
       </ul>
     </nav>
-  </div>
 
-  <div class="card-body " style="position: absolute;  bottom: 0;" ng-show="!app.sidebar.isCollapsed">
-    <!-- <h4>Ministry of Health,</h4> -->
-    <p>P.O. Box 30377,
-      <br> Lilongwe 3, MALAWI
-      <br> Telephone:
-      <b>+265 1 789 400</b>
-      <br> Fax:
-      <b> +265 1 789 534 / 1 789 536</b>
-      <br>
-      <a href="http://www.health.gov.mw" target="_blank">www.health.gov.mw</a>
-    </p>
   </div>
+  <div class="panel" style="background-color: transparent;"  ng-show="!app.sidebar.isCollapsed">
+       
+    <div class="panel-body text-center" style= "position: absolute; height: 170px;  margin-top: 40px; bottom: 0; background-color: #283745;" ng-show="!app.sidebar.isCollapsed" >
+        <img class="img" src="img/flag_main.png">
+        <br>
+        <br>
+      <p>P.O. Box 30377,
+        <br> Lilongwe 3, MALAWI
+        <br> Telephone:
+        <b>+265 1 789 400</b>
+        <br> Fax:
+        <b> +265 1 789 534 / 1 789 536</b>
+        <br>
+        <a href="http://www.health.gov.mw" target="_blank">www.health.gov.mw</a>
+      </p>
+    </div>
+  </div>
+</div>

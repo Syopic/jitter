@@ -1,5 +1,6 @@
-angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$stateParams", "facilitiesData", "statisticData", "boundsData", "StoreService", "$state",
-    function ($rootScope, $scope, $http, $stateParams, facilitiesData, statisticData, boundsData, StoreService, $state) {
+angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$stateParams", "facilitiesData", "statisticData", "boundsData", "StoreService", "$state", "$window", "$interval", "DataService",
+    function ($rootScope, $scope, $http, $stateParams, facilitiesData, statisticData, boundsData, StoreService, $state, $window, $interval, DataService) {
+        
         // ------------ State params ------------
         var areaId = $stateParams.areaId;
 
@@ -14,7 +15,8 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         
         var cGrades = [];
         var currentLayer = null;
-        
+        var currentRadiusShape = null;
+        var currentMaxRadiusShape = null;
         
         // ------------ Collections ------------
         $scope.areasCollection = [];
@@ -22,7 +24,7 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         $scope.caseCollection = [];
         
         $scope.areasCollection = StoreService.getAreaCollection(boundsData.getData());
-        $scope.facilityTypesCollection = StoreService.getFacilityTypes();
+        $scope.facilityTypesCollection = StoreService.getFacilityTypeParam("name")
         $scope.caseCollection = StoreService.getCaseCollection();
         $scope.currentCase =  $scope.caseCollection[0];
 
@@ -30,12 +32,13 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         var map = L.map('map', {
             doubleClickZoom: false
         });
+
+        map.on('click', clearRadiuses);
         var mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-            minZoom: 7,
+            minZoom: 5,
             maxZoom: 15,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        })
-            .addTo(map);
+        }).addTo(map);
 
         // Navigation button
         L.easyButton('fa-home icon-lg', function (btn, map) {
@@ -44,7 +47,7 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
             $state.go('root.map', { areaId: 0 }, { notify: false });
         }).addTo(map);
 
-        var info = L.control();
+        var info = L.control({ position: 'topright' });
 
         info.onAdd = function (map) {
             this._div = L.DomUtil.create('div', 'mapinfo'); // create a div with a class "info"
@@ -53,6 +56,7 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         };
 
         info.update = function (props) {
+            
             if (props && $scope.isGlobalMap) {
                 var value = statisticData.getData()[props.name][$scope.currentCase];
                 this._div.innerHTML = '<h4>' + props.name + '</h4>' + $scope.currentCase + ': <b>' + value.toFixed(2) + '</b>';
@@ -63,6 +67,15 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
                 '</b><br>Facilities available: <b>' + $scope.pointData.length + '</b>';
             }
         };
+
+        angular.element($window).bind('resize', function(){
+            if (areaId == 0) {
+                var updateMap = function() {
+                    setFocusOnArea(0);
+                };
+                $interval(updateMap, 500, 1);
+            }
+        });
 
         info.addTo(map);
 
@@ -94,16 +107,16 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
 
                     for (var i = 0; i < grades.length; i++) {
                         div.innerHTML +=
-                            '<i style="background:' + getColor(grades, grades[i]) + '"></i> ' +
+                            '<i style="background:' + StoreService.getColor(grades, grades[i]) + ';  border-radius: 3px; border: 1px solid; border-color: white;"></i> ' +
                             grades[i] + (grades[i + 1] ? ' &ndash; ' + grades[i + 1] + '<br>' : '+');
                     }
                 } else {
 
-                    div = L.DomUtil.create('div', 'maplegendinfo maplegend'), labels = StoreService.getFacilityTypes();
+                    div = L.DomUtil.create('div', 'maplegendinfo maplegend'), labels = StoreService.getFacilityTypeParam("name");
                     div.innerHTML = '<label class="checkbox-inline" ><input id="checkbox1" type="checkbox" value="" ' + ($scope.isShowCoverage ? 'checked' : 'unchecked') + ' onchange="angular.element(this).scope().coverageChanged(this)">Show coverage</label><br><br>';
 
                     for (var i = 1; i < labels.length; i++) {
-                        div.innerHTML += '<i style="background:' + StoreService.getFacilitColors()[i] + '"></i> ' + labels[i] + '<br>';
+                        div.innerHTML += '<i style="background:' + StoreService.getFacilityTypeParam("color")[i] + '; border-radius: 3px; border: 1px solid; border-color: white;"></i> ' + labels[i] + '<br>';
                     }
                     
                 }
@@ -116,16 +129,19 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
         $scope.coverageChanged = function(e) {
             $scope.isShowCoverage = e.checked;
             var id = StoreService.getStatByDistrictName(boundsData.getData(), $scope.currentAreaName);
-            fillMarkers(id);
+            drawMarkers($scope.pointData);
         }
         
 
         // ------------ Navigate ------------
 
         $scope.onParamsUpdate = function () {
+            clearRadiuses();
             var id = StoreService.getStatByDistrictName(boundsData.getData(), $scope.currentAreaName);
             updateLegend();
-            setFocusOnArea(id);
+            //setFocusOnArea(id);
+            clearMarkers();
+            drawMarkers($scope.pointData);
             info.update();
             geojson.setStyle(style);
         }
@@ -140,15 +156,6 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
             var bounds = [[areaInfo.bounds[1], areaInfo.bounds[0]], [areaInfo.bounds[3], areaInfo.bounds[2]]];
             map.fitBounds(bounds);
             
-            $scope.pointData = [];
-            var pData = facilitiesData.getData();
-            for (var i = 0; i < pData.length; i++) {
-                var element = pData[i];
-                if (element.District == areaInfo.name && ($scope.currentFacilityType == "Show All" || element.FacilityType == $scope.currentFacilityType)) {
-                    $scope.pointData.push(element);
-                }
-            }
-
             updateLegend();
             info.update();
 
@@ -239,73 +246,95 @@ angular.module('ira').controller('MapCtrl', ['$rootScope', '$scope', '$http', "$
 
         var markers = L.markerClusterGroup({
             showCoverageOnHover: false,
-            maxClusterRadius: 30,
+            maxClusterRadius: 20,
+            //disableClusteringAtZoom: true,
             singleMarkerMode: false,
             iconCreateFunction: function (cluster) {
 				return L.divIcon({ html: cluster.getChildCount(), className: 'mycluster', iconSize: L.point(20, 20) });
 			}
         });
         map.addLayer(markers);
-
+       
         function fillMarkers(areaId) {
-            // console.log($scope.currentFacilityType);
             clearMarkers(areaId);
             var areaInfo = boundsData.getData()[areaId];
-            for (var i = 0; i < $scope.pointData.length; i++) {
-                var element = $scope.pointData[i];
-                if (element && StoreService.facilityTypes[element.FacilityType]) {
-                    var iconImg = StoreService.facilityTypes[element.FacilityType].icon;
-                    var color = StoreService.facilityTypes[element.FacilityType].color;
-                    if (!iconImg) iconImg = "marker-icon.png";
+            var params = {
+                text: areaInfo.name
+            }
+            DataService.getFacilityMapData(params).then(function (response) {
 
-                    var icon = L.icon({
-                        iconUrl: 'img/markers/' + iconImg,
-                        shadowUrl: 'img/markers/marker-shadow.png',
-                        iconSize: [25, 41], // size of the icon
-                        shadowSize: [41, 41], // size of the shadow
-                        iconAnchor: [12, 40], // point of the icon which will correspond to marker's location
-                        shadowAnchor: [12, 40],  // the same for the shadow
-                        popupAnchor: [0, -32] // point from which the popup should open relative to the iconAnchor
-                    });
-                    if ($scope.isShowCoverage) {
-                        var c1 = L.circle([element.Latitude, element.Longitude], { color: '#004d40', fillColor: color, fillOpacity: 0.04, opacity: 0, radius: Math.random() * 100 + 5000 });
-                        //var c2 = L.circle([element.Latitude, element.Longitude], { color: '#004d40', fillColor: color, opacity: 0, fillOpacity: 0.2, radius: Math.random() * 100 + 1000 });
-                        c1.addTo(map);
-                        //c2.addTo(map);
-                        mapMarkers.push(c1);
-                        //mapMarkers.push(c2);
+                $scope.pointData = response.data.data.facilitiesByDistrictName;
+                drawMarkers(response.data.data.facilitiesByDistrictName);
+            });
+        }
+
+        function drawMarkers(pointsData) {
+            clearMarkers(areaId);
+            for (var i = 0; i < pointsData.length; i++) {
+                var element = pointsData[i];
+                if (element) {
+                    for (var j = 0; j < element.services.length; j++) {
+
+                        var facilityType = element.services[j].serviceType;
+                        if ($scope.currentFacilityType == "Show All" || $scope.currentFacilityType == StoreService.facilityTypes[facilityType].name) {
+                            var latitude = element.location.split(',')[0];
+                            var longitude = element.location.split(',')[1];
+                            var iconImg = StoreService.facilityTypes[facilityType].icon;
+                            var color = StoreService.facilityTypes[facilityType].color;
+
+                            //if (!iconImg) iconImg = "marker-icon.png";
+
+                            var icon = L.icon({
+                                iconUrl: 'img/markers/' + iconImg,
+                                shadowUrl: 'img/markers/marker-shadow.png',
+                                iconSize: [25, 41], // size of the icon
+                                shadowSize: [41, 41], // size of the shadow
+                                iconAnchor: [12, 40], // point of the icon which will correspond to marker's location
+                                shadowAnchor: [12, 40],  // the same for the shadow
+                                popupAnchor: [0, -32] // point from which the popup should open relative to the iconAnchor
+                            });
+                            if ($scope.isShowCoverage) {
+                                var c1 = L.circle([latitude, longitude], {fillColor: color, fillOpacity: 0.03, opacity: 0, radius: Math.random() * 100 + 5000 });
+                                c1.addTo(map);
+                                mapMarkers.push(c1);
+                            }
+
+                            var marker = L.marker([latitude, longitude], { id: element.id, icon: icon, color: color, radius: 2000, maxRadius: 5000 }).on('click', onClickMarker);
+                            markers.addLayer(marker);
+
+                        }
                     }
-
-                    var marker = L.marker([element.Latitude, element.Longitude], { icon: icon });
-                    markers.addLayer(marker);
-                    marker.bindPopup("<b>" + element.Name + "</b><hr>Facility type: <b>" + element.FacilityType + '</b>' +
-                        "<br>Status:    <b>" + element.Status + '</b>' +
-                        "<br>Village:   <b>" + element.Village + '</b>' +
-                        "<br>Region:    <b>" + element.Region + '</b>' +
-                        "<br>ControllingAgency: <b>" + element.ControllingAgency + '</b>' +
-                        "<br>Cluster:   <b>" + element.Cluster + '</b>' +
-                        "<br>ContactName:   <b>" + element.ContactName + '</b><hr>');
                 }
             }
         }
+        
 
-        function getColor(grades, d) {
-            return  d > grades[6] ?   '#BD0026' :
-                    d > grades[5] ?   '#E31A1C' :
-                    d > grades[4] ?   '#FC4E2A' :
-                    d > grades[3] ?   '#FD8D3C' :
-                    d > grades[2] ?   '#FEB24C' :
-                    d > grades[1] ?   '#FED976' :
-                                      '#FFEDA0' ;
+        function onClickMarker(e) {
+            clearRadiuses();
+            currentMaxRadiusShape = L.circle(e.latlng, {  fillColor: e.target.options.color, opacity: 0, fillOpacity: 0.2, radius: e.target.options.maxRadius });
+            currentRadiusShape = L.circle(e.latlng, {  fillColor: e.target.options.color, opacity: 0, fillOpacity: 0.3, radius: e.target.options.radius });
+            map.setView(e.target.getLatLng(), map.getZoom());
+            currentMaxRadiusShape.addTo(map);
+            currentRadiusShape.addTo(map);
+
+            
+            DataService.getFacilityById({id:e.target.options.id}).then(function (response) {
+                e.target.bindPopup("<b><a href='#!/datatable/"+ response.data.data.facilityById.name +"' target='_blank'>" + response.data.data.facilityById.name + "</a></b>" +
+                "<br>Village:   <b>" + response.data.data.facilityById.village + '</b>' +
+                "<br>ContactName:<b><a href='#!/datatable/"+ response.data.data.facilityById.contactName +"' target='_blank'>" + response.data.data.facilityById.contactName + '</a></b>').openPopup()
+            });
+        } 
+
+        function clearRadiuses() {
+            if (currentMaxRadiusShape) map.removeLayer(currentMaxRadiusShape);
+            if (currentRadiusShape) map.removeLayer(currentRadiusShape);
         }
 
         function style(feature) {
-            var d = statisticData.getData();
-            var cc = statisticData.getData()[feature.properties.name][$scope.currentCase];
             return {
                 color: feature.properties.name == $scope.currentAreaName ? '#666' : $scope.isGlobalMap ? '#fff' : '#ccc',
                 weight: $scope.isGlobalMap ? 2 : 3,
-                fillColor: !$scope.isGlobalMap ? '#f2efe9' : getColor(cGrades, statisticData.getData()[feature.properties.name][$scope.currentCase]),
+                fillColor: !$scope.isGlobalMap ? '#f2efe9' : StoreService.getColor(cGrades, statisticData.getData()[feature.properties.name][$scope.currentCase]),
                 fill: true,
                 opacity: feature.properties.name == $scope.currentAreaName ? 1 : 1,
                 fillOpacity: feature.properties.name == $scope.currentAreaName ? 0 : $scope.isGlobalMap ? 0.7 : 0.9,

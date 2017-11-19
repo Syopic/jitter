@@ -1,42 +1,44 @@
 angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
   function StoreService($q, $timeout, $filter) {
     this.facilityTypes = {
-      "Central Hospital": {
-        icon: "marker_hospital.png",
-        color: ""
-      },
-      "District Hospital": {
-        icon: "marker_hospital.png",
-        color: ""
-      },
-      "Health Centre": {
+      "HC": {
+        name: "Health Centre",
         icon: "marker_health_center.png",
-        color: "#ff0000"
+        color: "#cd6062"
       },
-      "Village Clinic": {
+      "VC": {
+        name: "Village Clinic",
         icon: "marker_clinic.png",
-        color: "#4c97e4"
+        color: "#6293c1"
       },
-      "Outreach": {
+      "O": {
+        name: "Outreach",
         icon: "marker_maternity.png",
-        color: "#5ab21a"
+        color: "#599259"
       },
-      "Hospital": {
+      "H": {
+        name: "Hospital",
         icon: "marker_hospital.png",
-        color: "#00aa90"
+        color: "7b6a5f"
       },
-      "Rural/Community Hospital": {
-        icon: "marker_hospital.png",
-        color: ""
-      },
-      "Dispensary": {
+      "D": {
+        name: "Dispensary",
         icon: "marker_dispensary.png",
-        color: "#ab58ce"
+        color: "#a37db9"
       },
-      "Health Post": {
+      "HP": {
+        name: "Health Post",
         icon: "marker_health_post.png",
-        color: "#ffa800"
+        color: "#feb250"
       }
+    },
+
+    this.getFacilityTypeParam = function getFacilityTypeParam(param) {
+      var result = ["Show All"];
+      angular.forEach(this.facilityTypes, function(type, key) {
+          result.push(type[param])
+      });
+      return result;
     },
 
     this.getMapBounds = function getMapBounds() {
@@ -102,34 +104,16 @@ angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
       return result;
     },
 
-    this.getFacilityTypes = function getFacilityTypes() {
-      var result = [
-        "Show All",
-        "Village Clinic",
-        "Outreach",
-        "Dispensary",
-        "Hospital",
-        "Health Centre",
-        "Health Post"
-      ];
-      
-      return result;
+    this.getColor = function getColor(grades, d) {
+      d *= 1.1;
+      return  d > grades[6] ?   '#BD0026' :
+              d > grades[5] ?   '#E31A1C' :
+              d > grades[4] ?   '#FC4E2A' :
+              d > grades[3] ?   '#FD8D3C' :
+              d > grades[2] ?   '#FEB24C' :
+              d > grades[1] ?   '#FED976' :
+                                '#FFEDA0' ;
     },
-
-    this.getFacilitColors = function getFacilitColors() {
-      var result = [
-        "#ffffff",
-        "#4c97e4",
-        "#5ab21a",
-        "#ab58ce",
-        "#00aa90",
-        "#ff0000",
-        "#ffa800"
-      ];
-      
-      return result;
-    },
-
 
     this.getStatByDistrictName = function getStatByDistrictName(data, name) {
       var result = 0;
@@ -163,54 +147,6 @@ angular.module('ira').service("StoreService", ["$q", "$timeout", "$filter",
       
     
     return result;
-    },
-
-    this.getColorByName = function getColorByName(name) {
-      var result = '#ffffff';
-      switch (name) {
-          case "Nothern": 
-              result = '#f61111';
-              break;
-          case "Central": 
-              result = '#f9c90a';
-              break;
-          case "Southern": 
-              result = '#24c665';
-              break;
-
-      }
-      return result;
-    },
-
-
-    this.getColorByParam = function getColorByParam(data, caseValue, areaName) {
-      var minValue = 100000000;
-      var maxValue = 0;
-      var currentValue = 0;
-      var colors = ['#E5B800', '#E2B100', '#DFAA00', '#DCA300', '#D99C00', '#D69500', '#D38E00', '#D08700', '#CD8000', '#CA7900', '#C77200', '#C46B00', '#C16400', '#BF5E00'];
-
-      angular.forEach(data, function(area, key) {
-        minValue = Math.min(minValue, area[caseValue]);
-        maxValue = Math.max(maxValue, area[caseValue]);
-        if (key == areaName) {
-          currentValue = area[caseValue];
-        }
-      });
-      var step = (maxValue - minValue) / 28;
-
-      var counter = 0;
-      for (var i = 0; i < 29; i++) {
-        if (minValue > currentValue && minValue <= (currentValue + step)) {
-          break;
-        }
-        minValue += step;
-        counter ++;
-      }
-
-      console.log("step: " + step + " counter: " + counter);
-
-     
-      return colors[Math.ceil(counter / 2)];
     }
   }
 ]);

@@ -8,13 +8,13 @@
 	"101": {
 		"id": "101",
 		"name": "Central",
-		"bounds": [32.5909, -15.3795, 35.0354, -12.0716],
+		"bounds": [32.9865,-14.7005,34.6454,-12.5117],
 		"geojson": "test.json"
 	},
 	"102": {
 		"id": "102",
 		"name": "North",
-		"bounds": [32.6239, -12.7689, 34.8322, -9.2865],
+		"bounds": [32.9865,-13.3148,34.6454,-9.4395],
 		"geojson": "test.json"
 	},
 	"103": {
@@ -60,7 +60,7 @@
 	},
 	"6": {
 		"id": "6",
-		"name": "Nkhotakhota",
+		"name": "Nkhotakota",
 		"bounds": [33.7088, -13.5312, 34.3597, -12.1306],
 		"geojson": "test.json",
 		"geoId":"malawi_exposure.18"
@@ -144,7 +144,7 @@
 	},
 	"18": {
 		"id": "18",
-		"name": "Chikhwawa",
+		"name": "Chikwawa",
 		"bounds": [34.2197, -16.7125, 35.137, -15.7057],
 		"geojson": "test.json",
 		"geoId":"malawi_exposure.3"

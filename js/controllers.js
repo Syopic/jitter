@@ -3,6 +3,11 @@ angular.module("ira")
     var app = this,
         def = ["layout", "layout-header-fixed"];
 
+    
+    $rootScope.serverURL = "http://ira.topos.org.ua/graphql";
+
+    $rootScope.serverMode = true;
+
     app.navbar = {};
     app.navbar.isCollapsed = true;
     app.navbar.toggle = function toggle() {
