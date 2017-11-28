@@ -1,6 +1,6 @@
 .dt-button-info {
   background-color: #fff;
-  border: 2px solid #0ac29d;
+  border: 2px solid #0288d1;
   border-radius: 0;
   -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.5);
           box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.5);
@@ -29,7 +29,7 @@
 
 .dt-button-collection.dropdown-menu > li:not(.active) > a {
   background-color: transparent;
-  color: #333;
+  color: #757575;
 }
 
 .dt-button-collection.dropdown-menu.fixed {

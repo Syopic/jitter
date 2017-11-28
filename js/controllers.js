@@ -1,50 +1,19 @@
-angular.module("ira")
-  .controller("AppCtrl", ["$q", "$scope", "$rootScope", "$http", "$location", '$translate', '$scope',  function AppCtrl($q, $scope, $rootScope, $http, $location, $translate, $scope) {
+angular.module("sara")
+  .controller("AppCtrl", ["$q", "$scope", "$rootScope", "$http", "$location", '$scope',  function AppCtrl($q, $scope, $rootScope, $http, $location, $scope) {
     var app = this,
         def = ["layout", "layout-header-fixed"];
 
     
-    $rootScope.serverURL = "http://ira.topos.org.ua/graphql";
+    $rootScope.serverURL = "#";
 
-    $rootScope.serverMode = true;
+    $rootScope.serverMode = false;
 
-    app.navbar = {};
-    app.navbar.isCollapsed = true;
-    app.navbar.toggle = function toggle() {
-      this.isCollapsed = !this.isCollapsed;
-    };
-    
-    $scope.lang = "English";
-    $scope.selectedLanguageEn = function(langu){
-      $rootScope.selectedLanguage = "en"; 
-      $scope.lang = "English";
-      $scope.changeLanguage(langu);
-      //$scope.translate();
-
-     
-    };
-    $scope.selectedLanguageRu = function(langu){
-      $rootScope.selectedLanguage = "ru"; 
-      $scope.lang = "Русский";
-      $scope.changeLanguage(langu);
-    };
-    
-    //console.log("Ctr ", langu);
-     
-    $scope.changeLanguage = function(langu){
-      $translate.use(langu); 
-     }
-    
-
-    // //Выполняем перевод, если произошло событие смены языка
-    // $scope.translate = function(){
-    //   translationService.getTranslation($scope, $scope.selectedLanguage);
+    // app.navbar = {};
+    // app.navbar.isCollapsed = true;
+    // app.navbar.toggle = function toggle() {
+    //   this.isCollapsed = !this.isCollapsed;
     // };
-    // // Инициализация
-     $rootScope.selectedLanguage = 'en';
-    // $scope.translate();
-   
-
+    
     app.search = {};
     app.search.isCollapsed = true;
     app.search.toggle = function toggle() {
@@ -71,17 +40,5 @@ angular.module("ira")
     $scope.getClass = function (path) {
       return ($location.path().substr(0, path.length) === path) ? 'active' : '';
     }
-
-   // $rootScope.selectedLanguage = 'ru';
-    //$rootScope.allData;
-
-    // this.loadData = function ($q, $http) {
-    //   var deferred = $q.defer();
-    //   $http.get('data/data.json').then(function (data) {
-    //       deferred.resolve(data);
-    //       console.log(data);
-    //   });
-    //   return deferred.promise;
-    // }
 
   }]);

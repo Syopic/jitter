@@ -64,7 +64,7 @@
 }
 
 .ng-dirty.ng-invalid > div.selectize-input {
-  border-color: #eee;
+  border-color: #e0e0e0;
 }
 
 .ui-select-container[theme="selectize"].direction-up .ui-select-dropdown {
@@ -96,7 +96,7 @@
 }
 
 .ng-dirty.ng-invalid > div.selectize-input {
-  border-color: #eee;
+  border-color: #e0e0e0;
 }
 
 .ui-select-container[theme="selectize"].direction-up .ui-select-dropdown {
@@ -216,7 +216,7 @@
 
 .ui-select-bootstrap .ui-select-choices-row > span {
   clear: both;
-  color: #333;
+  color: #757575;
   cursor: pointer;
   display: block;
   line-height: 1.538462;
@@ -225,13 +225,13 @@
 }
 
 .ui-select-bootstrap .ui-select-choices-row > span:hover, .ui-select-bootstrap .ui-select-choices-row > span:focus {
-  background-color: #0ac29d;
+  background-color: #0288d1;
   color: #fff;
   text-decoration: none;
 }
 
 .ui-select-bootstrap .ui-select-choices-row.active > span {
-  background-color: #0ac29d;
+  background-color: #0288d1;
   color: #fff;
   outline: 0;
   text-decoration: none;
@@ -239,7 +239,7 @@
 
 .ui-select-bootstrap .ui-select-choices-row.disabled > span,
 .ui-select-bootstrap .ui-select-choices-row.active.disabled > span {
-  color: #999;
+  color: #eee;
   cursor: not-allowed;
 }
 

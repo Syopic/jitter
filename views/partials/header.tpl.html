@@ -1,55 +1,51 @@
 <div class="navbar navbar-default">
   <div class="navbar-header">
-    <a class="navbar-brand navbar-brand-center" ui-sref="root.dashboard">Ministry of Health</a>
-    <button class="navbar-toggler visible-xs-block collapsed" type="button" ng-class="{collapsed: app.sidebar.xs.isCollapsed}" ng-click="app.sidebar.xs.toggle()">
+    <a class="navbar-brand navbar-brand-center" ui-sref="root.questionnaire"  align="center" >
+      <h3 class="h3-logo" > <img class="navbar-brand-logo" src="img/logo.png" alt = "The Global Fund">The Global Fund</h3> 
+    </a>
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
       <span class="sr-only">Toggle navigation</span>
-      <span class="bars">
-        <span class="bar-line bar-line-1 out"></span>
-        <span class="bar-line bar-line-2 out"></span>
-        <span class="bar-line bar-line-3 out"></span>
-      </span>
-      <span class="bars bars-x">
-        <span class="bar-line bar-line-4"></span>
-        <span class="bar-line bar-line-5"></span>
-      </span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
     </button>
 
-    <button class="navbar-toggler visible-xs-block collapsed" type="button" ng-class="{collapsed: app.navbar.isCollapsed}" ng-click="app.navbar.toggle()">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="arrow-up"></span>
-      <span class="ellipsis ellipsis-vertical"></span>
-    </button>
-  </div>
-
-  <div class="navbar-toggleable">
-    <nav class="navbar-collapse collapse" uib-collapse="app.navbar.isCollapsed">
-      <button class="sidenav-toggler hidden-xs" type="button" ng-class="{collapsed: app.sidebar.isCollapsed}" ng-click="app.sidebar.toggle()">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="bars">
-          <span class="bar-line bar-line-1 out"></span>
-          <span class="bar-line bar-line-2 out"></span>
-          <span class="bar-line bar-line-3 out"></span>
-          <span class="bar-line bar-line-4 in"></span>
-          <span class="bar-line bar-line-5 in"></span>
-          <span class="bar-line bar-line-6 in"></span>
-        </span>
-      </button>
-      
-      <ul class="nav navbar-nav navbar-right">
+    </div>
+  <div class="navbar-collapse collapse" id="navbar-collapse-1" aria-expanded="false" style="height: 0px;">
+    <ul class="nav navbar-nav">
+      <li ui-sref-active="open active">
+        <a ui-sref="root.questionnaire">
+          <span class="sidenav-icon icon icon-hospital-o"></span>
+          <span class="sidenav-label">Questionnaire</span>
+        </a>
+      </li>
+      <li ui-sref-active="open active">
+        <a ui-sref="root.dashboard">
+          <span class="sidenav-icon icon icon-pie-chart"></span>
+          <span class="sidenav-label">Dashboard</span>
+        </a>
+      </li>
+      <li ui-sref-active="open active">
+        <a ui-sref="root.contacts">
+          <span class="sidenav-icon icon icon-users"></span>
+          <span class="sidenav-label">Contacts</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown hidden-xs">
         <li class="dropdown hidden-xs">
-          <li class="dropdown hidden-xs">
-            <button class="navbar-account-btn" style="height: 50px;">
-              <span class="sidenav-icon icon icon-user"></span>							
+          <button class="navbar-account-btn" style="height: 50px;" onclick="location.href = '#!/login';">
+            <span class="sidenav-icon icon icon-user"></span>		
               Administration
-            </button>
-          </li>
-          <li class="visible-xs-block">
-            <a ui-sref="login-1">
-              <span class="icon icon-user icon-lg icon-fw"></span>							
+          </button>
+        </li>
+        <li class="visible-xs-block">
+          <a href="#">
+            <span class="icon icon-user icon-lg icon-fw"></span>							
               Administration
-            </a>
-          </li>
-      </ul>
-    </nav>
+          </a>
+        </li>
+    </ul>
   </div>
 </div>

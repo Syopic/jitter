@@ -19,7 +19,7 @@
 
 .dtr-inline.collapsed > tbody > tr > td:first-child:before,
 .dtr-inline.collapsed > tbody > tr > th:first-child:before {
-  color: #999;
+  color: #e0e0e0;
   content: "\f196";
   display: block;
   font-family: FontAwesome;
@@ -82,7 +82,7 @@
 
 .dtr-column > tbody > tr > td.control:before,
 .dtr-column > tbody > tr > th.control:before {
-  color: #999;
+  color: #e0e0e0;
   content: "\f196";
   display: block;
   font-family: FontAwesome;

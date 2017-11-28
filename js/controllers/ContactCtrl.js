@@ -1,3 +1,3 @@
-angular.module('ira').controller('ContactCtrl', ['$scope', function($scope) {
+angular.module('sara').controller('ContactCtrl', ['$scope', function($scope) {
     
 }]);

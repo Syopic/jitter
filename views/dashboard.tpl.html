@@ -1,68 +1,111 @@
 <div class="layout-content-body">
   <div class="title-bar">
-    <div class="title-bar-actions">
-      <div class="btn-group btn-group-sm dropdown">
-      </div>
-    </div>
     <h1 class="title-bar-title">
-      <span class="d-ib">{{'Dashboard'| translate}}</span>
-      <button class="btn btn-primary btn-sm btn-labeled " data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-        aria-controls="collapseExample">
+      <span class="d-ib">Dashboard</span>
+      <button class="btn btn-primary btn-sm btn-labeled navbar-toggle collapsed" data-toggle="collapse" href="#btnCollapse" aria-expanded="false"
+        aria-controls="btnCollapse" style='margin-left: 20px;'>
         <span class="btn-label">
-          <span class="icon icon-bar-chart icon-lg icon-fw"></span>
+          <span class="icon icon-wrench icon-lg icon-fw"></span>
         </span>
         Control panel
       </button>
     </h1>
   </div>
-  <!-- Main chart and parametrs  -->
-  <div class="row gutter-xs">
-    <div class="col-xs-12 col-md-9">
-      <div class="collapse" id="collapseExample">
-        <div class="card">
+  <!-- /.title-bar -->
+  <div class="navbar-collapse collapse" id="btnCollapse" style="padding:0px;">
+    <div class="row gutter-xs">
+      <div class="col-xs-12">
+        <div class="card ">
           <div class="card-body">
-            <div class="form-group">
-              <div class="row gutter-xs">
-                <div class="col-md-12 col-lg-2">
-                  <h5>Year</h5>
-                  <select class="form-control" class="form-control">
-                    <option value="2017">2017</option>
-                  </select>
+            <div class="row gutter-xs">
+              <div class="col-md-3">
+                <div class="card-body">
+                  <h5>HFA type</h5>
+                  <div class="btn-group" data-toggle="buttons" style="width:100%;">
+                    <label class="btn btn-primary btn-sm btn-block">
+                      <input type="radio" name="hfa" value="SARA" checked="checkedHFA">SARA
+                    </label>
+                    <label class="btn btn-primary btn-sm btn-block active">
+                      <input type="radio" name="hfa" value="SPI">SPI
+                    </label>
+                    <label class="btn btn-primary btn-sm btn-block">
+                      <input type="radio" name="hfa" value="SDI">SDI
+                    </label>
+                  </div>
                 </div>
-                <div class="col-md-12 col-lg-2">
-                  <h5>Region</h5>
-                  <select class="form-control" ng-model="currentArea" ng-change="onParamsUpdate()">
-                    <option value="Malawi">Malawi</option>
-                    <option value="Central">Central</option>
-                    <option value="Nothern">Nothern</option>
-                    <option value="South">South</option>
-                  </select>
-                </div>
-                <div class="col-md-12 col-lg-2">
+              </div>
+              <div class="col-md-3">
+                <div class="card-body">
                   <h5>Disease</h5>
-                  <select id="form-control-6" class="form-control">
-                    <option value="TB_testing">TB testing</option>
-                  </select>
-                </div>
-                <!--  -->
-                <div class="media col-md-12 col-lg-3">
-                  <h5 class="media-heading">Case
-                    <span class="icon icon-square icon-fw" style="color:#575d63"></span>
-                  </h5>
-                  <div class="media-middle media-body">
-                    <select class="form-control" ng-disabled="disableForm" ng-init="currentCaseTwo = caseCollection[1]" ng-model="currentCaseTwo"
-                      ng-options="item as item for item in caseCollection" ng-change="onParamsUpdate()">
-                    </select>
+                  <div class="btn-group" data-toggle="buttons"  style="width:100%;"  >
+                    <label class="btn btn-primary btn-sm btn-block  active" ng-click="disease =1; onSellectDisease();" >
+                      <input type="radio" value="HIV" >HIV
+                    </label>
+                    <label class="btn btn-primary btn-sm btn-block" ng-click="disease =2; onSellectDisease();">
+                      <input type="radio" value="TB">TB
+                    </label>
+                    <label class="btn btn-primary btn-sm btn-block" ng-click="disease =3; onSellectDisease();">
+                      <input type="radio" value="Malaria" > Malaria
+                    </label>
                   </div>
                 </div>
-                <div class="media col-md-12 col-lg-3">
-                  <h5 class="media-heading">Case
-                    <span class="icon icon-square icon-fw" style="color: #2bb095"></span>
-                  </h5>
-                  <div class="media-middle media-body">
-                    <select class="form-control" ng-disabled="disableForm" ng-init="currentCase = caseCollection[0]" ng-model="currentCase" ng-options="item as item for item in caseCollection"
-                      ng-change="onParamsUpdate()">
-                    </select>
+              </div>
+              <div class="col-md-3">
+                <div class="card-body">
+                  <div class="row gutter-xs">
+                    <div class="form-group">
+                      <select class="form-control" name="birth_year">
+                        <option value="" selected="selected" disabled="disabled">Continent</option>
+                        <option value="Africa">Africa</option>
+                        <option value="Asia" disabled="disabled">Asia</option>
+                        <option value="Europe" disabled="disabled">Europe</option>
+                        <option value="North America" disabled="disabled">North America</option>
+                        <option value="South America" disabled="disabled">South America</option>
+                        <option value="Australia" disabled="disabled">Australia</option>
+                        <option value="Oceania" disabled="disabled">Oceania</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row gutter-xs">
+                    <div class="form-group">
+                      <select class="form-control" name="birth_year">
+                        <option value="" selected="selected" disabled="disabled">Country</option>
+                        <option value="Malawi">Malawi</option>
+                        <option value="Kennya">Kennya</option>
+                        <option value="Ethiopia">Ethiopia</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row gutter-xs">
+                    <div class="form-group">
+                      <select class="form-control" name="Year">
+                        <option value="" selected="selected" disabled="disabled">Year</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="btn btn-primary btn-block file-upload-btn">
+                      Upload questionnaire
+                      <input class="file-upload-input" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple="multiple">
+                    </label>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="button">Download questionnaire</button>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="button" ng-click="save()">Save questionnaire</button>
                   </div>
                 </div>
               </div>
@@ -70,97 +113,38 @@
           </div>
         </div>
       </div>
-      <!-- MAIN CHART -->
-      <div class="row gutter-xs">
-        <div class="col-xs-12 col-md-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="media-middle media-body">
-                <h4 class="card-title">TB testing in {{currentArea}}</h4>
-              </div>
-              <div class="media-middle media-body">
-                <h5 class="text-right">Switch select percentage or absolute values</h5>
-              </div>
-              <div class="media-middle media-right">
-                <label class="switch switch-primary">
-                  <input class="switch-input" type="checkbox" checked="checked" ng-model="typeCheked" ng-click="changeChartType()">
-                  <span class="switch-track" ng-checked="typeCheked"></span>
-                  <span class="switch-thumb"></span>
-                </label>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="card-chart" style="height: 450px;">
-                <canvas class="chart chart-base" chart-type="selectedType" chart-data="dashboardMainData" chart-labels="dashboardMainLabel"
-                  chart-refresh="labels" chart-colors="dashboardMainColor" chart-series="dashboardMainSeries" chart-options='dashboardMainOptions'></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Other chart block -->
-      <div class="row gutter-xs">
-        <div class="col-xs-12 col-md-12">
-          <div class="row gutter-xs">
-            <div class="col-xs-6 col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-values">
-                    <div class="p-x">
-                      <small>Number of examinations per week
-                        <br>per functional microscopy in {{currentArea}}</small>
-                    </div>
-                  </div>
-                  <div class="card-chart">
-                    <canvas class="chart chart-doughnut" chart-colors="dashboardDougColor" chart-data="dashboardDataDoughTwo" chart-labels="dashboardLabelsDoughTwo"
-                      chart-options='dashboardDougTwoOptions'></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-values">
-                    <div class="p-x">
-                      <small>TB Case Notification Rate
-                        <br>Per 100000 in {{currentArea}}</small>
-                    </div>
-                  </div>
-                  <div class="card-chart">
-                    <canvas class="chart chart-doughnut" chart-colors="dashboardDougColor" chart-data="dashboardDataDoughOne" chart-labels="dashboardLabelsDoughOne"
-                      chart-options='dashboardDougOneOptions'></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-values">
-                    <div class="p-x">
-                      <small>Hospital type
-                        <br>in {{currentArea}}</small>
-                    </div>
-                  </div>
-                  <div class="card-chart">
-                    <canvas class="chart chart-horizontal-bar" chart-data="dataHor" chart-labels="labelsHor" chart-series="seriesHor" chart-colors="colorsHor"
-                      chart-options='dashboardHorizOptions' height="300"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    </div>
+  </div>
+  <div class="row gutter-xs">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4>Map {{selectIndicator.code}}</h4>
+          <select class="form-control" ng-init="selectIndicator.name" ng-model="selectIndicator" ng-options="item as item.name for item in cahrtIndicator"
+          ng-change="">
+        </select>
+          <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=33.784729242324836%2C-13.9491344807431%2C33.79294753074647%2C-13.942814040708765&amp;layer=mapnik&amp;marker=-13.945974282368342%2C33.788838386535645"></iframe>
         </div>
       </div>
 
     </div>
-    <div class="col-xs-12 col-md-3">
+    <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <div id="map" style="height: 755px;"></div>
+          <h4>Chart {{selectIndicator.code}}</h4>
+          
+          <div class="card-body">
+            <div ng-dropdown-multiselect="" options="multiselectData" selected-model="multiselectModel" extra-settings="multiselectSettings" events="multiselectEvents"  translation-texts="{buttonDefaultText: 'Select Indicator'}"></div>
+          
+          <div class="card-body">
+            <div class="card-chart">
+              <canvas class="chart chart-bar" chart-data='data' chart-labels='labels' chart-series='series' chart-colors='colors' chart-options='options'
+                height="200"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>

@@ -3,37 +3,27 @@
     <h4>
       <br> </h4>
 
-
     <nav class="sidenav-collapse collapse" uib-collapse="app.sidebar.xs.isCollapsed">
       <div class="panel-body" ng-hide="app.sidebar.isFixed">
-
-
         <div class="row hidden-xs">
           <div class="text-center">
-            <a ui-sref="root.dashboard">
-              <img class="img-logo" src="img/logo_main.png" align="center">
-            </a>
-            <h4 ng-show="!app.sidebar.isCollapsed">Rebublic of Malawi</h4>
+            <!-- <a ui-sref="root.questionnaire">
+            </a> -->
+            <h5 ng-show="!app.sidebar.isCollapsed"><strong>Fight AIDS, TB and Malaria</strong></h5>
           </div>
         </div>
       </div>
       <ul class="sidenav" side-navigation ng-class="{'sidenav-collapsed': app.sidebar.isCollapsed}">
         <li class="sidenav-item" ui-sref-active="open active">
+          <a ui-sref="root.questionnaire">
+            <span class="sidenav-icon icon icon-hospital-o"></span>
+            <span class="sidenav-label">Questionnaire</span>
+          </a>
+        </li>
+        <li class="sidenav-item" ui-sref-active="open active">
           <a ui-sref="root.dashboard">
             <span class="sidenav-icon icon icon-pie-chart"></span>
-            <span class="sidenav-label">{{"Dashboard" | translate}}</span>
-          </a>
-        </li>
-        <li class="sidenav-item" ui-sref-active="open active">
-          <a ui-sref="root.datatable">
-            <span class="sidenav-icon icon icon-hospital-o"></span>
-            <span class="sidenav-label">{{'Medical_Institutions'| translate}}</span>
-          </a>
-        </li>
-        <li class="sidenav-item" ui-sref-active="open active">
-          <a ui-sref="root.map({areaId: 0})">
-            <span class="sidenav-icon fa fa-map-marker "></span>
-            <span class="sidenav-label">{{"Map" | translate}}</span>
+            <span class="sidenav-label">Dashboard</span>
           </a>
         </li>
         <li class="sidenav-item" ui-sref-active="open active">
@@ -44,23 +34,5 @@
         </li>
       </ul>
     </nav>
-
-  </div>
-  <div class="panel" style="background-color: transparent;"  ng-show="!app.sidebar.isCollapsed">
-       
-    <div class="panel-body text-center" style= "position: absolute; height: 170px;  margin-top: 40px; bottom: 0; background-color: #283745;" ng-show="!app.sidebar.isCollapsed" >
-        <img class="img" src="img/flag_main.png">
-        <br>
-        <br>
-      <p>P.O. Box 30377,
-        <br> Lilongwe 3, MALAWI
-        <br> Telephone:
-        <b>+265 1 789 400</b>
-        <br> Fax:
-        <b> +265 1 789 534 / 1 789 536</b>
-        <br>
-        <a href="http://www.health.gov.mw" target="_blank">www.health.gov.mw</a>
-      </p>
-    </div>
   </div>
 </div>

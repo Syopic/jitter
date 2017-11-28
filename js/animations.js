@@ -1,4 +1,4 @@
-angular.module("ira")
+angular.module("sara")
   .animation('.sidenav', function() {
     return {
       beforeAddClass: function(element, className, done) {

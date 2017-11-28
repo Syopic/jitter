@@ -1,26 +1,26 @@
 .uib-datepicker .btn {
   background-color: #fff;
   border-color: #fff;
-  color: #555;
+  color: #757575;
 }
 
 .uib-datepicker .btn:focus, .uib-datepicker .btn.focus {
   background-color: #fff;
   border-color: #fff;
-  color: #555;
+  color: #757575;
 }
 
 .uib-datepicker .btn:hover {
   background-color: #e6e6e6;
   border-color: #e6e6e6;
-  color: #555;
+  color: #757575;
 }
 
 .uib-datepicker .btn:active, .uib-datepicker .btn.active,
 .open > .uib-datepicker .btn.dropdown-toggle {
   background-color: #e6e6e6;
   border-color: #e6e6e6;
-  color: #555;
+  color: #757575;
 }
 
 .uib-datepicker .btn:active:hover, .uib-datepicker .btn:active:focus, .uib-datepicker .btn:active.focus, .uib-datepicker .btn.active:hover, .uib-datepicker .btn.active:focus, .uib-datepicker .btn.active.focus,
@@ -29,7 +29,7 @@
 .open > .uib-datepicker .btn.dropdown-toggle.focus {
   background-color: #d9d9d9;
   border-color: #d9d9d9;
-  color: #555;
+  color: #757575;
 }
 
 .uib-datepicker .btn.disabled:hover, .uib-datepicker .btn.disabled:focus, .uib-datepicker .btn.disabled.focus, .uib-datepicker .btn[disabled]:hover, .uib-datepicker .btn[disabled]:focus, .uib-datepicker .btn[disabled].focus,
@@ -41,10 +41,10 @@ fieldset[disabled] .uib-datepicker .btn.focus {
 }
 
 .uib-datepicker .btn .badge {
-  background-color: #555;
+  background-color: #757575;
   color: #fff;
 }
 
 .uib-datepicker .btn .text-muted {
-  color: #eee;
+  color: #e0e0e0;
 }

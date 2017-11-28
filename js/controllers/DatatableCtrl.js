@@ -1,147 +1,193 @@
-angular.module('ira').controller('DatatableCtrl', function ($rootScope, $scope, DTOptionsBuilder, DTColumnBuilder, DataService, $stateParams, StoreService) {
-    var dt = this;
-    var searchText = $stateParams.searchText;
-    if ($rootScope.serverMode) {
-        
-        $scope.pageData = {
-            total: 0,
-        };
+angular.module('sara')
+    .constant('XlsxPopulate', window.XlsxPopulate).run(function ($rootScope) { $rootScope.XlsxPopulate = window.XlsxPopulate; })
+    .controller('DatatableCtrl', function ($q, $stateParams, $timeout, HIV, TB, Malaria, $uibModal, $rootScope, $scope, $compile, DTOptionsBuilder, DTColumnBuilder, ServiceData, DataFactory) {
 
-        var orderNames = ["name", "services__status", "village", "district__name", "district__region__name", "", "", "contact_name", "contact_phones", "contact_emails", "" ];
-        // this function used to get all leads
-        var getData = function (sSource, aoData, fnCallback, oSettings) {
+        var dTable = this;
+        $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
+        $scope.regions = [];
+        $scope.draw = null;
+        $scope.callBackFn = null;
+        $scope.currentFile = null;
+
+        $scope.fileChosen = false;
+
+        var fileInput = document.getElementById('fileInput');
+        var Promise = XlsxPopulate.Promise;
+
+        $scope.getData = function (sSource, aoData, fnCallback, oSettings) {
             var draw = aoData[0].value;
-            var columns = aoData[1].value;
-            var order = aoData[2].value[0].dir == "asc" ? "-" + orderNames[aoData[2].value[0].column] : orderNames[aoData[2].value[0].column];
-            var start = aoData[3].value;
-            var length = aoData[4].value;
-            var search = $stateParams.searchText ? $stateParams.searchText : aoData[5].value.value;
-            var params = {
-                orderby : order,
-                text: search,
-                start: start,
-                limit: length
-            }
-            DataService.getFacilityData(params).then(function (response) {
-                var records = {
-                    'draw': 0,
-                    'recordsTotal': 0,
-                    'recordsFiltered': 0,
-                    'data': []
-                };
-                if (response.data) {
-                    records = {
-                        'draw': draw,
-                        'recordsFiltered': response.data.data.facilitiesCount,
-                        'recordsTotal': response.data.data.facilitiesCount,
-                        'data': response.data.data.facilitiesPaged
-                    };
+            DataFactory.getRegionsData($scope.disease).then(function (response) {
+                var result = [];
+                var regionsData = response.data.data.regions;
+                for (var key in regionsData) {
+                    var obj = { name: key };
+                    var codes = regionsData[key];
+                    for (var i = 0; i < codes.length; i++) {
+                        for (prop in codes[i]) {
+                            obj[prop] = codes[i][prop] ? codes[i][prop] : Math.round(Math.random() * 1000);
+                        }
+                    }
+                    result.push(obj);
                 }
-                $scope.pageData.total =  response.data.data.facilitiesCount;
+                $scope.regions = result;
+                $scope.draw = draw;
+                $scope.callBackFn = fnCallback;
+                records = {
+                    'draw': draw,
+                    'recordsTotal': $scope.regions.length,
+                    'data': $scope.regions
+                };
                 fnCallback(records);
+                document.getElementById('datatable_info').style.display = 'none';
             });
         }
 
-        function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-            $compile(nRow)($scope);
+        $scope.edit = function (item) {
+
+            var itemToEdit = item;
+            var formFields = $scope.columns;
+
+            $uibModal.open({
+                animation: false,
+                ariaLabelledBy: "modal-title-top",
+                ariaDescribedBy: "modal-body-top",
+                templateUrl: "views/editPopup.html",
+                size: "md",
+                controller: function ($scope) {
+                    var paramsArray = [];
+                    for (var index = 0; index < formFields.length; index++) {
+                        paramsArray.push({ param: formFields[index].name, value: 45 });
+                    }
+                    $scope.params = paramsArray;
+                }
+            });
+        };
+
+        $scope.populateTable = function () {
+            return populate()
+                .then(function (blob) {
+
+                })
+                .catch(function (err) {
+                    alert(err.message || err);
+                    throw err;
+                });
         }
 
+        $scope.generateBlob = function () {
+            return generate()
+                .then(function (blob) {
+                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                        window.navigator.msSaveOrOpenBlob(blob, $scope.currentFile.name);
+                    } else {
+                        var url = window.URL.createObjectURL(blob);
+                        var a = document.createElement("a");
+                        document.body.appendChild(a);
+                        a.href = url;
+                        a.download = $scope.currentFile.name;
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
+                    }
+                })
+                .catch(function (err) {
+                    alert(err.message || err);
+                    throw err;
+                });
+        }
 
-        //STYLE TABLES
-        dt.options = DTOptionsBuilder.newOptions()
-            .withFnServerData(getData) // method name server call
-            .withDataProp('data')// parameter name of list use in getLeads Fuction
-            .withOption('processing', true) // required
-            .withOption('serverSide', true)// required
-            .withOption('paging', true)// required
-            .withDOM(`<"row"<"col-sm-6"i><"col-sm-6"f>>
-        <"table-responsive"tr><"row"<"col-sm-6"l><"col-sm-6"p>>`)
-            .withBootstrap()
-            .withLanguage({
-                paginate: {
-                    previous: "&laquo;",
-                    next: "&raquo;",
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search…"
-            })
-            .withPaginationType('full_numbers')
-            .withDisplayLength(15)
-            .withOption('lengthChange', false)
-            .withOption("responsive", true)
-        dt.columns = [
-            DTColumnBuilder.newColumn('name').withTitle('Name'),
-            DTColumnBuilder.newColumn("services[].status").withTitle("Status").notSortable().renderWith(function (data, type, full, meta) {
-                return data[0] == "F" ? '<span class="label label-primary">Functional</span>' : '<span class="label label-danger">Non Functional</span>';
-            }),
+        initTable();
 
-
-            DTColumnBuilder.newColumn("village").withTitle("Village"),
-            DTColumnBuilder.newColumn("district.name").withTitle("District"),
-            DTColumnBuilder.newColumn("district.region.name").withTitle("Region"),
-            DTColumnBuilder.newColumn("services[,].serviceType").withTitle("Facility Types").notSortable().renderWith(function (data) {
-                var types = data.split(',');
-                var result = "";
-                if (types.length > 1) {
-                    console.log(types.length);
-                }
-                for (var i = 0; i < types.length; i++) {
-                    if (StoreService.facilityTypes[types[i]]) 
-                        result += StoreService.facilityTypes[types[i]].name;
-                    else 
-                        result += types[i];
-                    result += ((i + 1) == types.length ? "" : ", ");
-                }
-                return result;
-            }),
-
-            DTColumnBuilder.newColumn("services[, ].controllingAgency.name").withTitle("Controlling Agency").notSortable().renderWith(function (data) {
-                return data;
-            }),
-            DTColumnBuilder.newColumn('contactName').withTitle('Contact Name'),
-            DTColumnBuilder.newColumn("contactPhones[, ]").withTitle("Phone"),
-            DTColumnBuilder.newColumn("contactEmails[, ]").withTitle("Email"),
-            DTColumnBuilder.newColumn("cluster.name").withTitle("Cluster").notSortable()
+        function initTable() {
+            $scope.headers = ServiceData.complexHeaders[$scope.disease];
             
-        ];
+            if ($scope.disease == 'HIV') {
+                $scope.headersL0 = ServiceData.complexHeaders["HIVL0"];
+            }
 
-    } else {
-        // Mock
-        dt.options = DTOptionsBuilder
-            .fromSource("data/facilitiesData.json")
-            .withDOM(`<"row"<"col-sm-6"i><"col-sm-6"f>>
-        <"table-responsive"tr><"row"<"col-sm-6"l><"col-sm-6"p>>`)
-            .withBootstrap()
-            .withLanguage({
-                paginate: {
-                    previous: "&laquo;",
-                    next: "&raquo;",
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search…"
-            })
-            .withPaginationType('full_numbers')
-            .withDisplayLength(15)
-            .withOption('lengthChange', false)
-            .withOption("responsive", true)
+            $scope.columns = ServiceData.diseaseIndicatorsDirectory[$scope.disease];
+            dTable.columns = [
+                DTColumnBuilder.newColumn("name"),
+            ];
+            for (var index = 0; index < $scope.columns.length; index++) {
+                var column = DTColumnBuilder.newColumn($scope.columns[index].code);
+                dTable.columns.push(column);
+            }
 
-        dt.columns = [
-            DTColumnBuilder.newColumn("Name").withTitle("Name"),
-            DTColumnBuilder.newColumn("Status").withTitle("Status").renderWith(function (data, type, full, meta) {
-                return data == "Functional" ? '<span class="label label-primary">' + data + '</span>' : '<span class="label label-danger">' + data + '</span>';
-            }),
-            DTColumnBuilder.newColumn("Village").withTitle("Village"),
-            DTColumnBuilder.newColumn("District").withTitle("District"),
-            DTColumnBuilder.newColumn("Region").withTitle("Region"),
-            DTColumnBuilder.newColumn("FacilityType").withTitle("Facility Type"),
-            DTColumnBuilder.newColumn("ControllingAgency").withTitle("Controlling Agency"),
-            DTColumnBuilder.newColumn("ContactName").withTitle("Contact Name"),
-            DTColumnBuilder.newColumn("Phone").withTitle("Phone"),
-            DTColumnBuilder.newColumn("Email").withTitle("Email").renderWith(function (data, type, full, meta) {
-                return data != "N/A" ? '<a href="mailto:' + data + '">' + data + '</a>' : data;
-            }),
-            DTColumnBuilder.newColumn("Cluster").withTitle("Cluster")
-        ];
-    }
+            var rowCallback = function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                return nRow;
+            };
 
-});
+            dTable.options = DTOptionsBuilder.newOptions()
+                .withFnServerData($scope.getData) // method name server call
+                .withDataProp('data')// parameter name of list use in getLeads Fuction
+                .withOption('serverSide', true)// required
+                .withDOM(`<"row"<"col-sm-6"i><"col-sm-6"f>><"table-responsive"tr><"row"<"col-sm-6"l><"col-sm-6"p>>`)
+                .withBootstrap()
+                .withOption('bFilter', false)
+                .withOption('bProcessing', false)
+                .withOption('scrollX', '100%')
+                .withScroller()
+                .withOption('scrollY', 'calc(100vh - 350px)')
+                .withOption('rowCallback', rowCallback)
+
+                
+                
+        }
+
+        function refreshTable() {
+            records = {
+                'draw': $scope.draw,
+                'data': $scope.regions
+            };
+            $scope.callBackFn(records);
+        }
+
+        function populate(type) {
+            
+            return getWorkbook()
+                .then(function (workbook) {
+                    const range = workbook.sheet(0).range("A5:BF51");
+                    const value = workbook.sheet(0).cell("A1").value();
+
+                    var cells = range.cells();
+                    console.log(value);
+                    var paramsArray = [];
+                    for (let i = 0; i < cells.length; i++) {
+                        var obj = { "name": range.cell(i, 0).value() };
+                        for (var j = 0; j < $scope.columns.length; j++) {
+                            if ($scope.columns[j]) {
+                                obj[$scope.columns[j].code] = range.cell(i, j + 1).value() ? range.cell(i, j + 1).value() : 0;
+                            }
+
+                        }
+                        paramsArray.push(obj);
+                    }
+
+                    $scope.regions = paramsArray;
+                    refreshTable();
+                    return workbook.outputAsync(type);
+                })
+        }
+
+        function getWorkbook() {
+            $scope.currentFile = fileInput.files[0];
+            if (!$scope.currentFile) return Promise.reject("You must select a file.");
+            
+            return XlsxPopulate.fromDataAsync($scope.currentFile);
+        }
+
+        function generate(type) {
+            return getWorkbook()
+                .then(function (workbook) {
+                    workbook.sheet(0).cell("A1").value("This was created in the browser!").style("fontColor", "ff0000");
+                    return workbook.outputAsync(type);
+                })
+        }
+
+        $scope.uploadChange = function () {
+            $scope.populateTable();
+            $scope.fileChosen = true;
+        }
+      
+    });

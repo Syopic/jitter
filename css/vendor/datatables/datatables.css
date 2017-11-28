@@ -40,22 +40,22 @@
 
 .table.dataTable .sorting_asc,
 .table.dataTable .sorting_desc {
-  border-bottom-color: #0ac29d;
-  color: #0ac29d;
+  border-bottom-color: #0288d1;
+  color: #0288d1;
 }
 
 .table.dataTable .sorting:after {
-  color: #999;
+  color: #e0e0e0;
   content: "\f0dc";
 }
 
 .table.dataTable .sorting_asc:after {
-  color: #0ac29d;
+  color: #0288d1;
   content: "\f0de";
 }
 
 .table.dataTable .sorting_desc:after {
-  color: #0ac29d;
+  color: #0288d1;
   content: "\f0dd";
 }
 
@@ -97,7 +97,7 @@
 }
 
 .dataTables_filter > label:after {
-  color: #eee;
+  color: #757575;
   content: "\f002";
   display: block;
   font-family: FontAwesome;
