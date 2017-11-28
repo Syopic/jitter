@@ -5,7 +5,6 @@ angular.module('sara')
         var dTable = this;
         $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
         $scope.regions = [];
-        $scope.draw = null;
         $scope.callBackFn = null;
         $scope.currentFile = null;
 
@@ -30,15 +29,11 @@ angular.module('sara')
                     result.push(obj);
                 }
                 $scope.regions = result;
-                $scope.draw = draw;
                 $scope.callBackFn = fnCallback;
                 records = {
-                    'draw': draw,
-                    'recordsTotal': $scope.regions.length,
                     'data': $scope.regions
                 };
                 fnCallback(records);
-                document.getElementById('datatable_info').style.display = 'none';
             });
         }
 
@@ -107,7 +102,7 @@ angular.module('sara')
 
             $scope.columns = ServiceData.diseaseIndicatorsDirectory[$scope.disease];
             dTable.columns = [
-                DTColumnBuilder.newColumn("name"),
+                DTColumnBuilder.newColumn("name")
             ];
             for (var index = 0; index < $scope.columns.length; index++) {
                 var column = DTColumnBuilder.newColumn($scope.columns[index].code);
@@ -120,24 +115,18 @@ angular.module('sara')
 
             dTable.options = DTOptionsBuilder.newOptions()
                 .withFnServerData($scope.getData) // method name server call
-                .withDataProp('data')// parameter name of list use in getLeads Fuction
                 .withOption('serverSide', true)// required
-                .withDOM(`<"row"<"col-sm-6"i><"col-sm-6"f>><"table-responsive"tr><"row"<"col-sm-6"l><"col-sm-6"p>>`)
+                .withDOM(`<"row"<"col-sm-6"><"col-sm-6">><"table-responsive"tr><"row"<"col-sm-6"l><"col-sm-6"p>>`)
                 .withBootstrap()
-                .withOption('bFilter', false)
-                .withOption('bProcessing', false)
                 .withOption('scrollX', '100%')
                 .withScroller()
-                .withOption('scrollY', 'calc(100vh - 350px)')
+                .withOption('bDeferRender', true)
+                .withOption('scrollY', 'calc(100vh - 520px)')
                 .withOption('rowCallback', rowCallback)
-
-                
-                
         }
 
         function refreshTable() {
             records = {
-                'draw': $scope.draw,
                 'data': $scope.regions
             };
             $scope.callBackFn(records);

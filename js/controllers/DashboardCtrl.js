@@ -1,4 +1,5 @@
-angular.module('sara').controller('DashboardCtrl', ['$scope', "HIV", "TB", "Malaria", "ServiceData", function ($scope, HIV, TB, Malaria, ServiceData) {
+angular.module('sara').controller('DashboardCtrl', ['$scope', "HIV", "TB", "Malaria", "boundsData", "ServiceData","$timeout",  function ($scope, HIV, TB, Malaria, boundsData, ServiceData, $timeout) {
+
 
 
       var lablel = [];
@@ -10,9 +11,17 @@ angular.module('sara').controller('DashboardCtrl', ['$scope', "HIV", "TB", "Mala
       $scope.selectIndicator = ind[0];
       $scope.series = [$scope.selectIndicator.name];
       $scope.data = [onload(ind, ind[0])];
+     
 
 
+      $scope.continent="Africa";
+      $scope.country = "Malawi";
+      $scope.year = "2010";
 
+
+      $timeout(function () {
+            updateMap();
+      },400);
 
 
       $scope.onSellectDisease = function () {
@@ -22,18 +31,21 @@ angular.module('sara').controller('DashboardCtrl', ['$scope', "HIV", "TB", "Mala
                         ind = ServiceData.diseaseIndicatorsDirectory.HIV;
                         $scope.data = [onload(ind, ind[0])];
                         $scope.series = [ind[0].name];
+                        updateMap();
                         break
                   case 2:
                         Data = new TB.getData().data;
                         ind = ServiceData.diseaseIndicatorsDirectory.TB;
                         $scope.data = [onload(ind, ind[0])];
                         $scope.series = [ind[0].name];
+                        updateMap();
                         break
                   case 3:
                         Data = new Malaria.getData().data;
                         ind = ServiceData.diseaseIndicatorsDirectory.Malaria;
                         $scope.data = [onload(ind, ind[0])];
                         $scope.series = [ind[0].name];
+                        updateMap();
                         break
 
                   default:
@@ -41,12 +53,14 @@ angular.module('sara').controller('DashboardCtrl', ['$scope', "HIV", "TB", "Mala
                         ind = ServiceData.diseaseIndicatorsDirectory.HIV;
                         $scope.data = [onload(ind, ind[0])];
                         $scope.series = [ind[0].name];
+                        updateMap();
                         break
             }
 
       }
 
       $scope.onSellectIndicator = function () {
+           
          // var dat = onload($scope.cahrtIndicator, $scope.selectIndicator);
             
       };
@@ -71,6 +85,7 @@ angular.module('sara').controller('DashboardCtrl', ['$scope', "HIV", "TB", "Mala
                         oneData.push();
                   }
             })
+            
             return oneData;
       };
 
@@ -149,6 +164,150 @@ angular.module('sara').controller('DashboardCtrl', ['$scope', "HIV", "TB", "Mala
                  // console.log("del all", $scope.series)
             }
       };
+      ////-----------
+ // ------------ Map configure ------------
+
+ var cGrades = [];
+ 
+   var map = L.map('map', {
+     doubleClickZoom: false,
+     zoomControl: false,
+     dragging: false,
+     tap: false,
+     center: [51.505, -0.09],
+     zoom: 13
+   });
+ 
+   map.scrollWheelZoom.disable();
+ 
+   var mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+   }).addTo(map);
+ 
+   var info = L.control({ position: 'bottomleft' });
+   info.onAdd = function (map) {
+       this._div = L.DomUtil.create('div', 'mapinfo'); // create a div with a class "info"
+       this.update();
+       return this._div;
+   };
+ 
+   info.update = function (props) {
+     if (props) {
+       var value = $scope.data[0][props.id];
+       this._div.innerHTML = '<h4>' + props.name + '</h4>' + $scope.selectIndicator.name + ': <b>' + value.toFixed(2) + '</b>';
+     } else {
+       this._div.innerHTML = $scope.selectIndicator.name;
+     } 
+   };
+ 
+   info.addTo(map);
+ 
+   mainLayer.setOpacity(0.2);
+ 
+   var legend = L.control({ position: 'topright' });
+ 
+   function setGeoJson(areaId) {
+     var areaInfo = boundsData.getData()[areaId];
+     $.getJSON('data/geojson/' + areaInfo.geojson, function (data) {
+       geojson = L.geoJson(data, {
+         clickable: true,
+         style: style,
+         onEachFeature: onEachFeature
+       }).addTo(map);
+       updateMap();
+     })
+   }
+ 
+   function onEachFeature(feature, layer) {
+     layer.on({
+       mouseover: highlightFeature,
+       mouseout: resetHighlight,
+       click: highlightFeature
+     });
+   }
+ 
+   function highlightFeature(e) {
+     var layer = e.target;
+     info.update(layer.feature);
+     layer.setStyle({
+       color: '#8F5900',
+       weight: 3,
+       opacity: 1,
+       fillOpacity: 0.5
+     });
+     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+       layer.bringToFront();
+     }
+   }
+ 
+   function resetHighlight(e) {
+     var layer = e.target;
+     geojson.resetStyle(e.target);
+     info.update();
+   }
+ 
+   function setFocusOnArea(aId) {
+     var areaId = aId;
+     var areaInfo = boundsData.getData()[areaId];
+     var bounds = [[areaInfo.bounds[1], areaInfo.bounds[0]], [areaInfo.bounds[3], areaInfo.bounds[2]]];
+     map.fitBounds(bounds);
+   }
+ 
+   function updateMap() {
+     var cAreaId = 0;
+     switch ($scope.currentArea) {
+       case "Central": cAreaId = 101; break;
+       case "Northern": cAreaId = 102; break;
+       case "Southern": cAreaId = 103; break;
+     }
+     setFocusOnArea(cAreaId)
+     geojson.setStyle(style);
+ 
+     // legend
+     var minValue = Infinity;
+     var maxValue = -Infinity;
+     cGrades = [];
+     angular.forEach($scope.data[0], function (value, key) {
+         minValue = Math.min(minValue, value);
+         maxValue = Math.max(maxValue, value);
+     });
+     var step = (maxValue - minValue) / 7;
+     for (var i = 0; i < 7; i++) {
+       cGrades[i] = (i * step + minValue).toFixed(2);
+     }
+ 
+     legend.onAdd = function (map) {
+       var div;
+       div = L.DomUtil.create('div', 'maplegendinfo maplegend'),
+         grades = cGrades,
+         labels = [];
+ 
+       for (var i = 0; i < grades.length; i++) {
+         div.innerHTML +=
+           '<i style="background:' + ServiceData.getColor(grades, grades[i]) + '; border-radius: 3px; border: 1px solid; border-color: white;"></i> ' +
+           grades[i] + (grades[i + 1] ? ' &ndash; ' + grades[i + 1] + '<br>' : '+');
+       }
+       return div;
+     };
+ 
+     legend.addTo(map);
+   }
+ 
+   setGeoJson(0);
+ 
+   function style(feature) {
+     return {
+       color: '#fff',
+       weight: 2,
+       fillColor: ServiceData.getColor(cGrades, $scope.data[0][feature.id]),
+       fill: true,
+       opacity: 1,
+       fillOpacity: 0.9,
+     };
+   }
+ 
+
+
       ////-----------
 
       $scope.labels = lablel;

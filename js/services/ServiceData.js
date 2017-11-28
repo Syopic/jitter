@@ -148,5 +148,16 @@ var app = angular.module("sara").service('ServiceData', [function ServiceData() 
             {name:"HIV: Antiretroviral prescription and client management services", rowspan: 0, colspan: 10, bgColor: "#aaaaaa"},
             {name:"HIV/AIDS: Preventing mother-to-child transmission (PMTCT)", rowspan: 0, colspan: 18, bgColor: "#bbbbbb"}
         ]
-    }
+    },
+    this.getColor = function getColor(grades, d) {
+        d *= 1.1;
+        return d > grades[6] ? '#BD0026' :
+          d > grades[5] ? '#E31A1C' :
+            d > grades[4] ? '#FC4E2A' :
+              d > grades[3] ? '#FD8D3C' :
+                d > grades[2] ? '#FEB24C' :
+                  d > grades[1] ? '#FED976' :
+                    '#FFEDA0';
+      }
+
 }]);

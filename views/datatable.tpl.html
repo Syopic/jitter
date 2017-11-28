@@ -2,23 +2,20 @@
   <div class="col-xs-12">
     <div class="card">
       <div class="card-body">
-          <label class="btn btn-success file-upload-btn">
-            <input id="fileInput" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="angular.element(this).scope().uploadChange()">
-          </label>
-          <!-- <button class="btn btn-primary" ng-click="populateTable()">Populate table</button> -->
-          <button class="btn btn-primary" ng-click="generateBlob()">Export table data</button>
-        <table id="datatable" datatable class="table table-striped table-bordered table-hover table-nowrap dataTable" dt-columns="dTable.columns"
-          dt-options="dTable.options" cellspacing="0" width="100%">
+        <label class="btn btn-success file-upload-btn">
+          <input id="fileInput" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="angular.element(this).scope().uploadChange()">
+        </label>
+        <button class="btn btn-primary" ng-click="generateBlob()">Export table data</button>
+        <table id="datatable" datatable class="table dataTable" dt-columns="dTable.columns" dt-options="dTable.options" style="border: 1px solid #eee;">
           <thead>
             <tr>
-              <th class="text-center align-middle" ng-repeat="headerL0 in headersL0" rowspan="{{headerL0.rowspan}}" colspan="{{headerL0.colspan}}">{{headerL0.name}}</th>
+              <th style="border: 1px solid #eee; " class="text-center align-middle" ng-repeat="headerL0 in headersL0" rowspan="{{headerL0.rowspan}}" colspan="{{headerL0.colspan}}">{{headerL0.name}}</th>
             </tr>
             <tr>
-              <th class="text-center align-middle" ng-repeat="header in headers" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}">{{header.name}}</th>
+              <th style="border: 1px solid #eee;" class="text-center align-middle" ng-repeat="header in headers" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}">{{header.name}}</th>
             </tr>
             <tr>
-              <th ng-repeat="column in columns">{{column.name}}
-                <br>[ {{column.code}} ]</th>
+              <th style="border: 1px solid #eee; min-width: 60px; max-width: 200px;" ng-repeat="column in columns">{{column.name}}<br>[{{column.code}}]</th>
             </tr>
           </thead>
         </table>

@@ -1,0 +1,222 @@
+{
+	"0": {
+		"id": "0",
+		"name": "Malawi",
+		"bounds": [32.6166, -17.1369, 35.9156, -9.2836],
+		"geojson": "test.json"
+	},
+	"101": {
+		"id": "101",
+		"name": "Central",
+		"bounds": [32.9865,-14.7005,34.6454,-12.5117],
+		"geojson": "test.json"
+	},
+	"102": {
+		"id": "102",
+		"name": "North",
+		"bounds": [32.9865,-13.3148,34.6454,-9.4395],
+		"geojson": "test.json"
+	},
+	"103": {
+		"id": "103",
+		"name": "South",
+		"bounds": [34.14, -17.1985, 36.0461, -13.4217],
+		"geojson": "test.json"
+	},
+	"1": {
+		"id": "1",
+		"name": "Dedza",
+		"bounds": [33.5907, -14.7111, 34.8047, -13.8221],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.6"
+	},
+	"2": {
+		"id": "2",
+		"name": "Dowa",
+		"bounds": [33.3826, -13.8647, 34.3405, -13.1731],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.7"
+	},
+	"3": {
+		"id": "3",
+		"name": "Kasungu",
+		"bounds": [32.8986, -13.6513, 34.048, -12.3239],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.9"
+	},
+	"4": {
+		"id": "4",
+		"name": "Lilongwe",
+		"bounds": [33.1924, -14.6314, 34.3268, -13.4297],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.11"
+	},
+	"5": {
+		"id": "5",
+		"name": "Mchinji",
+		"bounds": [32.6486, -14.2404, 33.3929, -13.3228],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.14"
+	},
+	"6": {
+		"id": "6",
+		"name": "Nkhotakota",
+		"bounds": [33.7088, -13.5312, 34.3597, -12.1306],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.18"
+	},
+	"7": {
+		"id": "7",
+		"name": "Ntcheu",
+		"bounds": [34.3597, -15.3557, 34.9928, -14.303],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.20"
+	},
+	"8": {
+		"id": "8",
+		"name": "Ntchisi",
+		"bounds": [33.6594, -13.5712, 34.173, -12.9858],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.21"
+	},
+	"9": {
+		"id": "9",
+		"name": "Salima",
+		"bounds": [34.0768, -14.1312, 34.6413, -13.4026],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.24"
+	},
+	"10": {
+		"id": "10",
+		"name": "Chitipa",
+		"bounds": [32.9233, -10.5958, 33.9862, -9.3095],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.5"
+	},
+	"11": {
+		"id": "11",
+		"name": "Karonga",
+		"bounds": [33.4451, -10.6282, 34.346, -9.5249],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.8"
+	},
+	"12": {
+		"id": "12",
+		"name": "Likoma",
+		"bounds": [34.5026, -12.2112, 34.8541, -11.8835],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.10"
+	},
+	"13": {
+		"id": "13",
+		"name": "Mzimba",
+		"bounds": [33.1897, -12.8011, 34.129, -10.9547],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.16"
+	},
+	"14": {
+		"id": "14",
+		"name": "Nkhata Bay",
+		"bounds": [33.6896, -12.2863, 34.3625, -10.9331],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.17"
+	},
+	"15": {
+		"id": "15",
+		"name": "Rumphi",
+		"bounds": [33.2336, -11.1757, 34.2499, -10.4203],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.23"
+	},
+	"16": {
+		"id": "16",
+		"name": "Balaka",
+		"bounds": [34.78, -15.3637, 35.3293, -14.7244],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.1"
+	},
+	"17": {
+		"id": "17",
+		"name": "Blantyre",
+		"bounds": [34.6756, -16.0379, 35.2249, -15.2882],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.2"
+	},
+	"18": {
+		"id": "18",
+		"name": "Chikwawa",
+		"bounds": [34.2197, -16.7125, 35.137, -15.7057],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.3"
+	},
+	"19": {
+		"id": "19",
+		"name": "Chiradzulu",
+		"bounds": [35.032654, -16.037895, 35.362244, -15.485776],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.4"
+	},
+	"20": {
+		"id": "20",
+		"name": "Machinga",
+		"bounds": [35.1453, -15.2842, 35.928, -14.5304],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.12"
+	},
+	"21": {
+		"id": "21",
+		"name": "Mangochi",
+		"bounds": [34.6619, -14.8545, 35.8209, -13.4591],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.13"
+	},
+	"22": {
+		"id": "22",
+		"name": "Mulanje",
+		"bounds": [35.2579, -16.2569, 35.8539, -15.5543],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.15"
+	},
+	"23": {
+		"id": "23",
+		"name": "Mwanza",
+		"bounds": [34.324, -15.8425, 34.8349, -15.1888],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.27"
+	},
+	"24": {
+		"id": "24",
+		"name": "Nsanje",
+		"bounds": [34.8734, -17.1474, 35.3485, -16.2911],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.19"
+	},
+	"25": {
+		"id": "25",
+		"name": "Thyolo",
+		"bounds": [34.873352, -16.428182, 35.363617, -15.813396],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.25"
+	},
+	"26": {
+		"id": "26",
+		"name": "Phalombe",
+		"bounds": [35.4639, -15.964, 35.8896, -15.4047],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.22"
+	},
+	"27": {
+		"id": "27",
+		"name": "Zomba",
+		"bounds": [34.9805, -15.7024, 35.8635, -15.1464],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.26"
+	},
+	"28": {
+		"id": "28",
+		"name": "Neno",
+		"bounds": [34.337769, -15.833215, 34.942017, -15.196073],
+		"geojson": "test.json",
+		"geoId":"malawi_exposure.28"
+	}
+}
