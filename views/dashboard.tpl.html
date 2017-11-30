@@ -17,65 +17,77 @@
       <div class="col-xs-12">
         <div class="card ">
           <div class="row gutter-xs">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="card-body">
                 <div class="form-group">
-                  <select class="form-control" name="Continent" ng-model="continent">
-                    <option value="" selected="selected" disabled="disabled">Continent</option>
-                    <option value="Africa">Africa</option>
-                    <option value="Asia" disabled="disabled">Asia</option>
-                    <option value="Europe" disabled="disabled">Europe</option>
-                    <option value="North America" disabled="disabled">North America</option>
-                    <option value="South America" disabled="disabled">South America</option>
-                    <option value="Australia" disabled="disabled">Australia</option>
-                    <option value="Oceania" disabled="disabled">Oceania</option>
-                  </select>
+
 
                   <h5>HFA type</h5>
                   <div class="btn-group" data-toggle="buttons" style="width:100%;">
-                    <label class="btn btn-primary btn-sm" style="width: 33%;">
+                    <label class="btn btn-outline-info active" style="width: 33%;">
                       <input type="radio" name="hfa" value="SARA" checked="checkedHFA">SARA
                     </label>
-                    <label class="btn btn-primary btn-sm  active" style="width: 33%;">
+                    <label class="btn btn-outline-info " style="width: 33%;">
                       <input type="radio" name="hfa" value="SPI">SPI
                     </label>
-                    <label class="btn btn-primary btn-sm " style="width: 33%;">
+                    <label class="btn btn-outline-info" style="width: 33%;">
                       <input type="radio" name="hfa" value="SDI">SDI
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="card-body">
                 <div class="form-group">
-                  <select class="form-control" name="Country" ng-model="country">
-                    <option value="" selected="selected" disabled="disabled">Country</option>
-                    <option value="Malawi">Malawi</option>
-                    <option value="Kennya">Kennya</option>
-                    <option value="Ethiopia">Ethiopia</option>
-                  </select>
+
                   <h5>Disease</h5>
                   <div class="btn-group" data-toggle="buttons" style="width:100%;">
-                    <label class="btn btn-primary btn-sm  active" style="width: 33%;" ng-click="disease =1; onSellectDisease();">
+                    <label class="btn btn-outline-info active" style="width: 33%;" ng-click="disSel =1; onSellectDisease();">
                       <input type="radio" value="HIV">HIV
                     </label>
-                    <label class="btn btn-primary btn-sm " style="width: 33%;" ng-click="disease =2; onSellectDisease();">
+                    <label class="btn btn-outline-info" style="width: 33%;" ng-click="disSel =2; onSellectDisease();">
                       <input type="radio" value="TB">TB
                     </label>
-                    <label class="btn btn-primary btn-sm " style="width: 33%;" ng-click="disease =3; onSellectDisease();">
+                    <label class="btn btn-outline-info" style="width: 33%;" ng-click="disSel =3; onSellectDisease();">
                       <input type="radio" value="Malaria"> Malaria
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
+
+            <div class="col-md-6">
               <div class="card-body">
-                <div class="form-group">
+                <div class="col-md-3">
+
+                  <h5>Continent</h5>
+                  <select class="form-control" name="Continent" ng-model="continent">
+                    <option value="Africa" selected="selected">Africa</option>
+                    <!-- <option value="Asia" disabled="disabled">Asia</option>
+                        <option value="Europe" disabled="disabled">Europe</option>
+                        <option value="North America" disabled="disabled">North America</option>
+                        <option value="South America" disabled="disabled">South America</option>
+                        <option value="Australia" disabled="disabled">Australia</option>
+                        <option value="Oceania" disabled="disabled">Oceania</option> -->
+                  </select>
+                </div>
+
+                <div class="col-md-3">
+                  <h5>Country</h5>
+                  <select class="form-control" name="Country" ng-model="country">
+                    <option value="Malawi" selected="selected" >Malawi</option>
+                    <option value="Kennya">Kennya</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                  </select>
+
+                </div>
+
+                <div class="col-md-3">
+                  <h5>Year</h5>
                   <select class="form-control" name="Year" ng-model="year">
-                    <option value="" selected="selected" disabled="disabled">Year</option>
-                    <option value="2017">2017</option>
+                    <option value="" disabled="disabled">Year</option>
+                    <option value="2017" selected="selected">2017</option>
                     <option value="2016">2016</option>
                     <option value="2015">2015</option>
                     <option value="2014">2014</option>
@@ -85,12 +97,14 @@
                     <option value="2010">2010</option>
                   </select>
                 </div>
-                <P>
-                  <h4> Continent - {{continent}};
-                    <br> Country - {{country}};
-                    <br> Year - {{year}}
-                  </h4>
-                </P>
+                  <div class="col-md-3">
+                    <h5><br></h5>
+                    <button class="btn btn-outline-info btn-block" type="button" ng-click="getParams()">Submit
+
+                    </button>
+
+                 
+                </div>
               </div>
             </div>
           </div>
@@ -117,7 +131,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body">
-          <h4>Chart {{selectIndicator.code}}</h4>
+          <h4>{{continent}} {{country}} {{year}} {{selectIndicator.name}}</h4>
 
           <div class="card-body">
             <div ng-dropdown-multiselect="" options="multiselectData" selected-model="multiselectModel" extra-settings="multiselectSettings"

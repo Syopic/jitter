@@ -1,77 +1,22 @@
-<div class="modal-header">
-    <h3>Edit {{item.Name}}</h3>
-</div>
-<div class="modal-body">
-    <form class="form form-horizontal" name="xform"  id="det-form">
-        <div ng-repeat="item in params" class="form-group">
-                <label class="col-sm-6 control-label" for="form-control-1">{{item.param}}</label>
-            <!-- <label for="{{item.param}}" class="control-label">{{item.param}}</label> -->
-            <div class="col-sm-6">
-                    <input id="form-control-1" ng-model="item.value" value="{{item.value}}" class="form-control" type="{{item.value || 'text'}}">
-                  </div>
-        </div>
+<div class="layout-content-body">
+    <div class="title-bar">
+        <h1 class="title-bar-title">
+            <span class="d-ib">Edit {{name}}</span>
+        </h1>
     </div>
-    </form>
+    <div class="modal-body">
+        <form class="form form-horizontal" name="xform" id="det-form">
+            <div ng-repeat="item in params" class="form-group">
+                <label class="col-sm-6 control-label" for="form-control-1">{{item.param}}:</label>
+                <div class="col-sm-6">
+                    <input id="form-control-1" ng-model="item.value" value="{{item.value}}" class="form-control" type="{{item.value || 'number'}}">
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <div class="modal-footer">
     <button ng-click="save()" class="btn btn-primary">Save</button>
     <button ng-click="close()" class="btn">close</button>
 </div>
-
-  <!-- <div ng-controller="DetailsSet as det" ng-init="det.refresh()">
-        <h1>Редактирование записи ({{det.zone}})</h1>
-        <a ng-href="#{{det.zone}}" class="btn"><i class="m-icon-swapleft"></i> Вернуться</a>
-        
-            <form name="xform" ng-submit="det.submit()" id="det-form">
-                <div ng-repeat="(key,val) in det.formItems" class="control-group">
-                    <label for="{{key}}" class="control-label">{{val.label}}</label>
-                    <input type="{{val.type || 'text'}}" ng-model="det.response[key]" value="{{det.response[key]}}" />
-                </div>
-                <hr />
-                <input type="submit" value="Сохранить" />
-            </form>
-            <ul>
-                <li ng-repeat="(key,value) in det.response"><b>{{key}}</b>: {{value}}</li>
-            </ul>
-        </div> -->
-
-        <!-- tem: Object
-        Cluster
-        :
-        "Chabvala"
-        ContactName
-        :
-        "Chiyanjano Chilombo"
-        ControllingAgency
-        :
-        "MoH"
-        District
-        :
-        "Blantyre"
-        Email
-        :
-        "N/A"
-        FacilityType
-        :
-        "Village Clinic"
-        Latitude
-        :
-        -15.807708
-        Longitude
-        :
-        34.858251
-        Name
-        :
-        "CHAGWIRAUTA"
-        Phone
-        :
-        881033389
-        Region
-        :
-        "South"
-        Status
-        :
-        "Functional"
-        Village
-        :
-        "Chagwirauta " -->
+</div>

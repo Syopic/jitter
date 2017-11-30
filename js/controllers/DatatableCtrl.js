@@ -1,9 +1,14 @@
 angular.module('sara')
     .constant('XlsxPopulate', window.XlsxPopulate).run(function ($rootScope) { $rootScope.XlsxPopulate = window.XlsxPopulate; })
-    .controller('DatatableCtrl', function ($q, $stateParams, $timeout, HIV, TB, Malaria, $uibModal, $rootScope, $scope, $compile, DTOptionsBuilder, DTColumnBuilder, ServiceData, DataFactory) {
+    .controller('DatatableCtrl', function ($q, $stateParams, $timeout, $uibModal, $rootScope, $scope, $compile, DTOptionsBuilder, DTColumnBuilder, ServiceData, DataFactory) {
 
         var dTable = this;
+
         $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
+        $scope.type = $stateParams.type ? $stateParams.type : "SARA";
+        $scope.country = $stateParams.country ? $stateParams.country : "Kenya";
+        $scope.year = $stateParams.year ? $stateParams.year : "2010";
+
         $scope.regions = [];
         $scope.callBackFn = null;
         $scope.currentFile = null;
@@ -15,20 +20,16 @@ angular.module('sara')
 
         $scope.getData = function (sSource, aoData, fnCallback, oSettings) {
             var draw = aoData[0].value;
-            DataFactory.getRegionsData($scope.disease).then(function (response) {
+            var params = {
+                disease: $scope.disease,
+                type: $scope.type,
+                country: $scope.country,
+                year: $scope.year
+            }
+            DataFactory.getRegionsData(params).then(function (response) {
                 var result = [];
                 var regionsData = response.data.data.regions;
-                for (var key in regionsData) {
-                    var obj = { name: key };
-                    var codes = regionsData[key];
-                    for (var i = 0; i < codes.length; i++) {
-                        for (prop in codes[i]) {
-                            obj[prop] = codes[i][prop] ? codes[i][prop] : Math.round(Math.random() * 1000);
-                        }
-                    }
-                    result.push(obj);
-                }
-                $scope.regions = result;
+                $scope.regions = regionsData;
                 $scope.callBackFn = fnCallback;
                 records = {
                     'data': $scope.regions
@@ -37,26 +38,53 @@ angular.module('sara')
             });
         }
 
-        $scope.edit = function (item) {
+        $scope.edit = function (data) {
 
-            var itemToEdit = item;
+            var itemToEdit = data;
             var formFields = $scope.columns;
 
-            $uibModal.open({
+            var modalInstance = $uibModal.open({
                 animation: false,
                 ariaLabelledBy: "modal-title-top",
                 ariaDescribedBy: "modal-body-top",
                 templateUrl: "views/editPopup.html",
                 size: "md",
-                controller: function ($scope) {
+                controller: function ($scope, $uibModalInstance) {
+                    $scope.name = itemToEdit.name;
+                    $scope.data = itemToEdit;
                     var paramsArray = [];
                     for (var index = 0; index < formFields.length; index++) {
-                        paramsArray.push({ param: formFields[index].name, value: 45 });
+                        paramsArray.push({ param: formFields[index].name, code: formFields[index].code, value: itemToEdit.indexes[index].value});
                     }
                     $scope.params = paramsArray;
+
+                    $scope.save= function () {
+                        for (var i = 0; i < $scope.data.indexes.length; i++) {
+                            $scope.data.indexes[i] = {code: formFields[i].code, value: $scope.params[i].value};
+                        }
+
+                        $uibModalInstance.close($scope.data);
+                    };
+                    
+                    $scope.close = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                },
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
                 }
             });
+
+            modalInstance.result.then(function (data) {
+                refreshTable();
+            }, function () {
+                console.log('Modal dismissed');
+            });
         };
+
+        
 
         $scope.populateTable = function () {
             return populate()
@@ -91,6 +119,24 @@ angular.module('sara')
                 });
         }
 
+        $scope.sendData = function () {
+            var postData = {
+                data:{
+                    "year": $scope.year,
+                    "nameDisease": $scope.disease,
+                    "nameHFAType": $scope.type,
+                    "nameCountry": $scope.country,
+                    "regions": $scope.regions
+                }
+            };
+            //console.log(JSON.stringify(postData));
+            DataFactory.sendRegionsData(postData).then(function (response) {
+                console.log(response);
+            });
+        }
+
+        
+
         initTable();
 
         function initTable() {
@@ -102,14 +148,21 @@ angular.module('sara')
 
             $scope.columns = ServiceData.diseaseIndicatorsDirectory[$scope.disease];
             dTable.columns = [
-                DTColumnBuilder.newColumn("name")
+                DTColumnBuilder.newColumn("name").notSortable()
             ];
             for (var index = 0; index < $scope.columns.length; index++) {
-                var column = DTColumnBuilder.newColumn($scope.columns[index].code);
+                var column = DTColumnBuilder.newColumn("indexes." + index + ".value").notSortable();
                 dTable.columns.push(column);
             }
 
             var rowCallback = function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                $('td', nRow).unbind('click');
+                $('td', nRow).bind('click', function () {
+                    $scope.$apply(function () {
+                        //console.log('Editing ' + aData);
+                        $scope.edit(aData);
+                    });
+                });
                 return nRow;
             };
 
@@ -120,6 +173,8 @@ angular.module('sara')
                 .withBootstrap()
                 .withOption('scrollX', '100%')
                 .withScroller()
+                
+                .withOption('sortable', false)
                 .withOption('bDeferRender', true)
                 .withOption('scrollY', 'calc(100vh - 520px)')
                 .withOption('rowCallback', rowCallback)
@@ -140,15 +195,13 @@ angular.module('sara')
                     const value = workbook.sheet(0).cell("A1").value();
 
                     var cells = range.cells();
-                    console.log(value);
                     var paramsArray = [];
                     for (let i = 0; i < cells.length; i++) {
-                        var obj = { "name": range.cell(i, 0).value() };
+                        var obj = { "name": range.cell(i, 0).value() , "indexes":[]};
                         for (var j = 0; j < $scope.columns.length; j++) {
                             if ($scope.columns[j]) {
-                                obj[$scope.columns[j].code] = range.cell(i, j + 1).value() ? range.cell(i, j + 1).value() : 0;
+                                obj.indexes[j] = {"code":$scope.columns[j].code,"value" : range.cell(i, j + 1).value() ? range.cell(i, j + 1).value() : 0}
                             }
-
                         }
                         paramsArray.push(obj);
                     }
@@ -169,7 +222,16 @@ angular.module('sara')
         function generate(type) {
             return getWorkbook()
                 .then(function (workbook) {
-                    workbook.sheet(0).cell("A1").value("This was created in the browser!").style("fontColor", "ff0000");
+                    const range = workbook.sheet(0).range("A5:BF51");
+                    const value = workbook.sheet(0).cell("A1").value();
+                    var cells = range.cells();
+                    for (let i = 0; i < cells.length; i++) {
+                        for (var j = 0; j < $scope.columns.length; j++) {
+                            range.cell(i, j + 1).value($scope.regions[i].indexes[j].value);
+                        }
+                    }
+
+                   // workbook.sheet(0).cell("A1").value("This was created in the browser!").style("fontColor", "ff0000");
                     return workbook.outputAsync(type);
                 })
         }

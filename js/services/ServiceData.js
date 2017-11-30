@@ -52,10 +52,9 @@ var app = angular.module("sara").service('ServiceData', [function ServiceData() 
             { "index": 17, "code": "T28", "name": "Staff trained in client MDR-TB treatment or identification of need for referral" },
             { "index": 18, "code": "T29", "name": "Staff trained in TB Infection Control" },
             { "index": 19, "code": "D8", "name": "TB microscopy" },
-            { "index": 20, "code": "_D6", "name": "HIV diagnostic capacity" },
+            { "index": 20, "code": "D6", "name": "HIV diagnostic capacity" },
             { "index": 21, "code": "D13", "name": "System for diagnosis of HIV among TB clients" },
-            { "index": 22, "code": "M41_", "name": "First-line TB medications" },
-
+            { "index": 22, "code": "M41", "name": "First-line TB medications" }
         ],
         HIV: [
             { "index": 0, "code": "S17", "name": "HIV counselling and testing" },
@@ -110,7 +109,7 @@ var app = angular.module("sara").service('ServiceData', [function ServiceData() 
             { "index": 49, "code": "T39", "name": "Staff trained in PMTCT" },
             { "index": 50, "code": "T40", "name": "Staff trained in infant and young child feeding" },
             { "index": 51, "code": "I24", "name": "Visual and auditory privacy" },
-            { "index": 52, "code": "D6_", "name": "HIV diagnostic capacity for adults" },
+            { "index": 52, "code": "D6", "name": "HIV diagnostic capacity for adults" },
             { "index": 53, "code": "D7", "name": "Dried blood spot {DBS) filter paper for diagnosing HIV in newborns" },
             { "index": 54, "code": "M46", "name": "Zidovudine {AZT) syrup" },
             { "index": 55, "code": "M47", "name": "Nevirapine {NVP) syrup" },

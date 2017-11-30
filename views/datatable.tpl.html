@@ -6,6 +6,7 @@
           <input id="fileInput" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="angular.element(this).scope().uploadChange()">
         </label>
         <button class="btn btn-primary" ng-click="generateBlob()">Export table data</button>
+        <button class="btn btn-primary pull-right" ng-click="sendData()">Send to server</button>
         <table id="datatable" datatable class="table dataTable" dt-columns="dTable.columns" dt-options="dTable.options" style="border: 1px solid #eee;">
           <thead>
             <tr>

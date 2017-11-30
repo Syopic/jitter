@@ -2,7 +2,7 @@
 
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
-  $urlRouterProvider.otherwise("/questionnaire");
+  $urlRouterProvider.otherwise("/datatable/Malaria/SARA/Kenya/2010");
 
   $ocLazyLoadProvider.config({
     debug: false,
@@ -125,41 +125,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       abstract: true,
       templateUrl: "views/app.tpl.html",
       resolve: {
-        "HIV": function ($q, $http) {
-          var deferred = $q.defer();
-          $http.get('data/HIV.json').then(function (data) {
-            deferred.resolve({
-              getData: function () {
-                return data.data;
-              }
-            });
-          });
-          return deferred.promise;
-        },
-        "TB": function ($q, $http) {
-          var deferred = $q.defer();
-          $http.get('data/TB.json').then(function (data) {
-            deferred.resolve({
-              getData: function () {
-                return data.data;
-              }
-            });
-          });
-          return deferred.promise;
-        },
-
-
-        "Malaria": function ($q, $http) {
-          var deferred = $q.defer();
-          $http.get('data/Malaria.json').then(function (data) {
-            deferred.resolve({
-              getData: function () {
-                return data.data;
-              }
-            });
-          });
-          return deferred.promise;
-        },
         "boundsData": function ($q, $http) {
           var deferred = $q.defer();
           $http.get('data/bounds.json').then(function (data) {
@@ -174,7 +139,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       }
     })
     .state("root.datatable", {
-      url: "/datatable/:disease",
+      url: "/datatable/:disease/:type/:country/:year",
       controller: "DatatableCtrl as dTable",
       templateUrl: "views/datatable.tpl.html",
       resolve: {
@@ -194,7 +159,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       }
     })
     .state("root.dashboard", {
-      url: "/dashboard",
+      url: "/dashboard/:disease/:type/:country/:year ",
       controller: "DashboardCtrl",
       templateUrl: "views/dashboard.tpl.html",
       resolve: {
