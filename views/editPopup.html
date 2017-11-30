@@ -1,22 +1,22 @@
 <div class="layout-content-body">
     <div class="title-bar">
         <h1 class="title-bar-title">
-            <span class="d-ib">Edit {{name}}</span>
+            <span class="">Edit {{name}}</span>
         </h1>
     </div>
     <div class="modal-body">
         <form class="form form-horizontal" name="xform" id="det-form">
             <div ng-repeat="item in params" class="form-group">
-                <label class="col-sm-6 control-label" for="form-control-1">{{item.param}}:</label>
-                <div class="col-sm-6">
-                    <input id="form-control-1" ng-model="item.value" value="{{item.value}}" class="form-control" type="{{item.value || 'number'}}">
+                <label class="col-sm-8 control-label" for="form-control-1">{{item.param}} [{{item.code}}]:</label>
+                <div class="col-sm-4">
+                    <input id="form-control-1" ng-model="item.value" value="{{item.value}}" class="form-control" type="number">
                 </div>
             </div>
         </form>
     </div>
 </div>
 <div class="modal-footer">
-    <button ng-click="save()" class="btn btn-primary">Save</button>
-    <button ng-click="close()" class="btn">close</button>
+    <button ng-click="save()" class="btn btn-primary">Update</button>
+    <button ng-click="close()" class="btn">Close</button>
 </div>
 </div>

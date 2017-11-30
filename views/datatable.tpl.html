@@ -7,16 +7,16 @@
         </label>
         <button class="btn btn-primary" ng-click="generateBlob()">Export table data</button>
         <button class="btn btn-primary pull-right" ng-click="sendData()">Send to server</button>
-        <table id="datatable" datatable class="table dataTable" dt-columns="dTable.columns" dt-options="dTable.options" style="border: 1px solid #eee;">
+        <table id="datatable" datatable class="table table-bordered table-hover table-striped dataTable ng-isolate-scope no-footer" dt-columns="dTable.columns" dt-options="dTable.options" style="border: 1px solid #eee;">
           <thead>
             <tr>
-              <th style="border: 1px solid #eee; " class="text-center align-middle" ng-repeat="headerL0 in headersL0" rowspan="{{headerL0.rowspan}}" colspan="{{headerL0.colspan}}">{{headerL0.name}}</th>
+              <th class="text-center align-middle" ng-repeat="headerL0 in headersL0" rowspan="{{headerL0.rowspan}}" colspan="{{headerL0.colspan}}">{{headerL0.name}}</th>
             </tr>
             <tr>
-              <th style="border: 1px solid #eee;" class="text-center align-middle" ng-repeat="header in headers" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}">{{header.name}}</th>
+              <th class="text-center align-middle" ng-repeat="header in headers" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}">{{header.name}}</th>
             </tr>
             <tr>
-              <th style="border: 1px solid #eee; min-width: 60px; max-width: 200px;" ng-repeat="column in columns">{{column.name}}<br>[{{column.code}}]</th>
+              <th ng-repeat="column in columns">{{column.name}}<br>[{{column.code}}]</th>
             </tr>
           </thead>
         </table>

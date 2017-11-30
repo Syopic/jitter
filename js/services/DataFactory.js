@@ -10,21 +10,24 @@ app.factory('DataFactory', ['$rootScope', "$http", function ($rootScope, $http) 
                 var requestURL = $rootScope.serverURL + "getData/" + params.disease + "/" + params.type + "/" + params.country + "/" + params.year;
                 return $http.get(requestURL);
             } else {
-                var jsonUrl = "data/HIV2.json";
+                var jsonUrl = "data/HIV.json";
                 switch (params.disease) {
-                    case "Malaria": jsonUrl = "data/Malaria2.json"; break;
-                    case "TB": jsonUrl = "data/TB2.json"; break;
-                    case "HIV": jsonUrl = "data/HIV2.json"; break;
+                    case "Malaria": jsonUrl = "data/Malaria.json"; break;
+                    case "TB": jsonUrl = "data/TB.json"; break;
+                    case "HIV": jsonUrl = "data/HIV.json"; break;
                 }
                 return $http.get(jsonUrl);
             }
         },
         sendRegionsData: function(data) {
-            var postData = {};
-            postData.data = data;
+            var body = "data=" + JSON.stringify(data);
             var requestURL = $rootScope.serverURL + "saveData";
-            return $http.post(requestURL, data);
-        }
+            return $http.post(requestURL, body);
+        },
+        getTemplate: function(disease) {
+            var xlsxUrl = "data/templates/SARA_" + disease + ".xlsx";
+            return $http.get(xlsxUrl, {responseType: "arraybuffer"});
+        },
     }
 
     $rootScope.$on("savestate", service.SaveState);

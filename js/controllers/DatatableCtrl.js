@@ -12,6 +12,7 @@ angular.module('sara')
         $scope.regions = [];
         $scope.callBackFn = null;
         $scope.currentFile = null;
+        $scope.currentTemplate = null;
 
         $scope.fileChosen = false;
 
@@ -98,25 +99,39 @@ angular.module('sara')
         }
 
         $scope.generateBlob = function () {
+            if (!$scope.currentFile) {
+               return DataFactory.getTemplate($scope.disease).then(
+                    function (response) { 
+                        $scope.currentTemplate = response.data;
+                        return $scope.createObject();
+                        //XlsxPopulate.fromDataAsync(response.data)
+                    });
+            } else {
+                return $scope.createObject();
+            }
+           
+        }
+
+        $scope.createObject = function() {
             return generate()
-                .then(function (blob) {
-                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                        window.navigator.msSaveOrOpenBlob(blob, $scope.currentFile.name);
-                    } else {
-                        var url = window.URL.createObjectURL(blob);
-                        var a = document.createElement("a");
-                        document.body.appendChild(a);
-                        a.href = url;
-                        a.download = $scope.currentFile.name;
-                        a.click();
-                        window.URL.revokeObjectURL(url);
-                        document.body.removeChild(a);
-                    }
-                })
-                .catch(function (err) {
-                    alert(err.message || err);
-                    throw err;
-                });
+            .then(function (blob) {
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(blob, $scope.currentFile.name);
+                } else {
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement("a");
+                    document.body.appendChild(a);
+                    a.href = url;
+                    a.download = $scope.country + "_" + $scope.disease + "_" + $scope.type  + "_" + $scope.year + ".xlsx";
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                }
+            })
+            .catch(function (err) {
+                alert(err.message || err);
+                throw err;
+            });
         }
 
         $scope.sendData = function () {
@@ -129,7 +144,6 @@ angular.module('sara')
                     "regions": $scope.regions
                 }
             };
-            //console.log(JSON.stringify(postData));
             DataFactory.sendRegionsData(postData).then(function (response) {
                 console.log(response);
             });
@@ -176,7 +190,7 @@ angular.module('sara')
                 
                 .withOption('sortable', false)
                 .withOption('bDeferRender', true)
-                .withOption('scrollY', 'calc(100vh - 520px)')
+                .withOption('scrollY', $scope.disease == 'HIV' ? 'calc(100vh - 500px)' : 'calc(100vh - 383px)')
                 .withOption('rowCallback', rowCallback)
         }
 
@@ -200,7 +214,7 @@ angular.module('sara')
                         var obj = { "name": range.cell(i, 0).value() , "indexes":[]};
                         for (var j = 0; j < $scope.columns.length; j++) {
                             if ($scope.columns[j]) {
-                                obj.indexes[j] = {"code":$scope.columns[j].code,"value" : range.cell(i, j + 1).value() ? range.cell(i, j + 1).value() : 0}
+                                obj.indexes[j] = {"code":$scope.columns[j].code,"value" : range.cell(i, j + 1).value() ? range.cell(i, j + 1).value() : ""}
                             }
                         }
                         paramsArray.push(obj);
@@ -214,18 +228,26 @@ angular.module('sara')
 
         function getWorkbook() {
             $scope.currentFile = fileInput.files[0];
-            if (!$scope.currentFile) return Promise.reject("You must select a file.");
-            
-            return XlsxPopulate.fromDataAsync($scope.currentFile);
+            if ($scope.currentFile)
+                return XlsxPopulate.fromDataAsync($scope.currentFile);
+            else if ($scope.currentTemplate)
+                return XlsxPopulate.fromDataAsync($scope.currentTemplate);
+            else
+                return Promise.reject("You must select a file.");
         }
 
         function generate(type) {
             return getWorkbook()
                 .then(function (workbook) {
-                    const range = workbook.sheet(0).range("A5:BF51");
-                    const value = workbook.sheet(0).cell("A1").value();
+                    const range = $scope.disease == "HIV" ? workbook.sheet(0).range("A6:BF51") : workbook.sheet(0).range("A5:BF51");
+                    workbook.sheet(0).cell("A1").value($scope.country);
+                    workbook.sheet(0).cell("F1").value($scope.type);
+                    workbook.sheet(0).cell("K1").value($scope.disease);
+                    workbook.sheet(0).cell("P1").value($scope.year);
+
                     var cells = range.cells();
-                    for (let i = 0; i < cells.length; i++) {
+                    for (var i = 0; i < $scope.regions.length; i++) {
+                        range.cell(i, 0).value($scope.regions[i].name);
                         for (var j = 0; j < $scope.columns.length; j++) {
                             range.cell(i, j + 1).value($scope.regions[i].indexes[j].value);
                         }
