@@ -5,29 +5,47 @@ app.factory('DataFactory', ['$rootScope', "$http", function ($rootScope, $http) 
     $rootScope.serverURL = "https://pacific-taiga-24911.herokuapp.com/";
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     var service = {
-        getRegionsData: function(params) {
+        getContinents: function() {
+            if ($rootScope.serverMode) {
+                var requestURL = $rootScope.serverURL + "getContinents";
+                return $http.get(requestURL);
+            } else {
+                return $http.get("data/local/getContinents.json");
+            }
+        },
+        getCountries: function(country) {
+            if ($rootScope.serverMode) {
+                var requestURL = $rootScope.serverURL + "getCountries/" + country;
+                return $http.get(requestURL);
+            } else {
+                return $http.get("data/local/" + country + ".json");
+            }
+        },
+        getRegions: function(params) {
             if ($rootScope.serverMode) {
                 var requestURL = $rootScope.serverURL + "getData/" + params.disease + "/" + params.type + "/" + params.country + "/" + params.year;
                 return $http.get(requestURL);
             } else {
-                var jsonUrl = "data/HIV.json";
-                switch (params.disease) {
-                    case "Malaria": jsonUrl = "data/Malaria.json"; break;
-                    case "TB": jsonUrl = "data/TB.json"; break;
-                    case "HIV": jsonUrl = "data/HIV.json"; break;
-                }
-                return $http.get(jsonUrl);
+                return $http.get("data/local/" + params.disease + ".json");
             }
         },
-        sendRegionsData: function(data) {
+        postRegions: function(data) {
             var body = "data=" + JSON.stringify(data);
             var requestURL = $rootScope.serverURL + "saveData";
             return $http.post(requestURL, body);
         },
-        getTemplate: function(disease) {
-            var xlsxUrl = "data/templates/SARA_" + disease + ".xlsx";
-            return $http.get(xlsxUrl, {responseType: "arraybuffer"});
+        getHFATypes: function() {
+            if ($rootScope.serverMode) {
+                var requestURL = $rootScope.serverURL + "getHFATypes";
+                return $http.get(requestURL);
+            } else {
+                return $http.get("data/local/getHFATypes.json");
+            }
         },
+        getTemplate: function(param) {
+            var xlsxUrl = "data/templates/" + param + ".xlsx";
+            return $http.get(xlsxUrl, {responseType: "arraybuffer"});
+        }
     }
 
     $rootScope.$on("savestate", service.SaveState);

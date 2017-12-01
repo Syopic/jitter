@@ -1,0 +1,24 @@
+{
+    "countries": [
+        {
+            "_id": "5a1d99c15459d017ec21bf86",
+            "idContinent": "5a1d99c05459d017ec21be9f",
+            "name": "Antarctica",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf87",
+            "idContinent": "5a1d99c05459d017ec21be9f",
+            "name": "Bouvet Island",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf88",
+            "idContinent": "5a1d99c05459d017ec21be9f",
+            "name": "French Southern Territories",
+            "__v": 0
+        }
+    ],
+    "result": true,
+    "message": "ok"
+}

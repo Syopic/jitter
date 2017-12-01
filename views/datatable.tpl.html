@@ -1,25 +1,118 @@
 <div class="row gutter-xs">
-  <div class="col-xs-12">
+  <div class="col-xs-7">
     <div class="card">
       <div class="card-body">
-        <label class="btn btn-success file-upload-btn">
-          <input id="fileInput" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="angular.element(this).scope().uploadChange()">
-        </label>
-        <button class="btn btn-primary" ng-click="generateBlob()">Export table data</button>
-        <button class="btn btn-primary pull-right" ng-click="sendData()">Send to server</button>
-        <table id="datatable" datatable class="table table-bordered table-hover table-striped dataTable ng-isolate-scope no-footer" dt-columns="dTable.columns" dt-options="dTable.options" style="border: 1px solid #eee;">
-          <thead>
-            <tr>
-              <th class="text-center align-middle" ng-repeat="headerL0 in headersL0" rowspan="{{headerL0.rowspan}}" colspan="{{headerL0.colspan}}">{{headerL0.name}}</th>
-            </tr>
-            <tr>
-              <th class="text-center align-middle" ng-repeat="header in headers" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}">{{header.name}}</th>
-            </tr>
-            <tr>
-              <th ng-repeat="column in columns">{{column.name}}<br>[{{column.code}}]</th>
-            </tr>
-          </thead>
-        </table>
+        <div class="col-md-12">
+          <div class="row gutter-xs">
+              <div class="col-md-6">
+                <h5>Continent</h5>
+                <select class="form-control" ng-model="selectedContinent" ng-options="item.name for item in continents track by item.name"
+                  value="{{selectedContinent.name}}"></select>
+              </div>
+              <div class="col-md-6">
+                <h5>Country</h5>
+                <select class="form-control" ng-model="selectedCountry" ng-options="item.name for item in countries track by item.name" value="{{selectedCountry.name}}"></select>
+              </div>
+              <div class="col-md-4">
+                <h5>HFA Type</h5>
+                <select class="form-control" ng-model="selectedHFAType" ng-options="item.name for item in hfaTypes track by item.name" value="{{selectedHFAType.name}}"></select>
+              </div>
+              <div class="col-md-4">
+                <h5>Disease</h5>
+                <select class="form-control" ng-model="selectedDisease" ng-options="item for item in diseases" value="{{selectedDisease}}"></select>
+              </div>
+              <div class="col-md-2">
+                <h5>Year</h5>
+                <select class="form-control" ng-model="selectedYear" ng-options="item for item in years" value="{{selectedYear}}"></select>
+              </div>
+              <div class="col-md-2">
+                <h5><br></h5>
+                <button class="btn btn-primary btn-block pull-right" ng-click="applyForm()">Apply</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xs-5">
+      <div class="card">
+        <div class="card-body">
+            <div class="col-md-12">
+                <div class="row gutter-xs">
+                    <div class="col-md-7">
+                      <h5>Import from *.xslx file</h5>
+                      <label class="btn btn-success file-upload-btn btn-block">
+                          <input id="fileInput" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="angular.element(this).scope().uploadChange()">
+                        </label>
+                    </div>
+                    <div class="col-md-5">
+                      <h5>Export to *.xslx file</h5>
+                      <button class="btn btn-primary btn-block" ng-click="generateBlob()">Export</button>
+                    </div>
+                    <div class="col-md-7">
+                        <h5><br></h5>
+                        <h4>{{statusText}}</h4>
+                      </div>
+                    <div class="col-md-5">
+                      <h5><br></h5>
+                      <button id="sendBtn" class="btn btn-primary pull-right" ng-click="sendData()" ng-disabled="!isSendingDataEnable">Send</button>
+                    </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+<div class="row gutter-xs">
+  <div class="col-xs-12">
+    <div class="card">
+      <div class="card-body navbar-collapse collapse">
+        <div ng-show="disease == 'HIV'">
+          <table id="tableHIV" datatable class="table table-bordered table-hover table-striped dataTable no-footer" dt-columns="dTable.HIV.columns"
+            dt-instance="dTable.HIV.dtInstance" dt-options="dTable.HIV.options">
+            <thead>
+              <tr>
+                <th class="text-center align-middle" ng-repeat="headerL0 in headers.HIVL0" rowspan="{{headerL0.rowspan}}" colspan="{{headerL0.colspan}}">{{headerL0.name}}</th>
+              </tr>
+              <tr>
+                <th class="text-center align-middle" ng-repeat="header in headers.HIV" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}">{{header.name}}</th>
+              </tr>
+              <tr>
+                <th ng-repeat="column in columns.HIV">{{column.name}}
+                  <br>[{{column.code}}]</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div ng-show="disease == 'TB'">
+          <table id="tableHIV" datatable class="table table-bordered table-hover table-striped dataTable no-footer" dt-columns="dTable.TB.columns"
+            dt-instance="dTable.TB.dtInstance" dt-options="dTable.TB.options">
+            <thead>
+              <tr>
+                <th class="text-center align-middle" ng-repeat="header in headers.TB" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}">{{header.name}}</th>
+              </tr>
+              <tr>
+                <th ng-repeat="column in columns.TB">{{column.name}}
+                  <br>[{{column.code}}]</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div ng-show="disease == 'Malaria'">
+          <table id="tableHIV" datatable class="table table-bordered table-hover table-striped dataTable no-footer" dt-columns="dTable.Malaria.columns"
+            dt-instance="dTable.Malaria.dtInstance" dt-options="dTable.Malaria.options">
+            <thead>
+              <tr>
+                <th class="text-center align-middle" ng-repeat="header in headers.Malaria" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}">{{header.name}}</th>
+              </tr>
+              <tr>
+                <th ng-repeat="column in columns.Malaria">{{column.name}}
+                  <br>[{{column.code}}]</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
     </div>
   </div>

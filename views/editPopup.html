@@ -9,14 +9,14 @@
             <div ng-repeat="item in params" class="form-group">
                 <label class="col-sm-8 control-label" for="form-control-1">{{item.param}} [{{item.code}}]:</label>
                 <div class="col-sm-4">
-                    <input id="form-control-1" ng-model="item.value" value="{{item.value}}" class="form-control" type="number">
+                    <input id="form-control-1" ng-model="item.value" value="{{item.value}}" class="form-control" type="string">
                 </div>
             </div>
         </form>
     </div>
 </div>
 <div class="modal-footer">
-    <button ng-click="save()" class="btn btn-primary">Update</button>
-    <button ng-click="close()" class="btn">Close</button>
+    <button ng-click="save()" class="btn btn-primary" style="width: 130px;">Save</button>
+    <button ng-click="close()" class="btn" style="width: 130px;">Close</button>
 </div>
 </div>

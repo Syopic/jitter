@@ -1,0 +1,41 @@
+{
+    "continents": [
+        {
+            "_id": "5a1d99c05459d017ec21be9c",
+            "name": "Africa",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c05459d017ec21be9f",
+            "name": "Antarctica",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c05459d017ec21be9a",
+            "name": "Asia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c05459d017ec21be9b",
+            "name": "Europe",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c05459d017ec21be9e",
+            "name": "North America",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c05459d017ec21be9d",
+            "name": "Oceania",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c05459d017ec21bea0",
+            "name": "South America",
+            "__v": 0
+        }
+    ],
+    "result": true,
+    "message": "ok"
+}

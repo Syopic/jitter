@@ -139,7 +139,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       }
     })
     .state("root.datatable", {
-      url: "/datatable/:disease/:type/:country/:year",
+      url: "/datatable/:continent/:country/:disease/:type/:year",
       controller: "DatatableCtrl as dTable",
       templateUrl: "views/datatable.tpl.html",
       resolve: {
@@ -148,18 +148,18 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         }
       }
     })
-    .state("root.questionnaire", {
-      url: "/questionnaire:disease",
-      controller: "QuestionnaireCtrl as dTable",
-      templateUrl: "views/questionnaire.tpl.html",
-      resolve: {
-        loadDatatables: function ($ocLazyLoad) {
-          return $ocLazyLoad.load("datatables");
-        }
-      }
-    })
+    // .state("root.questionnaire", {
+    //   url: "/questionnaire:disease",
+    //   controller: "QuestionnaireCtrl as dTable",
+    //   templateUrl: "views/questionnaire.tpl.html",
+    //   resolve: {
+    //     loadDatatables: function ($ocLazyLoad) {
+    //       return $ocLazyLoad.load("datatables");
+    //     }
+    //   }
+    // })
     .state("root.dashboard", {
-      url: "/dashboard/:disease/:type/:country/:year ",
+      url: "/dashboard/:disease/:type/:country/:year",
       controller: "DashboardCtrl",
       templateUrl: "views/dashboard.tpl.html",
       resolve: {

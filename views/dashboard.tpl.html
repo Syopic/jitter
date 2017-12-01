@@ -24,13 +24,13 @@
 
                   <h5>HFA type</h5>
                   <div class="btn-group" data-toggle="buttons" style="width:100%;">
-                    <label class="btn btn-outline-info active" style="width: 33%;">
+                    <label class="btn btn-outline-info active" style="width: 33%;" ng-click="hfaSel =1; onSellectHFA();">
                       <input type="radio" name="hfa" value="SARA" checked="checkedHFA">SARA
                     </label>
-                    <label class="btn btn-outline-info " style="width: 33%;">
+                    <label class="btn btn-outline-info " style="width: 33%;" ng-click="hfaSel =2; onSellectHFA();">
                       <input type="radio" name="hfa" value="SPI">SPI
                     </label>
-                    <label class="btn btn-outline-info" style="width: 33%;">
+                    <label class="btn btn-outline-info" style="width: 33%;" ng-click="hfaSel =3; onSellectHFA();">
                       <input type="radio" name="hfa" value="SDI">SDI
                     </label>
                   </div>
@@ -76,8 +76,8 @@
                 <div class="col-md-3">
                   <h5>Country</h5>
                   <select class="form-control" name="Country" ng-model="country">
-                    <option value="Malawi" selected="selected" >Malawi</option>
-                    <option value="Kennya">Kennya</option>
+                    <option value="Malawi" selected="selected">Malawi</option>
+                    <option value="Kenya">Kenya</option>
                     <option value="Ethiopia">Ethiopia</option>
                   </select>
 
@@ -97,13 +97,12 @@
                     <option value="2010">2010</option>
                   </select>
                 </div>
-                  <div class="col-md-3">
-                    <h5><br></h5>
-                    <button class="btn btn-outline-info btn-block" type="button" ng-click="getParams()">Submit
-
-                    </button>
-
-                 
+                <div class="col-md-3">
+                  <h5>
+                    <br>
+                  </h5>
+                  <button class="btn btn-outline-info btn-block" type="button" ng-click="getParams()">Submit
+                  </button>
                 </div>
               </div>
             </div>
@@ -113,39 +112,261 @@
     </div>
   </div>
   <div class="row gutter-xs">
-    <div class="col-md-4">
+    <div class="col-md-12">
       <div class="card">
-        <div class="card-body">
-          <h4>Map {{selectIndicator.code}}</h4>
-          <select class="form-control" ng-init="selectIndicator.name" ng-model="selectIndicator" ng-options="item as item.name for item in cahrtIndicator"
-            ng-change="">
-          </select>
+        <div class="row gutter-xs">
           <div class="card-body">
-            <div id="map" style="height: 518px;"></div>
-          </div>
-          <!-- <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=33.784729242324836%2C-13.9491344807431%2C33.79294753074647%2C-13.942814040708765&amp;layer=mapnik&amp;marker=-13.945974282368342%2C33.788838386535645"></iframe> -->
-        </div>
-      </div>
-
-    </div>
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-body">
-          <h4>{{continent}} {{country}} {{year}} {{selectIndicator.name}}</h4>
-
-          <div class="card-body">
-            <div ng-dropdown-multiselect="" options="multiselectData" selected-model="multiselectModel" extra-settings="multiselectSettings"
-              events="multiselectEvents" translation-texts="{buttonDefaultText: 'Select Indicator'}"></div>
-
-            <div class="card-body">
-              <div class="card-chart">
-                <canvas class="chart chart-bar" chart-data='data' chart-labels='labels' chart-series='series' chart-colors='colors' chart-options='options'
-                  height="200"></canvas>
+            <div class="col-md-4">
+              <h4>Table</h4>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+              <div class="pull-right">
+                <button class="btn btn-outline-info btn-icon sq-32  " type="button" data-toggle="collapse" href="#collapseTable" aria-expanded="true"
+                  aria-controls="collapseTable">
+                  <span class="icon icon-clone"></span>
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        <div class="card-body collapse in" id="collapseTable" aria-expanded="true">
+          <!--  -->
 
+          <table class="table table-hover table-bordered table-striped">
+            <thead>
+              <tr>
+                <th rowspan="2" class="text-center">
+                  <label class="custom-control custom-control-primary custom-checkbox">
+                    <input class="custom-control-input" type="checkbox">
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </th>
+                <th rowspan="2" class="text-left">Client</th>
+                <th rowspan="2" class="text-left">Campaign Name</th>
+                <th rowspan="2" class="text-center">Campaign On/Off</th>
+                <th rowspan="2" class="text-center">Completed</th>
+                <th rowspan="2" class="text-left">Start Date</th>
+                <th rowspan="2" class="text-left">End Date</th>
+                <th colspan="3" class="text-center">Financial Cost</th>
+              </tr>
+              <tr>
+                <th class="text-right">Link Clicks</th>
+                <th class="text-right">Per Click</th>
+                <th class="text-right">Amount Spent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">
+                  <label class="custom-control custom-control-primary custom-checkbox">
+                    <input class="custom-control-input" type="checkbox">
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </td>
+                <td class="text-left">Pi Consulting Group</td>
+                <td class="text-left">Website traffic</td>
+                <td class="text-center">
+                  <label class="switch switch-primary">
+                    <input class="switch-input" type="checkbox" checked="checked" disabled="disabled">
+                    <span class="switch-track"></span>
+                    <span class="switch-thumb"></span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <span class="text-success">
+                    <span class="icon icon-check icon-lg"></span>
+                  </span>
+                </td>
+                <td class="text-left">Nov 1, 2016</td>
+                <td class="text-left">Nov 15, 2016</td>
+                <td class="text-right">58,198</td>
+                <td class="text-right">$0.01</td>
+                <td class="text-right">$581.98</td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <label class="custom-control custom-control-primary custom-checkbox">
+                    <input class="custom-control-input" type="checkbox">
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </td>
+                <td class="text-left">Naksoid</td>
+                <td class="text-left">Remarketing</td>
+                <td class="text-center">
+                  <label class="switch switch-primary">
+                    <input class="switch-input" type="checkbox" checked="checked">
+                    <span class="switch-track"></span>
+                    <span class="switch-thumb"></span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <span class="text-muted">
+                    <span class="icon icon-check icon-lg"></span>
+                  </span>
+                </td>
+                <td class="text-left">Nov 1, 2016</td>
+                <td class="text-left">Nov 30, 2016</td>
+                <td class="text-right">79,048</td>
+                <td class="text-right">$0.007</td>
+                <td class="text-right">$553.34</td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <label class="custom-control custom-control-primary custom-checkbox">
+                    <input class="custom-control-input" type="checkbox">
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </td>
+                <td class="text-left">Naksoid</td>
+                <td class="text-left">Page Likes</td>
+                <td class="text-center">
+                  <label class="switch switch-primary">
+                    <input class="switch-input" type="checkbox" checked="checked">
+                    <span class="switch-track"></span>
+                    <span class="switch-thumb"></span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <span class="text-muted">
+                    <span class="icon icon-check icon-lg"></span>
+                  </span>
+                </td>
+                <td class="text-left">Nov 1, 2016</td>
+                <td class="text-left">Nov 30, 2016</td>
+                <td class="text-right">25,592</td>
+                <td class="text-right">$0.03</td>
+                <td class="text-right">$767.76</td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <label class="custom-control custom-control-primary custom-checkbox">
+                    <input class="custom-control-input" type="checkbox">
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </td>
+                <td class="text-left">Naksoid</td>
+                <td class="text-left">Email Signups</td>
+                <td class="text-center">
+                  <label class="switch switch-primary">
+                    <input class="switch-input" type="checkbox" checked="checked" disabled="disabled">
+                    <span class="switch-track"></span>
+                    <span class="switch-thumb"></span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <span class="text-success">
+                    <span class="icon icon-check icon-lg"></span>
+                  </span>
+                </td>
+                <td class="text-left">Nov 1, 2016</td>
+                <td class="text-left">Nov 20, 2016</td>
+                <td class="text-right">34,179</td>
+                <td class="text-right">$0.04</td>
+                <td class="text-right">$1,367.16</td>
+              </tr>
+              <tr>
+                <td class="text-center">
+                  <label class="custom-control custom-control-primary custom-checkbox">
+                    <input class="custom-control-input" type="checkbox">
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </td>
+                <td class="text-left">CMB Cosmetics</td>
+                <td class="text-left">Product catalog</td>
+                <td class="text-center">
+                  <label class="switch switch-primary">
+                    <input class="switch-input" type="checkbox" checked="checked" disabled="disabled">
+                    <span class="switch-track"></span>
+                    <span class="switch-thumb"></span>
+                  </label>
+                </td>
+                <td class="text-center">
+                  <span class="text-success">
+                    <span class="icon icon-check icon-lg"></span>
+                  </span>
+                </td>
+                <td class="text-left">Nov 1, 2016</td>
+                <td class="text-left">Nov 20, 2016</td>
+                <td class="text-right">90,031</td>
+                <td class="text-right">$0.012</td>
+                <td class="text-right">$1,080.37</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th class="text-right" colspan="7">Total:</th>
+                <th class="text-right">287,048</th>
+                <th class="text-right">$0.015</th>
+                <th class="text-right">$4,350.61</th>
+              </tr>
+            </tfoot>
+          </table>
+
+          <!--  -->
+        </div>
+      </div>
     </div>
   </div>
+
+  <div class="row gutter-xs">
+    <div class="col-md-12">
+      <div class="card">
+
+        <div class="row gutter-xs">
+          <div class="card-body">
+            <div class="col-md-4">
+              <h4>Chart {{continent}} {{country}} {{year}} {{type}}</h4>
+            </div>
+            <div class="col-md-4">
+              <div class="text-center">
+                <div ng-dropdown-multiselect="" options="multiselectData" selected-model="multiselectModel" extra-settings="multiselectSettings"
+                  events="multiselectEvents" translation-texts="{buttonDefaultText: 'Select Indicator'}">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="pull-right">
+                <button class="btn btn-outline-info btn-icon sq-32  " type="button" data-toggle="collapse" href="#collapseChart" aria-expanded="true"
+                  aria-controls="collapseChart">
+                  <span class="icon icon-clone"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="card-body collapse in" id="collapseChart" aria-expanded="true">
+          <div class="card-chart">
+            <canvas class="chart chart-bar" chart-data='data' chart-labels='labels' chart-series='series' chart-colors='colors' chart-options='options'
+              height="100"></canvas>
+            <!-- height="150" -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row gutter-xs">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h4>Map {{selectIndicatorMap.code}}</h4>
+          <select class="form-control" ng-init="selectIndicator.name" ng-model="selectIndicatorMap" ng-options="item as item.name for item in cahrtIndicator"
+            ng-change="">
+          </select>
+          <div class="card-body">
+            <!-- <div id="map" style = "height: 500px;"></div> -->
+          </div>
+          <!--  style="height: 518px;" <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=33.784729242324836%2C-13.9491344807431%2C33.79294753074647%2C-13.942814040708765&amp;layer=mapnik&amp;marker=-13.945974282368342%2C33.788838386535645"></iframe> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

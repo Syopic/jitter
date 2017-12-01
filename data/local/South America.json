@@ -1,0 +1,96 @@
+{
+    "countries": [
+        {
+            "_id": "5a1d99c15459d017ec21bf89",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Argentina",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf8a",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Bolivia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf8b",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Brazil",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf8c",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Chile",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf8d",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Colombia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf8e",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Ecuador",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf8f",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Falkland Islands (Malvinas)",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf90",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "French Guiana",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf91",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Guyana",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf92",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Paraguay",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf93",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Peru",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf94",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "South Georgia and the South Sandwich Islands",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf95",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Suriname",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf96",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Uruguay",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf97",
+            "idContinent": "5a1d99c05459d017ec21bea0",
+            "name": "Venezuela",
+            "__v": 0
+        }
+    ],
+    "result": true,
+    "message": "ok"
+}

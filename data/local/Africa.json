@@ -1,0 +1,360 @@
+{
+    "countries": [
+        {
+            "_id": "5a1d99c15459d017ec21bf0a",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Algeria",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf0b",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Angola",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf0c",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Benin",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf0d",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Botswana",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf0e",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "British Indian Ocean Territory",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf0f",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Burkina Faso",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf10",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Burundi",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf11",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Cameroon",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf12",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Cape Verde",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf13",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Central African Republic",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf14",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Chad",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf15",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Comoros",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf16",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Congo",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf17",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Congo, The Democratic Republic of the",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf18",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Côte d'Ivoire, Republic of",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf19",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Djibouti",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf1a",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Egypt",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf1b",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Equatorial Guinea",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf1c",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Eritrea",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf1d",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Ethiopia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf1e",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Gabon",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf1f",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Gambia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf20",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Ghana",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf21",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Guinea",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf22",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Guinea-Bissau",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf23",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Kenya",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf24",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Lesotho",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf25",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Liberia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf26",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Libyan Arab Jamahiriya",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf27",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Madagascar",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf28",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Malawi",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf29",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Mali",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf2a",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Mauritania",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf2b",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Mauritius",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf2c",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Mayotte",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf2d",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Morocco",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf2e",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Mozambique",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf2f",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Namibia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf30",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Niger",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf31",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Nigeria",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf33",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Rwanda",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf32",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Réunion",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf34",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Saint Helena, Ascension and Tristan da Cunha",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf36",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Senegal",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf37",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Seychelles",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf38",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Sierra Leone",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf39",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Somalia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf3a",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "South Africa",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf3b",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "South Sudan",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf3c",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Sudan",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf3d",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Swaziland",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf35",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "São Tomé and Príncipe",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf3e",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Tanzania, United Republic of",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf3f",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Togo",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf40",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Tunisia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf41",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Uganda",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf42",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Western Sahara",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf43",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Zambia",
+            "__v": 0
+        },
+        {
+            "_id": "5a1d99c15459d017ec21bf44",
+            "idContinent": "5a1d99c05459d017ec21be9c",
+            "name": "Zimbabwe",
+            "__v": 0
+        }
+    ],
+    "result": true,
+    "message": "ok"
+}
