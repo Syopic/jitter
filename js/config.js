@@ -2,7 +2,7 @@
 
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
-  $urlRouterProvider.otherwise("/datatable/Malaria/SARA/Kenya/2010");
+  $urlRouterProvider.otherwise("/datatable/");
 
   $ocLazyLoadProvider.config({
     debug: false,
@@ -123,23 +123,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
   $stateProvider
     .state("root", {
       abstract: true,
-      templateUrl: "views/app.tpl.html",
-      resolve: {
-        "boundsData": function ($q, $http) {
-          var deferred = $q.defer();
-          $http.get('data/bounds.json').then(function (data) {
-            deferred.resolve({
-              getData: function () {
-                return data.data;
-              }
-            });
-          });
-          return deferred.promise;
-        }
-      }
+      templateUrl: "views/app.tpl.html"
     })
     .state("root.datatable", {
-      url: "/datatable/:continent/:country/:disease/:type/:year",
+      url: "/datatable/:continent/:country/:disease/:type/:year/:mode",
       controller: "DatatableCtrl as dTable",
       templateUrl: "views/datatable.tpl.html",
       resolve: {
@@ -148,18 +135,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         }
       }
     })
-    // .state("root.questionnaire", {
-    //   url: "/questionnaire:disease",
-    //   controller: "QuestionnaireCtrl as dTable",
-    //   templateUrl: "views/questionnaire.tpl.html",
-    //   resolve: {
-    //     loadDatatables: function ($ocLazyLoad) {
-    //       return $ocLazyLoad.load("datatables");
-    //     }
-    //   }
-    // })
     .state("root.dashboard", {
-      url: "/dashboard/:disease/:type/:country/:year",
+      url: "/dashboard/:continent/:country/:disease/:type/:year",
       controller: "DashboardCtrl",
       templateUrl: "views/dashboard.tpl.html",
       resolve: {
@@ -180,7 +157,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
       }
     })
-
     .state("root.contacts", {
       url: "/contacts",
       controller: "ContactsCtrl",

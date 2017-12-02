@@ -1,5 +1,6 @@
 {
   "type": "FeatureCollection",
+  "bounds": [33.82, -4.99, 42.1, 5.04],
   "features": [
     {
       "id": 1,

@@ -10,11 +10,11 @@
                 "indexes": [
                     {
                         "code": "S16",
-                        "value": null
+                        "value": 0.15
                     },
                     {
                         "code": "S16_01",
-                        "value": null
+                        "value": 0.55555555555555
                     },
                     {
                         "code": "S16_02",

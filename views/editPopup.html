@@ -1,22 +1,29 @@
 <div class="layout-content-body">
     <div class="title-bar">
         <h1 class="title-bar-title">
-            <span class="">Edit {{name}}</span>
+            <span ng-show="isEditable" class="">Edit {{name}}</span>
+            <span ng-show="!isEditable" class="">{{name}}</span>
         </h1>
     </div>
     <div class="modal-body">
         <form class="form form-horizontal" name="xform" id="det-form">
-            <div ng-repeat="item in params" class="form-group">
-                <label class="col-sm-8 control-label" for="form-control-1">{{item.param}} [{{item.code}}]:</label>
-                <div class="col-sm-4">
-                    <input id="form-control-1" ng-model="item.value" value="{{item.value}}" class="form-control" type="string">
-                </div>
-            </div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in params" style="height: 50px;">
+                    <span class="pull-right" ng-show="!isEditable">
+                        <b>{{item.value}}</b>
+                    </span>
+                    <span class="pull-right" ng-show="isEditable">
+                        <input ng-model="item.value" value="{{item.value}}" class="form-control input-sm " type="string" style="width: 120px;">
+                    </span>
+                    <span class="align-middle">
+                        {{item.param}} <b>[{{item.code}}]</b>:
+                    </span>
+                </li>
+            </ul>
         </form>
     </div>
 </div>
 <div class="modal-footer">
-    <button ng-click="save()" class="btn btn-primary" style="width: 130px;">Save</button>
+    <button ng-show="isEditable" ng-click="save()" class="btn btn-primary" style="width: 130px;">Save</button>
     <button ng-click="close()" class="btn" style="width: 130px;">Close</button>
-</div>
 </div>

@@ -1,102 +1,102 @@
-angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData, $location, boundsData, $timeout, $stateParams, DataFactory) {
+angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope, $state, $window, $controller, ServiceData, $location, $timeout, $stateParams, DataFactory) {
+
+      $scope.continent = $rootScope.continent ? $rootScope.continent : ($stateParams.continent ? $stateParams.continent : "Africa");
+      $scope.country = $rootScope.country ? $rootScope.country : ($stateParams.country ? $stateParams.country : "Malawi");
+      $scope.disease = $scope.disease ? $scope.disease : ($stateParams.disease ? $stateParams.disease : "HIV");
+      $scope.type = $rootScope.type ? $rootScope.type : ($stateParams.type ? $stateParams.type : "SARA");
+      $scope.year = $rootScope.year ? $rootScope.year : ($stateParams.year ? $stateParams.year : "2010");
+      $scope.years = ServiceData.collections.Years;
+      $scope.selectedYear = $scope.year;
+      $scope.selectedDisease = $scope.disease;
+      $scope.selectedHFA = $scope.type;
+
+      $rootScope.disease = $scope.disease;
+      $rootScope.type = $scope.type;
+      $rootScope.year = $scope.year;
+      $rootScope.mode = $scope.mode;
+      $rootScope.country = $scope.country;
+      $rootScope.continent = $scope.continent;
+
+      updateSate();
 
 
-
-      $stateParams = { disease: "HIV", type: "SARA", country: "Malawi", year: "2010" };
+      $scope.expanded = true;
       $scope.series = [];
       $scope.labels = [];
+      $scope.data = [];
       var countIndicator = 1;
       var countAxis = [0];
-      var Data = {};
-      var ind = ServiceData.diseaseIndicatorsDirectory.HIV;
-      $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
-      $scope.cahrtIndicator = ind;
-      $scope.selectIndicator = ind[0];
-      $scope.selectIndicatorMap = ind[0];
+      $scope.Data = {};
+
+      switch ($scope.selectedDisease) {
+            case "HIV":
+                  $scope.ind = ServiceData.diseaseIndicatorsDirectory.HIV;
+                  break
+            case "TB":
+                  $scope.ind = ServiceData.diseaseIndicatorsDirectory.TB;
+                  break
+            case "Malaria":
+                  $scope.ind = ServiceData.diseaseIndicatorsDirectory.Malaria;
+                  break
+            default:
+                  $scope.ind = ServiceData.diseaseIndicatorsDirectory.HIV;
+                  break
+      }
+      $scope.seriesID = [];
+      $scope.cahrtIndicator = $scope.ind;
+      $scope.selectIndicator = $scope.ind[0];
+      $scope.selectIndicatorMap = $scope.ind[0];
       $scope.series = [$scope.selectIndicator.name];
-      $scope.type = "SARA";
-      $scope.continent = "Africa";
-      $scope.country = "Malawi";
-      $scope.year = "2010";
+      $scope.hfaSel = 1;
+
       getData();
 
 
-      $scope.getParams = function () {
-            $stateParams = { disease: $scope.disease, type: $scope.type, country: $scope.country, year: $scope.year };
-            console.log("SP", $stateParams)
-            getData();
-
-            // updateMap();
-      }
-
-
       function getData() {
-            DataFactory.getRegions($stateParams).then(function (response) {
+            var params = {
+                  disease: $scope.disease,
+                  type: $scope.type,
+                  country: $scope.country,
+                  year: $scope.year
+            }
+            $scope.isPendinggData = true;
+            DataFactory.getRegions(params).then(function (response) {
                   $scope.multiselectModel.splice(0);
                   countIndicator = 1;
-                  $scope.series.splice(0);
-                  $scope.labels.splice(0);
-                  Data = response.data.data;
-                  $scope.data = [onload(ind, ind[0])];
-                  $scope.series = [ind[0].name];
-                  $scope.options.scales.yAxes[0].display = true;
-                  $scope.options.scales.yAxes[1].display = false;
-                  $scope.options.scales.yAxes[2].display = false;
-                  console.log("dat", $scope.data);
+                  $scope.series = [];
+                  $scope.labels = [];
+                  $scope.Data = response.data.data;
+                  $scope.data = [onload($scope.ind, $scope.ind[0])];
+                  $scope.seriesID[0] = [{ count: 0, name: $scope.ind[0].name }];
+                  $scope.legend = ServiceData.getLegend($scope.disease, $scope.ind[0].index);
+                  $scope.series = ["[" + $scope.ind[0].code + "] " + $scope.legend + " " + $scope.ind[0].name];
+                  // $scope.series = [$scope.ind[0].name];
+                  //  $scope.options.scales.yAxes[0].display = true;
+                  // $scope.options.scales.yAxes[1].display = false;
+                  // $scope.options.scales.yAxes[2].display = false;
+                  $scope.isPendinggData = false;
             });
       }
 
-      $timeout(function () {
-            // updateMap();
-
-      }, 2000);
-
-
-      $scope.onSellectHFA = function () {
-            switch ($scope.hfaSel) {
-                  case 1:
-                        $scope.type = "SARA";
-                        break
-                  case 2:
-                        $scope.type = "SPI";
-                        console.log("!!!!")
-                        break
-                  case 3:
-                        $scope.type = "SDI";
-                        break
-                  default:
-
-                        break
-            }
-
-      }
       $scope.onSellectDisease = function () {
-            switch ($scope.disSel) {
-                  case 1:
-                        ind = ServiceData.diseaseIndicatorsDirectory.HIV;
-                        $scope.disease = "HIV"
+            switch ($scope.selectedDisease) {
+                  case "HIV":
+                        $scope.ind = ServiceData.diseaseIndicatorsDirectory.HIV;
                         break
-                  case 2:
-                        ind = ServiceData.diseaseIndicatorsDirectory.TB;
-                        $scope.disease = "TB"
+                  case "TB":
+                        $scope.ind = ServiceData.diseaseIndicatorsDirectory.TB;
                         break
-                  case 3:
-                        ind = ServiceData.diseaseIndicatorsDirectory.Malaria;
-                        $scope.disease = "Malaria"
+                  case "Malaria":
+                        $scope.ind = ServiceData.diseaseIndicatorsDirectory.Malaria;
                         break
                   default:
-                        ind = ServiceData.diseaseIndicatorsDirectory.HIV;
-                        $scope.disease = "HIV"
+
                         break
             }
 
       }
 
-      $scope.onSellectIndicator = function () {
 
-
-
-      };
 
 
 
@@ -112,7 +112,7 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData
             var index = selind.index;
 
 
-            angular.forEach(Data.regions, function (value, key) {
+            angular.forEach($scope.Data.regions, function (value, key) {
                   $scope.labels.push(value.name);
                   if (value.indexes[index].value == null) {
                         oneData.push(0)
@@ -121,8 +121,8 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData
                         oneData.push(value.indexes[index].value);
                   }
             })
-
             return oneData;
+            updateMap();
       };
 
 
@@ -130,24 +130,32 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData
       function onAddIndicator(selctedind) {
             switch (countIndicator) {
                   case 1:
-                        $scope.series = [selctedind.name];
-                        $scope.data = [onload(ind, selctedind)];
-                        $scope.options.scales.yAxes[0].display = true;
+                        $scope.series = [];
+                        $scope.legend = ServiceData.getLegend($scope.disease, selctedind.index);
+                        $scope.series = ["[" + selctedind.code + "] " + $scope.legend + " " + selctedind.name];
+                        $scope.seriesID[0] = [{ count: 0, name: selctedind.name }];
+                        $scope.data = [onload($scope.ind, selctedind)];
+                        //$scope.options.scales.yAxes[0].display = true;
                         break
                   case 2:
-                        $scope.series.push(selctedind.name);
-                        $scope.data.push(onload(ind, selctedind));
-                        $scope.options.scales.yAxes[1].display = true;
-                        // console.log("add-2", ind, selctedind.name);
+                        $scope.legend = ServiceData.getLegend($scope.disease, selctedind.index);
+                        $scope.series.push(["[" + selctedind.code + "] " + $scope.legend + " " + selctedind.name]);
+                        $scope.seriesID[1] = [{ count: 1, name: selctedind.name }];
+                        $scope.data.push(onload($scope.ind, selctedind));
+                        //$scope.options.scales.yAxes[1].display = true;
                         break
                   case 3:
-                        $scope.series.push(selctedind.name);
-                        $scope.data.push(onload(ind, selctedind));
-                        $scope.options.scales.yAxes[2].display = true;
+                        $scope.legend = ServiceData.getLegend($scope.disease, selctedind.index);
+                        $scope.series.push(["[" + selctedind.code + "] " + $scope.legend + " " + selctedind.name]);
+                        $scope.seriesID[2] = [{ count: 2, name: selctedind.name }];
+                        $scope.data.push(onload($scope.ind, selctedind));
+                        // $scope.options.scales.yAxes[2].display = true;
                         break
                   default:
-                        $scope.series = [ind[0].name];
-                        $scope.data = [onload(ind, ind[0])];
+
+                        $scope.data = [onload($scope.ind, $scope.ind[0])];
+                        $scope.legend = ServiceData.getLegend($scope.disease, $scope.ind[0].index);
+                        $scope.series = ["[" + $scope.ind[0].code + "] " + $scope.legend + " " + $scope.ind[0].name];
                         break
             }
       };
@@ -155,12 +163,12 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData
       ///Multisellect block
 
       $scope.multiselectModel = [];
-      $scope.multiselectData = ind;
+      $scope.multiselectData = $scope.ind;
       $scope.multiselectSettings = {
 
             showCheckAll: false,
             styleActive: false,
-            buttonClasses: "btn btn-outline-info",
+            buttonClasses: "btn btn-info",
             selectionLimit: 3,
             template: '{{option.name}}',
             scrollableHeight: '300px',
@@ -176,179 +184,45 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData
                   countIndicator++;
                   if (countIndicator == 3) { countIndicator = 3 };
             },
+
             onItemDeselect: function (item) {
                   countIndicator--;
-
+                  console.log($scope.seriesID);
                   for (var i = 0; i < $scope.series.length; i++) {
                         if ($scope.series.length == 1) {
                               break
                         } else {
-                              if ($scope.series[i] == item.name) {
-                                    $scope.options.scales.yAxes[$scope.series.length - 1].display = false;
+                              if ($scope.seriesID[i][0].name == item.name) {
+                                    //  $scope.options.scales.yAxes[$scope.series.length - 1].display = false;
+                                    console.log($scope.seriesID[i][0].count, $scope.seriesID[i], $scope.series, i)
                                     $scope.series.splice(i, 1);
                                     $scope.data.splice(i, 1);
+                                    $scope.seriesID.splice(i, 1);
+                                    console.log($scope.seriesID);
+
                               }
                         }
                   }
 
             },
             onDeselectAll: function () {
-                  $scope.options.scales.yAxes[0].display = true;
-                  $scope.options.scales.yAxes[1].display = false;
-                  $scope.options.scales.yAxes[2].display = false;
-                  $scope.series.splice(0);
+                  // $scope.options.scales.yAxes[0].display = true;
+                  // $scope.options.scales.yAxes[1].display = false;
+                  // $scope.options.scales.yAxes[2].display = false;
+                  $scope.series = [];
                   countIndicator = 1;
-                  $scope.series = [ind[0].name];
-                  $scope.data = [onload(ind, ind[0])];
-                  // console.log("del all", $scope.series)
+                  $scope.data = [onload($scope.ind, $scope.ind[0])];
+                  $scope.legend = ServiceData.getLegend($scope.disease, $scope.ind[0].index);
+                  $scope.series = ["[" + $scope.ind[0].code + "] " + $scope.legend + " " + $scope.ind[0].name];
+                  $scope.seriesID[0] = [{ count: 0, name: $scope.ind[0].name }];
             }
       };
       ////-----------
 
-      // ------------ Map configure ------------
-
-      // var cGrades = [];
-
-      // var map = L.map('map', {
-      //       doubleClickZoom: false,
-      //       zoomControl: false,
-      //       dragging: false,
-      //       tap: false,
-      //       center: [51.505, -0.09],
-      //       zoom: 13
-      // });
-
-      // map.scrollWheelZoom.disable();
-
-      // var mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-      //       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      // }).addTo(map);
-
-      // var info = L.control({ position: 'bottomleft' });
-      // info.onAdd = function (map) {
-      //       this._div = L.DomUtil.create('div', 'mapinfo'); // create a div with a class "info"
-      //       this.update();
-      //       return this._div;
-      // };
-
-      // info.update = function (props) {
-      //       if (props) {
-      //             var value = $scope.data[0][props.id];
-      //             this._div.innerHTML = '<h4>' + props.name + '</h4>' + $scope.selectIndicator.name + ': <b>' + value.toFixed(2) + '</b>';
-      //       } else {
-      //             this._div.innerHTML = $scope.selectIndicator.name;
-      //       }
-      // };
-
-      // info.addTo(map);
-
-      // mainLayer.setOpacity(0.2);
-
-      // var legend = L.control({ position: 'topright' });
-
-      // function setGeoJson(areaId) {
-      //       var areaInfo = boundsData.getData()[areaId];
-      //       $.getJSON('data/geojson/' + areaInfo.geojson, function (data) {
-      //             geojson = L.geoJson(data, {
-      //                   clickable: true,
-      //                   style: style,
-      //                   onEachFeature: onEachFeature
-      //             }).addTo(map);
-      //             updateMap();
-      //       })
-      // }
-
-      // function onEachFeature(feature, layer) {
-      //       layer.on({
-      //             mouseover: highlightFeature,
-      //             mouseout: resetHighlight,
-      //             click: highlightFeature
-      //       });
-      // }
-
-      // function highlightFeature(e) {
-      //       var layer = e.target;
-      //       info.update(layer.feature);
-      //       layer.setStyle({
-      //             color: '#8F5900',
-      //             weight: 3,
-      //             opacity: 1,
-      //             fillOpacity: 0.5
-      //       });
-      //       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      //             layer.bringToFront();
-      //       }
-      // }
-
-      // function resetHighlight(e) {
-      //       var layer = e.target;
-      //       geojson.resetStyle(e.target);
-      //       info.update();
-      // }
-
-      // function setFocusOnArea(aId) {
-      //       var areaId = aId;
-      //       var areaInfo = boundsData.getData()[areaId];
-      //       var bounds = [[areaInfo.bounds[1], areaInfo.bounds[0]], [areaInfo.bounds[3], areaInfo.bounds[2]]];
-      //       map.fitBounds(bounds);
-      // }
-
-      // function updateMap() {
-      //       var cAreaId = 0;
-      //       switch ($scope.currentArea) {
-      //             case "Central": cAreaId = 101; break;
-      //             case "Northern": cAreaId = 102; break;
-      //             case "Southern": cAreaId = 103; break;
-      //       }
-      //       setFocusOnArea(cAreaId)
-      //       geojson.setStyle(style);
-
-      //       // legend
-      //       var minValue = Infinity;
-      //       var maxValue = -Infinity;
-      //       cGrades = [];
-      //       angular.forEach($scope.data[0], function (value, key) {
-      //             minValue = Math.min(minValue, value);
-      //             maxValue = Math.max(maxValue, value);
-      //       });
-      //       var step = (maxValue - minValue) / 7;
-      //       for (var i = 0; i < 7; i++) {
-      //             cGrades[i] = (i * step + minValue).toFixed(2);
-      //       }
-
-      //       legend.onAdd = function (map) {
-      //             var div;
-      //             div = L.DomUtil.create('div', 'maplegendinfo maplegend'),
-      //                   grades = cGrades,
-      //                   labels = [];
-
-      //             for (var i = 0; i < grades.length; i++) {
-      //                   div.innerHTML +=
-      //                         '<i style="background:' + ServiceData.getColor(grades, grades[i]) + '; border-radius: 3px; border: 1px solid; border-color: white;"></i> ' +
-      //                         grades[i] + (grades[i + 1] ? ' &ndash; ' + grades[i + 1] + '<br>' : '+');
-      //             }
-      //             return div;
-      //       };
-
-      //       legend.addTo(map);
-      // }
-
-      // setGeoJson(0);
-
-      // function style(feature) {
-      //       return {
-      //             color: '#fff',
-      //             weight: 2,
-      //             fillColor: ServiceData.getColor(cGrades, $scope.data[0][feature.id]),
-      //             fill: true,
-      //             opacity: 1,
-      //             fillOpacity: 0.9,
-      //       };
-      // }
+      ////////////// ------------ Map configure ------------
 
 
 
-      ////-----------
 
 
       $scope.colors = [{
@@ -377,6 +251,7 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData
                   }
             },
             scales: {
+
                   xAxes: [{
                         gridLines: {
                               display: false
@@ -384,52 +259,73 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData
                   }],
                   yAxes: [
                         {
-                              type: "linear", "id": "y-axis-1", display: true, position: "left",
+                              type: "linear", "id": "y-axis-1", display: false, position: "left",
                               suggestedMin: 0,
 
                               ticks: {
+                                    beginAtZero: true,
                                     // Include a dollar sign in the ticks
                                     callback: function (value, index, values) {
                                           var valueFormat = 0;
                                           if (value > 100000) {
-                                                valueFormat = value.toExponential(0);
-                                          } else if (value < 100000 && value > 0) {
-                                                valueFormat = value;
+                                                valueFormat = (value.toFixed(2) / 10000);
+                                          } else if (value <= 100000 && value > 1) {
+                                                valueFormat = (value.toFixed(2) / 10000);
+                                          } else if (value <= 1 && value > 0) {
+                                                valueFormat = value.toFixed(2);
                                           }
                                           return valueFormat
                                     }
                               },
+                              scaleLabel: {
+                                    display: true,
+                                    labelString: 'Varlue x10000'
+                              }
 
                         },
                         {
                               type: "linear", "id": "y-axis-2", display: false, position: "left",
                               ticks: {
                                     // Include a dollar sign in the ticks
+                                    beginAtZero: true,
                                     callback: function (value, index, values) {
                                           var valueFormat = 0;
                                           if (value > 1000000) {
                                                 valueFormat = value.toExponential(0);
-                                          } else if (value < 1000000 && value > 0) {
-                                                valueFormat = value;
+                                          } else if (value <= 1000000 && value > 1) {
+                                                valueFormat = value.toFixed(0);
+                                          } else if (value <= 1 && value > 0) {
+                                                valueFormat = value.toFixed(2);
                                           }
                                           return valueFormat
                                     }
-                              }
+                              },
+                              // scaleLabel: {
+                              //       display: true,
+                              //       labelString: 'Throughput'
+                              //     }
                         },
                         {
                               type: "linear", "id": "y-axis-3", display: false, position: "left",
                               ticks: {
                                     // Include a dollar sign in the ticks
+                                    beginAtZero: true,
                                     callback: function (value, index, values) {
                                           var valueFormat = 0;
                                           if (value > 1000000) {
-                                                valueFormat = value.toExponential(0);
-                                          } else if (value < 1000000 && value > 0) {
-                                                valueFormat = value;
+                                                valueFormat = (value.toFixed(0) / 1000000) + "x10^6";
+                                          } else if (value <= 1000000 && value > 1) {
+                                                valueFormat = value.toFixed(0);
+                                          } else if (value <= 1 && value > 0) {
+                                                valueFormat = value.toFixed(2);
                                           }
                                           return valueFormat
                                     }
-                              }
+                              },
+                              // scaleLabel: {
+                              //       display: true,
+                              //       labelString: 'Throughput'
+                              //     }
                         }
                   ]
             },
@@ -451,5 +347,49 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, ServiceData
             }
       };
 
+
+      $scope.viewTable = function () {
+            var url = $state.href('root.datatable', { continent: $scope.continent, country: $scope.country, disease: $scope.disease, type: $scope.type, year: $scope.year, mode: 0 });
+            $window.open(url, '_blank');
+      }
+
+      function updateSate(isUpdate = false) {
+            $state.go('root.dashboard', { continent: $scope.continent, country: $scope.country, disease: $scope.disease, type: $scope.type, year: $scope.year }, { notify: isUpdate });
+      }
+
+      DataFactory.getContinents().then(function (response) {
+            $scope.continents = response.data.continents;
+            $scope.selectedContinent = $scope.continents.filter(c => c.name == $scope.continent)[0];
+      });
+
+
+      $scope.$watch('selectedContinent', function () {
+            if ($scope.selectedContinent) {
+                  DataFactory.getCountries($scope.selectedContinent.name).then(function (response) {
+                        $scope.countries = response.data.countries;
+                        $scope.selectedCountry = $scope.countries.filter(c => c.name == $scope.country)[0];
+                        if (!$scope.selectedCountry) $scope.selectedCountry = $scope.countries[0];
+                  });
+            }
+      });
+
+      $scope.applyForm = function () {
+            $scope.continent = $scope.selectedContinent.name;
+            $scope.country = $scope.selectedCountry.name;
+            $scope.type = $scope.selectedHFA;
+            $scope.disease = $scope.selectedDisease;
+            $scope.year = $scope.selectedYear;
+
+            $rootScope.disease = $scope.disease;
+            $rootScope.type = $scope.type;
+            $rootScope.year = $scope.year;
+            $rootScope.mode = $scope.mode;
+            $rootScope.country = $scope.country;
+            $rootScope.continent = $scope.continent;
+
+            updateSate(true);
+      }
+
+      angular.extend(this, $controller('MapCtrl', { $scope: $scope }));
 
 });

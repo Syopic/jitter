@@ -1,7 +1,7 @@
 <div class="layout-content-body">
   <div class="title-bar">
     <h1 class="title-bar-title">
-      <span class="d-ib">Dashboard</span>
+      <span class="d-ib">Dashboard: {{country}} | {{type}} | {{disease}} | {{year}} </span>
       <button class="btn btn-primary btn-sm btn-labeled navbar-toggle collapsed" data-toggle="collapse" href="#btnCollapse" aria-expanded="false"
         aria-controls="btnCollapse" style='margin-left: 20px;'>
         <span class="btn-label">
@@ -15,93 +15,74 @@
   <div class="navbar-collapse collapse" id="btnCollapse" style="padding:0px;">
     <div class="row gutter-xs">
       <div class="col-xs-12">
-        <div class="card ">
-          <div class="row gutter-xs">
+        <div class="card">
+          <div class="card-body">
             <div class="col-md-3">
-              <div class="card-body">
-                <div class="form-group">
 
 
-                  <h5>HFA type</h5>
-                  <div class="btn-group" data-toggle="buttons" style="width:100%;">
-                    <label class="btn btn-outline-info active" style="width: 33%;" ng-click="hfaSel =1; onSellectHFA();">
-                      <input type="radio" name="hfa" value="SARA" checked="checkedHFA">SARA
-                    </label>
-                    <label class="btn btn-outline-info " style="width: 33%;" ng-click="hfaSel =2; onSellectHFA();">
-                      <input type="radio" name="hfa" value="SPI">SPI
-                    </label>
-                    <label class="btn btn-outline-info" style="width: 33%;" ng-click="hfaSel =3; onSellectHFA();">
-                      <input type="radio" name="hfa" value="SDI">SDI
-                    </label>
-                  </div>
-                </div>
+
+
+              <h5>HFA type</h5>
+              <div class="btn-group" data-toggle="buttons" style="width:100%;">
+                <label class="btn btn-outline-info" ng-class="{active : selectedHFA === 'SARA' }" ng-model="selectedHFA" style="width: 33%;"
+                  ng-click="selectedHFA = 'SARA'; test();">
+                  <input type="radio" name="hfa">SARA
+                </label>
+                <label class="btn btn-outline-info " ng-class="{active : selectedHFA === 'SPA'}" ng-model="selectedHFA" style="width: 33%;"
+                  ng-click="selectedHFA = 'SPI'; test();">
+                  <input type="radio" name="hfa">SPA
+                </label>
+                <label class="btn btn-outline-info" ng-class="{active : selectedHFA === 'SDI'}" ng-model="selectedHFA" style="width: 33%;"
+                  ng-click="selectedHFA = 'SDI'; test();">
+                  <input type="radio" name="hfa">SDI
+                </label>
               </div>
+
+
             </div>
             <div class="col-md-3">
-              <div class="card-body">
-                <div class="form-group">
 
-                  <h5>Disease</h5>
-                  <div class="btn-group" data-toggle="buttons" style="width:100%;">
-                    <label class="btn btn-outline-info active" style="width: 33%;" ng-click="disSel =1; onSellectDisease();">
-                      <input type="radio" value="HIV">HIV
-                    </label>
-                    <label class="btn btn-outline-info" style="width: 33%;" ng-click="disSel =2; onSellectDisease();">
-                      <input type="radio" value="TB">TB
-                    </label>
-                    <label class="btn btn-outline-info" style="width: 33%;" ng-click="disSel =3; onSellectDisease();">
-                      <input type="radio" value="Malaria"> Malaria
-                    </label>
-                  </div>
+              <div class="form-group">
+
+                <h5>Disease</h5>
+                <div class="btn-group" data-toggle="buttons" style="width:100%;">
+                  <label class="btn btn-outline-info " ng-class="{active : selectedDisease === 'HIV'}" style="width: 33%;" ng-click="selectedDisease = 'HIV'; onSellectDisease();">
+                    <input type="radio" name="disease">HIV
+                  </label>
+                  <label class="btn btn-outline-info" ng-class="{active : selectedDisease === 'TB' }" style="width: 33%;" ng-click="selectedDisease = 'TB'; onSellectDisease();">
+                    <input type="radio" name="disease">TB
+                  </label>
+                  <label class="btn btn-outline-info" ng-class="{active : selectedDisease === 'Malaria' }" style="width: 33%;" ng-click="selectedDisease = 'Malaria'; onSellectDisease();">
+                    <input type="radio" name="disease"> Malaria
+                  </label>
                 </div>
+
               </div>
             </div>
+            <div class="row gutter-xs">
+              <div class="col-md-6 ">
 
-            <div class="col-md-6">
-              <div class="card-body">
                 <div class="col-md-3">
 
                   <h5>Continent</h5>
-                  <select class="form-control" name="Continent" ng-model="continent">
-                    <option value="Africa" selected="selected">Africa</option>
-                    <!-- <option value="Asia" disabled="disabled">Asia</option>
-                        <option value="Europe" disabled="disabled">Europe</option>
-                        <option value="North America" disabled="disabled">North America</option>
-                        <option value="South America" disabled="disabled">South America</option>
-                        <option value="Australia" disabled="disabled">Australia</option>
-                        <option value="Oceania" disabled="disabled">Oceania</option> -->
-                  </select>
+                  <select class="form-control" ng-model="selectedContinent" ng-options="item.name for item in continents track by item.name"
+                    value="{{continent.name}}"></select>
                 </div>
 
                 <div class="col-md-3">
                   <h5>Country</h5>
-                  <select class="form-control" name="Country" ng-model="country">
-                    <option value="Malawi" selected="selected">Malawi</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="Ethiopia">Ethiopia</option>
-                  </select>
-
+                  <select class="form-control" ng-model="selectedCountry" ng-options="item.name for item in countries track by item.name" value="{{selectedCountry.name}}"></select>
                 </div>
 
                 <div class="col-md-3">
                   <h5>Year</h5>
-                  <select class="form-control" name="Year" ng-model="year">
-                    <option value="" disabled="disabled">Year</option>
-                    <option value="2017" selected="selected">2017</option>
-                    <option value="2016">2016</option>
-                    <option value="2015">2015</option>
-                    <option value="2014">2014</option>
-                    <option value="2013">2013</option>
-                    <option value="2012">2012</option>
-                    <option value="2011">2011</option>
-                    <option value="2010">2010</option>
-                  </select>
+                  <select class="form-control" ng-model="selectedYear" ng-options="item for item in years" value="{{selectedYear}}"></select>
                 </div>
                 <div class="col-md-3">
                   <h5>
                     <br>
                   </h5>
-                  <button class="btn btn-outline-info btn-block" type="button" ng-click="getParams()">Submit
+                  <button class="btn btn-info btn-block " ng-click="applyForm()" ng-disabled="isPendinggData">Apply
                   </button>
                 </div>
               </div>
@@ -111,237 +92,43 @@
       </div>
     </div>
   </div>
-  <div class="row gutter-xs">
-    <div class="col-md-12">
+
+  <div class="row " ng-show="true">
+    <div class="col-xs-12">
       <div class="card">
-        <div class="row gutter-xs">
+
+        <div class="row gutter-xs" >
           <div class="card-body">
             <div class="col-md-4">
-              <h4>Table</h4>
-            </div>
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4">
-              <div class="pull-right">
-                <button class="btn btn-outline-info btn-icon sq-32  " type="button" data-toggle="collapse" href="#collapseTable" aria-expanded="true"
-                  aria-controls="collapseTable">
-                  <span class="icon icon-clone"></span>
-                </button>
+
+              <div ng-dropdown-multiselect="" ng-show="expanded" options="multiselectData" selected-model="multiselectModel" extra-settings="multiselectSettings"
+                events="multiselectEvents" translation-texts="{buttonDefaultText: 'Select Indicator'}">
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body collapse in" id="collapseTable" aria-expanded="true">
-          <!--  -->
 
-          <table class="table table-hover table-bordered table-striped">
-            <thead>
-              <tr>
-                <th rowspan="2" class="text-center">
-                  <label class="custom-control custom-control-primary custom-checkbox">
-                    <input class="custom-control-input" type="checkbox">
-                    <span class="custom-control-indicator"></span>
-                  </label>
-                </th>
-                <th rowspan="2" class="text-left">Client</th>
-                <th rowspan="2" class="text-left">Campaign Name</th>
-                <th rowspan="2" class="text-center">Campaign On/Off</th>
-                <th rowspan="2" class="text-center">Completed</th>
-                <th rowspan="2" class="text-left">Start Date</th>
-                <th rowspan="2" class="text-left">End Date</th>
-                <th colspan="3" class="text-center">Financial Cost</th>
-              </tr>
-              <tr>
-                <th class="text-right">Link Clicks</th>
-                <th class="text-right">Per Click</th>
-                <th class="text-right">Amount Spent</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center">
-                  <label class="custom-control custom-control-primary custom-checkbox">
-                    <input class="custom-control-input" type="checkbox">
-                    <span class="custom-control-indicator"></span>
-                  </label>
-                </td>
-                <td class="text-left">Pi Consulting Group</td>
-                <td class="text-left">Website traffic</td>
-                <td class="text-center">
-                  <label class="switch switch-primary">
-                    <input class="switch-input" type="checkbox" checked="checked" disabled="disabled">
-                    <span class="switch-track"></span>
-                    <span class="switch-thumb"></span>
-                  </label>
-                </td>
-                <td class="text-center">
-                  <span class="text-success">
-                    <span class="icon icon-check icon-lg"></span>
-                  </span>
-                </td>
-                <td class="text-left">Nov 1, 2016</td>
-                <td class="text-left">Nov 15, 2016</td>
-                <td class="text-right">58,198</td>
-                <td class="text-right">$0.01</td>
-                <td class="text-right">$581.98</td>
-              </tr>
-              <tr>
-                <td class="text-center">
-                  <label class="custom-control custom-control-primary custom-checkbox">
-                    <input class="custom-control-input" type="checkbox">
-                    <span class="custom-control-indicator"></span>
-                  </label>
-                </td>
-                <td class="text-left">Naksoid</td>
-                <td class="text-left">Remarketing</td>
-                <td class="text-center">
-                  <label class="switch switch-primary">
-                    <input class="switch-input" type="checkbox" checked="checked">
-                    <span class="switch-track"></span>
-                    <span class="switch-thumb"></span>
-                  </label>
-                </td>
-                <td class="text-center">
-                  <span class="text-muted">
-                    <span class="icon icon-check icon-lg"></span>
-                  </span>
-                </td>
-                <td class="text-left">Nov 1, 2016</td>
-                <td class="text-left">Nov 30, 2016</td>
-                <td class="text-right">79,048</td>
-                <td class="text-right">$0.007</td>
-                <td class="text-right">$553.34</td>
-              </tr>
-              <tr>
-                <td class="text-center">
-                  <label class="custom-control custom-control-primary custom-checkbox">
-                    <input class="custom-control-input" type="checkbox">
-                    <span class="custom-control-indicator"></span>
-                  </label>
-                </td>
-                <td class="text-left">Naksoid</td>
-                <td class="text-left">Page Likes</td>
-                <td class="text-center">
-                  <label class="switch switch-primary">
-                    <input class="switch-input" type="checkbox" checked="checked">
-                    <span class="switch-track"></span>
-                    <span class="switch-thumb"></span>
-                  </label>
-                </td>
-                <td class="text-center">
-                  <span class="text-muted">
-                    <span class="icon icon-check icon-lg"></span>
-                  </span>
-                </td>
-                <td class="text-left">Nov 1, 2016</td>
-                <td class="text-left">Nov 30, 2016</td>
-                <td class="text-right">25,592</td>
-                <td class="text-right">$0.03</td>
-                <td class="text-right">$767.76</td>
-              </tr>
-              <tr>
-                <td class="text-center">
-                  <label class="custom-control custom-control-primary custom-checkbox">
-                    <input class="custom-control-input" type="checkbox">
-                    <span class="custom-control-indicator"></span>
-                  </label>
-                </td>
-                <td class="text-left">Naksoid</td>
-                <td class="text-left">Email Signups</td>
-                <td class="text-center">
-                  <label class="switch switch-primary">
-                    <input class="switch-input" type="checkbox" checked="checked" disabled="disabled">
-                    <span class="switch-track"></span>
-                    <span class="switch-thumb"></span>
-                  </label>
-                </td>
-                <td class="text-center">
-                  <span class="text-success">
-                    <span class="icon icon-check icon-lg"></span>
-                  </span>
-                </td>
-                <td class="text-left">Nov 1, 2016</td>
-                <td class="text-left">Nov 20, 2016</td>
-                <td class="text-right">34,179</td>
-                <td class="text-right">$0.04</td>
-                <td class="text-right">$1,367.16</td>
-              </tr>
-              <tr>
-                <td class="text-center">
-                  <label class="custom-control custom-control-primary custom-checkbox">
-                    <input class="custom-control-input" type="checkbox">
-                    <span class="custom-control-indicator"></span>
-                  </label>
-                </td>
-                <td class="text-left">CMB Cosmetics</td>
-                <td class="text-left">Product catalog</td>
-                <td class="text-center">
-                  <label class="switch switch-primary">
-                    <input class="switch-input" type="checkbox" checked="checked" disabled="disabled">
-                    <span class="switch-track"></span>
-                    <span class="switch-thumb"></span>
-                  </label>
-                </td>
-                <td class="text-center">
-                  <span class="text-success">
-                    <span class="icon icon-check icon-lg"></span>
-                  </span>
-                </td>
-                <td class="text-left">Nov 1, 2016</td>
-                <td class="text-left">Nov 20, 2016</td>
-                <td class="text-right">90,031</td>
-                <td class="text-right">$0.012</td>
-                <td class="text-right">$1,080.37</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th class="text-right" colspan="7">Total:</th>
-                <th class="text-right">287,048</th>
-                <th class="text-right">$0.015</th>
-                <th class="text-right">$4,350.61</th>
-              </tr>
-            </tfoot>
-          </table>
-
-          <!--  -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row gutter-xs">
-    <div class="col-md-12">
-      <div class="card">
-
-        <div class="row gutter-xs">
-          <div class="card-body">
-            <div class="col-md-4">
-              <h4>Chart {{continent}} {{country}} {{year}} {{type}}</h4>
             </div>
             <div class="col-md-4">
               <div class="text-center">
-                <div ng-dropdown-multiselect="" options="multiselectData" selected-model="multiselectModel" extra-settings="multiselectSettings"
-                  events="multiselectEvents" translation-texts="{buttonDefaultText: 'Select Indicator'}">
-                </div>
+                <h4>Chart {{continent}} {{country}} {{year}} {{type}}</h4>
               </div>
             </div>
             <div class="col-md-4">
               <div class="pull-right">
-                <button class="btn btn-outline-info btn-icon sq-32  " type="button" data-toggle="collapse" href="#collapseChart" aria-expanded="true"
-                  aria-controls="collapseChart">
+                <button class="btn btn-info" ng-click="viewTable()">
+                  View in a table
+                  <span class="icon icon-table"></span>
+                </button>
+                <button class="btn btn-info btn-icon sq-32  " data-toggle="collapse" href="#collapseChart" aria-expanded="true" aria-controls="collapseChart"
+                  ng-click="expanded = !expanded">
                   <span class="icon icon-clone"></span>
                 </button>
               </div>
             </div>
           </div>
         </div>
-
-
-
-
-
-        <div class="card-body collapse in" id="collapseChart" aria-expanded="true">
+        <div class="panel panel-body text-center" ng-show="isPendinggData" data-toggle="match-height" style="height: 136px;">
+            <div class="spinner spinner-primary spinner-lg pos-r sq-100"></div>
+          </div>
+        <div class="card-body collapse in" id="collapseChart" aria-expanded="true" ng-show="!isPendinggData">
           <div class="card-chart">
             <canvas class="chart chart-bar" chart-data='data' chart-labels='labels' chart-series='series' chart-colors='colors' chart-options='options'
               height="100"></canvas>
@@ -351,22 +138,21 @@
       </div>
     </div>
   </div>
-  <div class="row gutter-xs">
+  <div class="row gutter-xs" ng-show="isMapVisible">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
           <h4>Map {{selectIndicatorMap.code}}</h4>
-          <select class="form-control" ng-init="selectIndicator.name" ng-model="selectIndicatorMap" ng-options="item as item.name for item in cahrtIndicator"
-            ng-change="">
-          </select>
-          <div class="card-body">
-            <!-- <div id="map" style = "height: 500px;"></div> -->
+          <div class="col-md-8">
+            <div id="map" style="height: 600px;"></div>
           </div>
-          <!--  style="height: 518px;" <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=33.784729242324836%2C-13.9491344807431%2C33.79294753074647%2C-13.942814040708765&amp;layer=mapnik&amp;marker=-13.945974282368342%2C33.788838386535645"></iframe> -->
+          <div class="col-md-4">
+            <select class="form-control" ng-model="selectedIndicator" ng-options="item as item.name for item in cahrtIndicator" ng-change="">
+            </select>
+            <select class="form-control" ng-model="selectedRegion" ng-options="item as item for item in labels" ng-change="">
+            </select>
+        </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
 </div>

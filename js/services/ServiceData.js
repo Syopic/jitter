@@ -2,7 +2,7 @@ var app = angular.module("sara").service('ServiceData', [function ServiceData() 
     this.diseaseIndicatorsDirectory = {
         Malaria: [
             { index: 0, code: "S15", name: "Malaria services" },
-            { index: 1, code: "S15_01", name: "Malaria diagnosis" },
+            { index: 1, code: "S15-01", name: "Malaria diagnosis" },
             { index: 2, code: "S15_02", name: "Malaria diagnostic testing" },
             { index: 3, code: "S15_03", name: "Malaria treatment" },
             { index: 4, code: "S15_04", name: "IPT" },
@@ -117,50 +117,65 @@ var app = angular.module("sara").service('ServiceData', [function ServiceData() 
         ]
     },
 
-    this.complexHeaders = {
-        Malaria: [
-            {name:"District", rowspan: 2, colspan: 0, bgColor: "#eeeeee"},
-            {name:"% of facilities offering:", rowspan: 0, colspan: 8, bgColor: "#eeeeee"},
-            {name:"% of facilities providing malaria services with:", rowspan: 0, colspan: 9, bgColor: "#dddddd"},
-            {name:"% of facilities providing malaria services with:", rowspan: 0, colspan: 12, bgColor: "#eeeeee"}
-        ],
-        TB: [
-            {name:"District", rowspan: 2, colspan: 0, bgColor: "#eeeeee"},
-            {name:"% of facilities offering:", rowspan: 0, colspan: 11, bgColor: "#eeeeee"},
-            {name:"% of facilities providing tuberculosis services with:", rowspan: 0, colspan: 12, bgColor: "#dddddd"}
-        ],
-        HIV: [
-            {name:"District", rowspan: 2, colspan: 0, bgColor: "#eeeeee"},
-            {name:"% if facilities offering:", rowspan: 0, colspan: 1, bgColor: "#eeeeee"},
-            {name:"% of facilities providing HIB counselling and testing services with:", rowspan: 0, colspan: 5, bgColor: "#dddddd"},
-            {name:"% of facilities offering:", rowspan: 0, colspan: 13, bgColor: "#eeeeee"},
-            {name:"% of facilities providing HIV/AIDS care and support services with:", rowspan: 0, colspan: 10, bgColor: "#dddddd"},
-            {name:"% of facilities offering:", rowspan: 0, colspan: 3, bgColor: "#eeeeee"},
-            {name:"% of facilities providing antiretroviral prescription and client management services with:", rowspan: 0, colspan: 7, bgColor: "#dddddd"},
-            {name:"% of facilities offering:", rowspan: 0, colspan: 8, bgColor: "#eeeeee"},
-            {name:"% of facilities providing prevention of mother-to-child transmission (PMTCT) services with:", rowspan: 0, colspan: 10, bgColor: "#dddddd"}
-        ],
-        HIVL0: [
-            {name:"", rowspan: 0, colspan: 1, bgColor: "#eeeeee"},
-            {name:"HIV: counselling and testing", rowspan: 0, colspan: 6, bgColor: "#aaaaaa"},
-            {name:"HIV/AIDS care and support services", rowspan: 0, colspan: 23, bgColor: "#bbbbbb"},
-            {name:"HIV: Antiretroviral prescription and client management services", rowspan: 0, colspan: 10, bgColor: "#aaaaaa"},
-            {name:"HIV/AIDS: Preventing mother-to-child transmission (PMTCT)", rowspan: 0, colspan: 18, bgColor: "#bbbbbb"}
-        ]
-    },
-    this.collections = {
-        Diseases: ["HIV", "TB", "Malaria"],
-        Years: ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"],
-    },
-    this.getColor = function getColor(grades, d) {
-        d *= 1.1;
-        return d > grades[6] ? '#BD0026' :
-          d > grades[5] ? '#E31A1C' :
-            d > grades[4] ? '#FC4E2A' :
-              d > grades[3] ? '#FD8D3C' :
-                d > grades[2] ? '#FEB24C' :
-                  d > grades[1] ? '#FED976' :
-                    '#FFEDA0';
-      }
+        this.complexHeaders = {
+            Malaria: [
+                { name: "District", rowspan: 2, colspan: 0, bgColor: "#eeeeee" },
+                { name: "% of facilities offering:", rowspan: 0, from: 0, colspan: 8, bgColor: "#eeeeee" },
+                { name: "% of facilities providing malaria services with:", rowspan: 0, from: 8, colspan: 9, bgColor: "#dddddd" },
+                { name: "% of facilities providing malaria services with:", rowspan: 0, from: 17, colspan: 12, bgColor: "#eeeeee" }
+            ],
+            TB: [
+                { name: "District", rowspan: 2, colspan: 0, bgColor: "#eeeeee" },
+                { name: "% of facilities offering:", rowspan: 0, from: 0, colspan: 11, bgColor: "#eeeeee" },
+                { name: "% of facilities providing tuberculosis services with:", rowspan: 0, from: 11, colspan: 12, bgColor: "#dddddd" }
+            ],
+            HIV: [
+                { name: "District", rowspan: 2, colspan: 0, bgColor: "#eeeeee" },
+                { name: "% if facilities offering:", rowspan: 0, from: 0, colspan: 1, bgColor: "#eeeeee" },
+                { name: "% of facilities providing HIB counselling and testing services with:", rowspan: 0, from: 1, colspan: 5, bgColor: "#dddddd" },
+                { name: "% of facilities offering:", rowspan: 0, from: 6, colspan: 13, bgColor: "#eeeeee" },
+                { name: "% of facilities providing HIV/AIDS care and support services with:", rowspan: 0, from: 19, colspan: 10, bgColor: "#dddddd" },
+                { name: "% of facilities offering:", rowspan: 0, from: 29, colspan: 3, bgColor: "#eeeeee" },
+                { name: "% of facilities providing antiretroviral prescription and client management services with:", rowspan: 0, from: 32, colspan: 7, bgColor: "#dddddd" },
+                { name: "% of facilities offering:", rowspan: 0, from: 39, colspan: 8, bgColor: "#eeeeee" },
+                { name: "% of facilities providing prevention of mother-to-child transmission (PMTCT) services with:", rowspan: 0, from: 47, colspan: 10, bgColor: "#dddddd" }
+            ],
+            HIVL0: [
+                { name: "", rowspan: 0, colspan: 1, bgColor: "#eeeeee" },
+                { name: "HIV: counselling and testing", rowspan: 0, colspan: 6, bgColor: "#aaaaaa" },
+                { name: "HIV/AIDS care and support services", rowspan: 0, colspan: 23, bgColor: "#bbbbbb" },
+                { name: "HIV: Antiretroviral prescription and client management services", rowspan: 0, colspan: 10, bgColor: "#aaaaaa" },
+                { name: "HIV/AIDS: Preventing mother-to-child transmission (PMTCT)", rowspan: 0, colspan: 18, bgColor: "#bbbbbb" }
+            ]
+        },
+        this.collections = {
+            Diseases: ["HIV", "TB", "Malaria"],
+            Years: ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2020", "2021", "2022", "2023", "2024", "2025"],
+        },
+        this.getColor = function getColor(grades, d) {
+            d *= 1.1;
+            return d > grades[6] ? '#85ADFF' :
+                d > grades[5] ? '#759DE9' :
+                    d > grades[4] ? '#658DD3' :
+                        d > grades[3] ? '#567EBD' :
+                            d > grades[2] ? '#466EA7' :
+                                d > grades[1] ? '#365E91' :
+                                    '#274F7C';
+
+        },
+        this.getLegend = function getLegend(type, index) {
+            var startrange = 0;
+            var endrange = 0;
+            var legend = ""
+            angular.forEach(this.complexHeaders[type], function (value, key) {
+                endrange = startrange + value.colspan;
+                if (startrange <= index && endrange >= index) {
+                    legend = value.name;
+                } else { startrange = endrange; }
+
+            })
+            return legend;
+        }
+
 
 }]);

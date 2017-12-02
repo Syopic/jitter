@@ -1,9 +1,15 @@
-<div class="row gutter-xs">
-  <div class="col-xs-7">
-    <div class="card">
-      <div class="card-body">
-        <div class="col-md-12">
-          <div class="row gutter-xs">
+<div class="layout-content-body">
+  <div class="title-bar">
+    <h1 class="title-bar-title">
+      <span class="d-ib">Questionnaire: {{country}} | {{type}} | {{disease}} | {{year}}</span>
+    </h1>
+  </div>
+  <div class="row gutter-xs">
+    <div ng-class="mode == 1 ? 'col-md-8 col-xs-12' : 'col-md-10 col-xs-12'">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-12">
+            <div class="row gutter-xs">
               <div class="col-md-6">
                 <h5>Continent</h5>
                 <select class="form-control" ng-model="selectedContinent" ng-options="item.name for item in continents track by item.name"
@@ -26,50 +32,65 @@
                 <select class="form-control" ng-model="selectedYear" ng-options="item for item in years" value="{{selectedYear}}"></select>
               </div>
               <div class="col-md-2">
-                <h5><br></h5>
-                <button class="btn btn-primary btn-block pull-right" ng-click="applyForm()">Apply</button>
+                <h5>
+                  <br>
+                </h5>
+                <button class="btn btn-primary btn-block pull-right" ng-click="applyForm()" ng-disabled="isPendinggData">Apply</button>
               </div>
             </div>
           </div>
         </div>
-    </div>
-  </div>
-  <div class="col-xs-5">
-      <div class="card">
-        <div class="card-body">
-            <div class="col-md-12">
-                <div class="row gutter-xs">
-                    <div class="col-md-7">
-                      <h5>Import from *.xslx file</h5>
-                      <label class="btn btn-success file-upload-btn btn-block">
-                          <input id="fileInput" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="angular.element(this).scope().uploadChange()">
-                        </label>
-                    </div>
-                    <div class="col-md-5">
-                      <h5>Export to *.xslx file</h5>
-                      <button class="btn btn-primary btn-block" ng-click="generateBlob()">Export</button>
-                    </div>
-                    <div class="col-md-7">
-                        <h5><br></h5>
-                        <h4>{{statusText}}</h4>
-                      </div>
-                    <div class="col-md-5">
-                      <h5><br></h5>
-                      <button id="sendBtn" class="btn btn-primary pull-right" ng-click="sendData()" ng-disabled="!isSendingDataEnable">Send</button>
-                    </div>
-                  </div>
-                </div>
-          </div>
       </div>
     </div>
-</div>
+    <div ng-class="mode == 1 ? 'col-md-4 col-xs-12' : 'col-md-2 col-xs-12'">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-12">
+            <div class="row gutter-xs">
+              <div class="col-md-7" ng-show="mode == 1">
+                <h5>Import from
+                  <b>XSLX</b>
+                </h5>
+                <label class="btn btn-primary btn-block file-upload-btn" ng-disabled="isPendinggData">
+                    Upload questionnaire
+                    <input  id="fileInput"  class="file-upload-input" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="angular.element(this).scope().uploadChange()" multiple="multiple" title=" "/>
+                  </label>
+                <!-- <label class="btn btn-primary ">
+                  <input id="fileInput" ng-disabled="isPendinggData" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    onchange="angular.element(this).scope().uploadChange()">
+                </label> -->
+              </div>
+              <div ng-class="mode == 1 ? 'col-md-5' : 'col-md-12'">
+                <h5>Export to
+                  <b>XSLX</b>
+                </h5>
+                <button class="btn btn-primary btn-block" ng-click="generateBlob()" ng-disabled="isPendinggData">Export</button>
+              </div>
+              <div class="col-md-7" ng-show="mode == 1">
+                <h5>
+                  <h5>Status:</h5>
+                </h5>
+                <h4>{{statusText}}</h4>
+              </div>
+              <div class="col-md-5" ng-show="mode == 1">
+                <h5>
+                  <br>
+                </h5>
+                <button id="sendBtn" class="btn btn-primary pull-right btn-block" ng-click="sendData()" ng-disabled="!isSendingDataEnable">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="row gutter-xs">
-  <div class="col-xs-12">
-    <div class="card">
-      <div class="card-body navbar-collapse collapse">
-        <div ng-show="disease == 'HIV'">
-          <table id="tableHIV" datatable class="table table-bordered table-hover table-striped dataTable no-footer" dt-columns="dTable.HIV.columns"
+  <div class="row gutter-xs">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div ng-show="disease == 'HIV'">
+            <table id="tableHIV" datatable class="table table-bordered table-hover dataTable no-footer" dt-columns="dTable.HIV.columns"
             dt-instance="dTable.HIV.dtInstance" dt-options="dTable.HIV.options">
             <thead>
               <tr>
@@ -81,12 +102,12 @@
               <tr>
                 <th ng-repeat="column in columns.HIV">{{column.name}}
                   <br>[{{column.code}}]</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-        <div ng-show="disease == 'TB'">
-          <table id="tableHIV" datatable class="table table-bordered table-hover table-striped dataTable no-footer" dt-columns="dTable.TB.columns"
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div ng-show="disease == 'TB'">
+            <table id="tableHIV" datatable class="table table-bordered table-hover dataTable no-footer" dt-columns="dTable.TB.columns"
             dt-instance="dTable.TB.dtInstance" dt-options="dTable.TB.options">
             <thead>
               <tr>
@@ -95,12 +116,12 @@
               <tr>
                 <th ng-repeat="column in columns.TB">{{column.name}}
                   <br>[{{column.code}}]</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-        <div ng-show="disease == 'Malaria'">
-          <table id="tableHIV" datatable class="table table-bordered table-hover table-striped dataTable no-footer" dt-columns="dTable.Malaria.columns"
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div ng-show="disease == 'Malaria'">
+            <table id="tableHIV" datatable class="table table-bordered table-hover dataTable no-footer" dt-columns="dTable.Malaria.columns"
             dt-instance="dTable.Malaria.dtInstance" dt-options="dTable.Malaria.options">
             <thead>
               <tr>
@@ -109,9 +130,13 @@
               <tr>
                 <th ng-repeat="column in columns.Malaria">{{column.name}}
                   <br>[{{column.code}}]</th>
-              </tr>
-            </thead>
-          </table>
+                </tr>
+              </thead>
+            </table>
+          </div>
+              <div class="panel panel-body text-center" ng-show="isPendinggData" data-toggle="match-height" style="height: 136px;">
+                <div class="spinner spinner-primary spinner-lg pos-r sq-100"></div>
+              </div>
         </div>
       </div>
     </div>

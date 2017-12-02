@@ -4,11 +4,29 @@ angular.module('sara')
 
         var dTable = this;
 
-        $scope.continent = $stateParams.continent ? $stateParams.continent : "Africa";
-        $scope.country = $stateParams.country ? $stateParams.country : "Kenya";
-        $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
-        $scope.type = $stateParams.type ? $stateParams.type : "SARA";
-        $scope.year = $stateParams.year ? $stateParams.year : "2010";
+        // $scope.continent = $stateParams.continent ? $stateParams.continent : "Africa";
+        // $scope.country = $stateParams.country ? $stateParams.country : "Kenya";
+        // $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
+        // $scope.type = $stateParams.type ? $stateParams.type : "SARA";
+        // $scope.year = $stateParams.year ? $stateParams.year : "2010";
+        $scope.mode = $stateParams.mode ? $stateParams.mode : 1; //view mode 1 - edit, 0 - view
+
+        $scope.continent = $rootScope.continent ? $rootScope.continent : ($stateParams.continent ? $stateParams.continent : "Africa");
+        $scope.country = $rootScope.country ? $rootScope.country : ($stateParams.country ? $stateParams.country : "Malawi");
+        $scope.disease = $scope.disease ? $scope.disease : ($stateParams.disease ? $stateParams.disease : "HIV");
+        $scope.type = $rootScope.type ? $rootScope.type : ($stateParams.type ? $stateParams.type : "SARA");
+        $scope.year = $rootScope.year ? $rootScope.year : ($stateParams.year ? $stateParams.year : "2010");
+        $scope.years = ServiceData.collections.Years;
+        $scope.selectedYear = $scope.year;
+        $scope.selectedDisease = $scope.disease;
+        $scope.selectedHFA = $scope.type;
+
+        $rootScope.disease = $scope.disease;
+        $rootScope.type = $scope.type;
+        $rootScope.year = $scope.year;
+        $rootScope.mode = $scope.mode;
+        $rootScope.country = $scope.country;
+        $rootScope.continent = $scope.continent;
 
         updateSate();
 
@@ -16,6 +34,7 @@ angular.module('sara')
         $scope.currentFile = null;
         $scope.currentTemplate = null;
         $scope.isSendingDataEnable = false;
+        $scope.isPendinggData = false;
         $scope.callBack = {}
         $scope.statusText = "";
 
@@ -24,7 +43,7 @@ angular.module('sara')
         $scope.selectedHFAType = null;
         $scope.selectedDisease = $scope.disease;
         $scope.selectedYear = $scope.year;
-        
+
         $scope.continents = [];
         $scope.countries = [];
 
@@ -44,12 +63,12 @@ angular.module('sara')
         dTable.TB.dtInstance = {};
         dTable.Malaria.dtInstance = {};
 
-        
+
         $scope.fileChosen = false;
-        
+
         var fileInput = document.getElementById('fileInput');
         var Promise = XlsxPopulate.Promise;
-        
+
         $scope.headers = {};
         $scope.columns = {};
 
@@ -61,7 +80,7 @@ angular.module('sara')
         $scope.columns.TB = ServiceData.diseaseIndicatorsDirectory["TB"];
         $scope.columns.Malaria = ServiceData.diseaseIndicatorsDirectory["Malaria"];
 
-        
+
 
         $scope.getData = function (sSource, aoData, fnCallback, oSettings) {
             var draw = aoData[0].value;
@@ -71,28 +90,36 @@ angular.module('sara')
                 country: $scope.country,
                 year: $scope.year
             }
+            $scope.statusText = "Pending data ...";
+            $scope.isPendinggData = true;
             DataFactory.getRegions(params).then(function (response) {
-                $scope.regions[$scope.disease] = response.data.data.regions;
-                records = {
-                    'data': $scope.regions[$scope.disease]
-                };
-                fnCallback(records);
+                if (response.data.result) {
+                    $scope.regions[$scope.disease] = response.data.data.regions;
+                    $scope.statusText = "Done";
+                    records = {
+                        'data': $scope.regions[$scope.disease]
+                    };
+                    fnCallback(records);
+                } else {
+                    $scope.statusText = response.data.message;
+                }
+                $scope.isPendinggData = false;
             });
         }
 
         $scope.getDataHIV = function (sSource, aoData, fnCallback, oSettings) {
             $scope.callBack.HIV = fnCallback;
-            if ($scope.disease == "HIV")  $scope.getData(sSource, aoData, fnCallback, oSettings);
+            if ($scope.disease == "HIV") $scope.getData(sSource, aoData, fnCallback, oSettings);
         }
 
         $scope.getDataTB = function (sSource, aoData, fnCallback, oSettings) {
             $scope.callBack.TB = fnCallback;
-            if ($scope.disease == "TB")  $scope.getData(sSource, aoData, fnCallback, oSettings);
+            if ($scope.disease == "TB") $scope.getData(sSource, aoData, fnCallback, oSettings);
         }
 
         $scope.getDataMalaria = function (sSource, aoData, fnCallback, oSettings) {
             $scope.callBack.Malaria = fnCallback;
-            if ($scope.disease == "Malaria")  $scope.getData(sSource, aoData, fnCallback, oSettings);
+            if ($scope.disease == "Malaria") $scope.getData(sSource, aoData, fnCallback, oSettings);
         }
 
 
@@ -107,27 +134,30 @@ angular.module('sara')
             var rowCallback = function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td', nRow).unbind('click');
                 $('td', nRow).bind('click', function () {
-                        $scope.$apply(function () {
-                            $scope.edit(aData);
-                        });
+                    //if ($scope.mode == 1) {
+                    $scope.$apply(function () {
+                        $scope.edit(aData);
                     });
-                    return nRow;
-                };
+                    //}
+                });
+                return nRow;
+            };
             dt.options = DTOptionsBuilder.newOptions()
                 .withFnServerData(getDataFn)
                 .withOption('serverSide', true)
-                .withDOM(`<"row"<"col-sm-6"><"col-sm-6">><"table-responsive"tr><"row"<"col-sm-6"l><"col-sm-6"p>>`)
+                //.withDOM(`<"row"<"col-sm-6"><"col-sm-6">><"table-responsive"tr><"row"<"col-sm-6"l><"col-sm-6"p>>`)
+                .withDOM('ftr')
                 .withBootstrap()
-                .withScroller()
+                //.withScroller()
+                .withOption('bFilter', false)
                 .withOption('scrollX', '100%')
                 .withOption('sortable', false)
                 .withOption('bSort', false)
-                //.withOption('scrollY', ''')
-                .withOption('scrollY', type == 'HIV' ? 'calc(100vh - 630px)' : 'calc(100vh - 510px)')
+                //.withOption('scrollY', type == 'HIV' ? 'calc(100vh - 630px)' : 'calc(100vh - 510px)')
                 .withOption('rowCallback', rowCallback)
-            
-                dt.columns = [
-                DTColumnBuilder.newColumn("name").notSortable()
+
+            dt.columns = [
+                DTColumnBuilder.newColumn("name").notSortable().withOption('sWidth', '200px')
             ];
             for (var i = 0; i < dc.length; i++) {
                 var column = DTColumnBuilder.newColumn("indexes." + i + ".value").notSortable();
@@ -138,6 +168,7 @@ angular.module('sara')
         $scope.edit = function (data) {
 
             var itemToEdit = data;
+            var isEditable = $scope.mode == 1;
             var formFields = $scope.columns[$scope.disease];
             var modalInstance = $uibModal.open({
                 animation: false,
@@ -146,6 +177,7 @@ angular.module('sara')
                 templateUrl: "views/editPopup.html",
                 size: "md",
                 controller: function ($scope, $uibModalInstance) {
+                    $scope.isEditable = isEditable;
                     $scope.name = itemToEdit.name;
                     $scope.data = itemToEdit;
                     var paramsArray = [];
@@ -153,15 +185,16 @@ angular.module('sara')
                         paramsArray.push({ param: formFields[index].name, code: formFields[index].code, value: itemToEdit.indexes[index].value });
                     }
                     $scope.params = paramsArray;
-                    
+
                     $scope.save = function () {
-                        for (var i = 0; i < $scope.data.indexes.length; i++) {
-                            $scope.data.indexes[i] = { code: formFields[i].code, value: $scope.params[i].value };
+                        if ($scope.isEditable) {
+                            for (var i = 0; i < $scope.data.indexes.length; i++) {
+                                $scope.data.indexes[i] = { code: formFields[i].code, value: $scope.params[i].value };
+                            }
+                            $uibModalInstance.close($scope.data);
                         }
-                        
-                        $uibModalInstance.close($scope.data);
                     };
-                    
+
                     $scope.close = function () {
                         $uibModalInstance.dismiss('cancel');
                     };
@@ -172,7 +205,7 @@ angular.module('sara')
                     }
                 }
             });
-            
+
             modalInstance.result.then(function (data) {
                 $scope.isSendingDataEnable = true;
                 $scope.statusText = "Data changed";
@@ -268,7 +301,7 @@ angular.module('sara')
                     $scope.selectedCountry = $scope.countries.filter(c => c.name == $scope.country)[0];
                     $scope.selectedHFAType = $scope.hfaTypes.filter(c => c.name == $scope.type)[0];
                     $scope.selectedDisease = $scope.disease;
-                    $scope.selectedYear =  $scope.year + "";
+                    $scope.selectedYear = $scope.year + "";
 
                     $scope.isSendingDataEnable = true;
                     $scope.statusText = "Data changed";
@@ -276,11 +309,11 @@ angular.module('sara')
                     updateSate();
 
                     var tColumns = ServiceData.diseaseIndicatorsDirectory[$scope.disease];
-                    
+
                     var tRange = "A5:BF200";
-                    if ($scope.disease == "HIV") tRange = "A6:BF200"; else 
-                    if ($scope.disease == "Malaria") tRange = "A5:AD200"; else 
-                    if ($scope.disease == "TB") tRange = "A5:X200";
+                    if ($scope.disease == "HIV") tRange = "A6:BF200"; else
+                        if ($scope.disease == "Malaria") tRange = "A5:AD200"; else
+                            if ($scope.disease == "TB") tRange = "A5:X200";
                     const range = workbook.sheet(0).range(tRange);
                     var cells = range.cells();
                     var paramsArray = [];
@@ -296,7 +329,7 @@ angular.module('sara')
                             paramsArray.push(obj);
                         }
                     }
-        
+
                     $scope.regions[$scope.disease] = paramsArray;
                     $scope.$apply();
                     refreshTable();
@@ -319,9 +352,9 @@ angular.module('sara')
                 .then(function (workbook) {
                     var tRange = "A5:BF200";
 
-                    if ($scope.disease == "HIV") tRange = "A6:BF200"; else 
-                    if ($scope.disease == "Malaria") tRange = "A5:AD200"; else
-                    if ($scope.disease == "TB") tRange = "A5:X200";
+                    if ($scope.disease == "HIV") tRange = "A6:BF200"; else
+                        if ($scope.disease == "Malaria") tRange = "A5:AD200"; else
+                            if ($scope.disease == "TB") tRange = "A5:X200";
 
                     var range = workbook.sheet(0).range(tRange);
                     workbook.sheet(0).cell("U1").value($scope.continent);
@@ -349,7 +382,7 @@ angular.module('sara')
         }
 
         function updateSate(isUpdate = false) {
-           $state.go('root.datatable', {continent: $scope.continent, country: $scope.country, disease: $scope.disease, type: $scope.type, year: $scope.year}, { notify: isUpdate });
+            $state.go('root.datatable', { continent: $scope.continent, country: $scope.country, disease: $scope.disease, type: $scope.type, year: $scope.year, mode: $scope.mode }, { notify: isUpdate });
         }
 
         DataFactory.getContinents().then(function (response) {
@@ -362,7 +395,7 @@ angular.module('sara')
             $scope.selectedHFAType = $scope.hfaTypes.filter(c => c.name == $scope.type)[0];
         });
 
-        $scope.$watch('selectedContinent', function() {
+        $scope.$watch('selectedContinent', function () {
             if ($scope.selectedContinent) {
                 DataFactory.getCountries($scope.selectedContinent.name).then(function (response) {
                     $scope.countries = response.data.countries;
@@ -375,13 +408,42 @@ angular.module('sara')
         $scope.applyForm = function () {
             $scope.continent = $scope.selectedContinent.name;
             $scope.country = $scope.selectedCountry.name;
-            
+
             $scope.type = $scope.selectedHFAType.name;
             $scope.disease = $scope.selectedDisease;
             $scope.year = $scope.selectedYear;
             $scope.isSendingDataEnable = false;
-            
+
+            $rootScope.disease = $scope.disease;
+            $rootScope.type = $scope.type;
+            $rootScope.year = $scope.year;
+            $rootScope.mode = $scope.mode;
+            $rootScope.country = $scope.country;
+            $rootScope.continent = $scope.continent;
+
             updateSate(true);
-        }
+        };
+        // $scope.$watch('disease', function () {
+        //     $rootScope.disease = $scope.disease;
+        // })
+        // $scope.$watch('type', function () {
+        //     $rootScope.type = $scope.type;
+        // })
+        // $scope.$watch('year', function () {
+        //     $rootScope.year = $scope.year;
+        // })
+        // $scope.$watch('mode', function () {
+        //     $rootScope.mode = $scope.mode;
+        // })
+        // $scope.$watch('country', function () {
+        //     $rootScope.country = $scope.country;
+        // })
+        // $scope.$watch('continent', function () {
+        //     $rootScope.continent = $scope.continent;
+        // })
+
+
+
+
 
     });
