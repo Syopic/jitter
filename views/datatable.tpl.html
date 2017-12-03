@@ -47,7 +47,7 @@
         <div class="card-body">
           <div class="col-md-12">
             <div class="row gutter-xs">
-              <div class="col-md-7" ng-show="mode == 1">
+              <div class="col-md-6" ng-show="mode == 1">
                 <h5>Import from
                   <b>XLSX</b>
                 </h5>
@@ -55,24 +55,20 @@
                     Upload HFA data
                     <input  id="fileInput"  class="file-upload-input" type="file"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="angular.element(this).scope().uploadChange()" multiple="multiple" title=" "/>
                   </label>
-                <!-- <label class="btn btn-primary ">
-                  <input id="fileInput" ng-disabled="isPendinggData" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                    onchange="angular.element(this).scope().uploadChange()">
-                </label> -->
               </div>
-              <div ng-class="mode == 1 ? 'col-md-5' : 'col-md-12'">
+              <div ng-class="mode == 1 ? 'col-md-6' : 'col-md-12'">
                 <h5>Export to
                   <b>XLSX</b>
                 </h5>
                 <button class="btn btn-primary btn-block" ng-click="generateBlob()" ng-disabled="isPendinggData">Download HFA data</button>
               </div>
-              <div class="col-md-7" ng-show="mode == 1">
+              <div class="col-md-6" ng-show="mode == 1">
                 <h5>
                   <h5>Status:</h5>
                 </h5>
                 <h4>{{statusText}}</h4>
               </div>
-              <div class="col-md-5" ng-show="mode == 1">
+              <div class="col-md-6" ng-show="mode == 1">
                 <h5>
                   <br>
                 </h5>
