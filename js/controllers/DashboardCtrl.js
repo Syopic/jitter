@@ -65,7 +65,9 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
                   year: $scope.year
             }
             $scope.isPendinggData = true;
+            $scope.isNoData = false;
             DataFactory.getRegions(params).then(function (response) {
+                  
                   $scope.multiselectModel.splice(0);
                   countIndicator = 1;
                   $scope.series = [];
