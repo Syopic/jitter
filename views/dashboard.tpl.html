@@ -125,11 +125,15 @@
             </div>
           </div>
         </div>
+        
         <div class="panel panel-body text-center" ng-show="isPendinggData" data-toggle="match-height" style="height: 136px;">
           <div class="spinner spinner-primary spinner-lg pos-r sq-100"></div>
-        </div>
+        </div>  
         <div class="card-body collapse in" id="collapseChart" aria-expanded="true" ng-show="!isPendinggData">
           <div class="card-chart">
+              <div class=" text-center" ng-show="isNoData">
+                  <h3>There are no regions for this country,<br>no data for chart </h3>
+                </div>
             <canvas class="chart chart-bar" chart-data='data' chart-labels='labels' chart-series='series' chart-colors='colors' chart-options='options'
               height="100"></canvas>
             <!-- height="150" -->
@@ -147,12 +151,12 @@
           </div>
           <div class="col-md-4">
             <h4 >{{mapLegend}}</h4>
-            <!-- <div class="col-md-12">
+            <div class="col-md-12">
               <h5>Region</h5>
               <select class="form-control" ng-model="selectedRegion" ng-options="item as item for item in labels" ng-disabled="isPendinggData">
                 <option value="" selected>Show all</option>
               </select>
-            </div>  -->
+            </div> 
             <div class="col-md-12">
 
             </div>

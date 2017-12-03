@@ -12,11 +12,10 @@ angular.module('sara').controller('MapCtrl', function ($scope, $timeout, Service
 
   var map = L.map('map', {
     doubleClickZoom: false,
-    zoomControl: false,
     tap: false
   })
 
-
+  map.scrollWheelZoom.disable();
   var mainLayer = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
@@ -68,12 +67,13 @@ angular.module('sara').controller('MapCtrl', function ($scope, $timeout, Service
         })
     })
   }
-
+  var featureData = [];
   function onEachFeature(feature, layer) {
+    featureData[feature.properties.name] = layer;
     layer.on({
       mouseover: highlightFeature,
-      mouseout: resetHighlight,
-      click: selectFeature
+      mouseout: resetHighlight
+      //click: selectFeature
     });
   }
 
@@ -93,15 +93,17 @@ angular.module('sara').controller('MapCtrl', function ($scope, $timeout, Service
   }
 
   function setLayerStyle(layer, isSelect = false) {
-    layer.setStyle({
-      color: '#ff8b46',
-      weight: 3,
-      opacity: isSelect ? 1 : 0,
-      fillOpacity: isSelect ? 0.8 : 0.5,
-    });
-    info.update(layer.feature);
-    if (isSelect && !L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-      layer.bringToFront();
+    if (layer) {
+      layer.setStyle({
+        color: '#ff8b46',
+        weight: 3,
+        opacity: isSelect ? 1 : 0,
+        fillOpacity: isSelect ? 0.8 : 0.5,
+      });
+      info.update(layer.feature);
+      if (isSelect && !L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
     }
   }
 
@@ -113,8 +115,10 @@ angular.module('sara').controller('MapCtrl', function ($scope, $timeout, Service
     } else {
       geojson.resetStyle(e.target);
       info.update();
-      setLayerStyle($scope.selectedLayer, true);
-      info.update($scope.selectedLayer.feature);
+      if ($scope.selectedLayer) {
+        setLayerStyle($scope.selectedLayer, true);
+        info.update($scope.selectedLayer.feature);
+      }
     }
   }
 
@@ -172,6 +176,19 @@ angular.module('sara').controller('MapCtrl', function ($scope, $timeout, Service
     $scope.selectedLayer = null;
     if ($scope.selectedLayer)
     info.update($scope.selectedLayer.feature);
+  });
+
+  $scope.$watch('selectedRegion', function () {
+      if ($scope.selectedLayer) {
+        geojson.resetStyle($scope.selectedLayer);
+        info.update();
+      }
+      var val = $scope.mapData.filter(o => o.name == $scope.selectedRegion)[0];
+      $scope.selectedLayer = featureData[$scope.selectedRegion];
+      if ($scope.selectedLayer) {
+        setLayerStyle($scope.selectedLayer, true);
+        info.update($scope.selectedLayer.feature);
+      }
   });
 
   $scope.$watch('Data.regions', function () {

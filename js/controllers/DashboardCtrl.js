@@ -52,6 +52,7 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
       $scope.selectIndicatorMap = $scope.ind[0];
       $scope.series = [$scope.selectIndicator.name];
       $scope.hfaSel = 1;
+      $scope.isNoData = false;
 
       getData();
 
@@ -71,8 +72,10 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
                   $scope.labels = [];
                   $scope.Data = response.data.data;
                   if ($scope.Data == null) {
-                        $window.alert("No regions!")
-                        $state.go('root.dashboard', { continent: "Africa", country: "Kenya", disease: $scope.disease, type: $scope.type, year: $scope.year });
+                        $scope.isPendinggData = false;
+                        $scope.isNoData = true;
+                       // $window.alert("No regions!")
+                       // $state.go('root.dashboard', { continent: "Africa", country: "Kenya", disease: $scope.disease, type: $scope.type, year: $scope.year });
                   }else {
                   $scope.data = [onload($scope.ind, $scope.ind[0])];
                   $scope.seriesID[0] = [{ count: 0, name: $scope.ind[0].name }];
