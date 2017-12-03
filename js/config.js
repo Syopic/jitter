@@ -2,7 +2,7 @@
 
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
-  $urlRouterProvider.otherwise("/datatable/");
+  $urlRouterProvider.otherwise("/datatable/Africa/Malawi/HIV/SARA/2010/1");
 
   $ocLazyLoadProvider.config({
     debug: false,
@@ -127,6 +127,16 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
     })
     .state("root.datatable", {
       url: "/datatable/:continent/:country/:disease/:type/:year/:mode",
+      controller: "DatatableCtrl as dTable",
+      templateUrl: "views/datatable.tpl.html",
+      resolve: {
+        loadDatatables: function ($ocLazyLoad) {
+          return $ocLazyLoad.load("datatables");
+        }
+      }
+    })
+    .state("root.ddatatable", {
+      url: "/datatable",
       controller: "DatatableCtrl as dTable",
       templateUrl: "views/datatable.tpl.html",
       resolve: {

@@ -24,15 +24,15 @@
 
               <h5>HFA type</h5>
               <div class="btn-group" data-toggle="buttons" style="width:100%;">
-                <label class="btn btn-outline-info" ng-class="{active : selectedHFA === 'SARA' }" ng-model="selectedHFA" style="width: 33%;"
+                <label class="btn btn-outline-info" ng-disabled="isPendinggData" ng-class="{active : selectedHFA === 'SARA' }" ng-model="selectedHFA" style="width: 33%;"
                   ng-click="selectedHFA = 'SARA'; test();">
                   <input type="radio" name="hfa">SARA
                 </label>
-                <label class="btn btn-outline-info " ng-class="{active : selectedHFA === 'SPA'}" ng-model="selectedHFA" style="width: 33%;"
+                <label class="btn btn-outline-info " ng-disabled="isPendinggData" ng-class="{active : selectedHFA === 'SPA'}" ng-model="selectedHFA" style="width: 33%;"
                   ng-click="selectedHFA = 'SPI'; test();">
                   <input type="radio" name="hfa">SPA
                 </label>
-                <label class="btn btn-outline-info" ng-class="{active : selectedHFA === 'SDI'}" ng-model="selectedHFA" style="width: 33%;"
+                <label class="btn btn-outline-info" ng-disabled="isPendinggData" ng-class="{active : selectedHFA === 'SDI'}" ng-model="selectedHFA" style="width: 33%;"
                   ng-click="selectedHFA = 'SDI'; test();">
                   <input type="radio" name="hfa">SDI
                 </label>
@@ -46,13 +46,13 @@
 
                 <h5>Disease</h5>
                 <div class="btn-group" data-toggle="buttons" style="width:100%;">
-                  <label class="btn btn-outline-info " ng-class="{active : selectedDisease === 'HIV'}" style="width: 33%;" ng-click="selectedDisease = 'HIV'; onSellectDisease();">
+                  <label class="btn btn-outline-info " ng-disabled="isPendinggData" ng-class="{active : selectedDisease === 'HIV'}" style="width: 33%;" ng-click="selectedDisease = 'HIV'; onSellectDisease();">
                     <input type="radio" name="disease">HIV
                   </label>
-                  <label class="btn btn-outline-info" ng-class="{active : selectedDisease === 'TB' }" style="width: 33%;" ng-click="selectedDisease = 'TB'; onSellectDisease();">
+                  <label class="btn btn-outline-info" ng-disabled="isPendinggData" ng-class="{active : selectedDisease === 'TB' }" style="width: 33%;" ng-click="selectedDisease = 'TB'; onSellectDisease();">
                     <input type="radio" name="disease">TB
                   </label>
-                  <label class="btn btn-outline-info" ng-class="{active : selectedDisease === 'Malaria' }" style="width: 33%;" ng-click="selectedDisease = 'Malaria'; onSellectDisease();">
+                  <label class="btn btn-outline-info" ng-disabled="isPendinggData" ng-class="{active : selectedDisease === 'Malaria' }" style="width: 33%;" ng-click="selectedDisease = 'Malaria'; onSellectDisease();">
                     <input type="radio" name="disease"> Malaria
                   </label>
                 </div>
@@ -65,18 +65,18 @@
                 <div class="col-md-3">
 
                   <h5>Continent</h5>
-                  <select class="form-control" ng-model="selectedContinent" ng-options="item.name for item in continents track by item.name"
+                  <select class="form-control" ng-disabled="isPendinggData" ng-model="selectedContinent" ng-options="item.name for item in continents track by item.name"
                     value="{{continent.name}}"></select>
                 </div>
 
                 <div class="col-md-3">
                   <h5>Country</h5>
-                  <select class="form-control" ng-model="selectedCountry" ng-options="item.name for item in countries track by item.name" value="{{selectedCountry.name}}"></select>
+                  <select class="form-control" ng-disabled="isPendinggData" ng-model="selectedCountry" ng-options="item.name for item in countries track by item.name" value="{{selectedCountry.name}}"></select>
                 </div>
 
                 <div class="col-md-3">
                   <h5>Year</h5>
-                  <select class="form-control" ng-model="selectedYear" ng-options="item for item in years" value="{{selectedYear}}"></select>
+                  <select class="form-control" ng-disabled="isPendinggData" ng-model="selectedYear" ng-options="item for item in years" value="{{selectedYear}}"></select>
                 </div>
                 <div class="col-md-3">
                   <h5>
@@ -93,11 +93,11 @@
     </div>
   </div>
 
-  <div class="row " ng-show="true">
+  <div class="row">
     <div class="col-xs-12">
       <div class="card">
 
-        <div class="row gutter-xs" >
+        <div class="row gutter-xs">
           <div class="card-body">
             <div class="col-md-4">
 
@@ -126,8 +126,8 @@
           </div>
         </div>
         <div class="panel panel-body text-center" ng-show="isPendinggData" data-toggle="match-height" style="height: 136px;">
-            <div class="spinner spinner-primary spinner-lg pos-r sq-100"></div>
-          </div>
+          <div class="spinner spinner-primary spinner-lg pos-r sq-100"></div>
+        </div>
         <div class="card-body collapse in" id="collapseChart" aria-expanded="true" ng-show="!isPendinggData">
           <div class="card-chart">
             <canvas class="chart chart-bar" chart-data='data' chart-labels='labels' chart-series='series' chart-colors='colors' chart-options='options'
@@ -142,17 +142,56 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <h4>Map {{selectIndicatorMap.code}}</h4>
           <div class="col-md-8">
-            <div id="map" style="height: 600px;"></div>
+            <div id="map" style="height: 750px;"></div>
           </div>
           <div class="col-md-4">
-            <select class="form-control" ng-model="selectedIndicator" ng-options="item as item.name for item in cahrtIndicator" ng-change="">
-            </select>
-            <select class="form-control" ng-model="selectedRegion" ng-options="item as item for item in labels" ng-change="">
-            </select>
-        </div>
+            <h4 >{{mapLegend}}</h4>
+            <!-- <div class="col-md-12">
+              <h5>Region</h5>
+              <select class="form-control" ng-model="selectedRegion" ng-options="item as item for item in labels" ng-disabled="isPendinggData">
+                <option value="" selected>Show all</option>
+              </select>
+            </div>  -->
+            <div class="col-md-12">
+
+            </div>
+            <div class="col-md-12">
+              <h5>Indicator</h5>
+              <select class="form-control" ng-model="selectedIndicator" ng-options="item as item.name for item in cahrtIndicator" ng-disabled="isPendinggData">
+              </select>
+            </div>
+
+            <div class="col-md-12">
+              <hr>
+              <h5>
+                <b>Legend</b>
+              </h5>
+              <ul class="list-unstyled">
+                <li ng-show="cGrades[0].value">
+                  <span class="icon icon-square icon-fw" style="color: #ADE1FF"> </span>&lt; {{cGrades[0].value | number:1}}</li>
+                <li ng-show="cGrades[1].value">
+                  <span class="icon icon-square icon-fw" style="color: #90CEF5"> </span>{{cGrades[0].value | number:1}} – {{cGrades[1].value | number:1}}</li>
+                <li ng-show="cGrades[2].value">
+                  <span class="icon icon-square icon-fw" style="color: #73BBEC"> </span>{{cGrades[1].value | number:1}} – {{cGrades[2].value | number:1}}</li>
+                <li ng-show="cGrades[3].value">
+                  <span class="icon icon-square icon-fw" style="color: #56A8E3"> </span>{{cGrades[2].value | number:1}} – {{cGrades[3].value | number:1}}</li>
+                <li ng-show="cGrades[4].value">
+                  <span class="icon icon-square icon-fw" style="color: #3995D9"></span>{{cGrades[3].value | number:1}} – {{cGrades[4].value | number:1}}</li>
+                <li ng-show="cGrades[5].value">
+                  <span class="icon icon-square icon-fw" style="color: #1C82D0"></span>{{cGrades[4].value | number:1}} – {{cGrades[5].value | number:1}}</li>
+                <li ng-show="cGrades[6].value">
+                  <span class="icon icon-square icon-fw" style="color: #006FC7"></span>&gt; {{cGrades[6].value | number:1}}</li>
+                <li>
+                  <span class="icon icon-square-o icon-fw" style="color: #d2edfc"> </span>Data not available</li>
+              </ul>
+              <hr>
+              <p>Source:
+                <a href="https://www.theglobalfund.org" target="_blank">The Global Fund to Fight AIDS, Tuberculosis and Malaria</a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-</div>
+  </div>

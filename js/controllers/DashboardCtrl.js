@@ -1,21 +1,24 @@
 angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope, $state, $window, $controller, ServiceData, $location, $timeout, $stateParams, DataFactory) {
 
-      $scope.continent = $rootScope.continent ? $rootScope.continent : ($stateParams.continent ? $stateParams.continent : "Africa");
-      $scope.country = $rootScope.country ? $rootScope.country : ($stateParams.country ? $stateParams.country : "Malawi");
-      $scope.disease = $scope.disease ? $scope.disease : ($stateParams.disease ? $stateParams.disease : "HIV");
-      $scope.type = $rootScope.type ? $rootScope.type : ($stateParams.type ? $stateParams.type : "SARA");
-      $scope.year = $rootScope.year ? $rootScope.year : ($stateParams.year ? $stateParams.year : "2010");
+
+     
+
+      $scope.continent = $stateParams.continent ? $stateParams.continent : "Africa";
+      $scope.country = $stateParams.country ? $stateParams.country : "Kenya";
+      $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
+      $scope.type = $stateParams.type ? $stateParams.type : "SARA";
+      $scope.year = $stateParams.year ? $stateParams.year : "2010";
       $scope.years = ServiceData.collections.Years;
       $scope.selectedYear = $scope.year;
       $scope.selectedDisease = $scope.disease;
       $scope.selectedHFA = $scope.type;
 
-      $rootScope.disease = $scope.disease;
-      $rootScope.type = $scope.type;
-      $rootScope.year = $scope.year;
-      $rootScope.mode = $scope.mode;
-      $rootScope.country = $scope.country;
-      $rootScope.continent = $scope.continent;
+      // $rootScope.disease = $scope.disease;
+      // $rootScope.type = $scope.type;
+      // $rootScope.year = $scope.year;
+      // $rootScope.mode = $scope.mode;
+      // $rootScope.country = $scope.country;
+      // $rootScope.continent = $scope.continent;
 
       updateSate();
 
@@ -45,6 +48,7 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
       $scope.seriesID = [];
       $scope.cahrtIndicator = $scope.ind;
       $scope.selectIndicator = $scope.ind[0];
+      $scope.selectedIndicator = $scope.ind[0];
       $scope.selectIndicatorMap = $scope.ind[0];
       $scope.series = [$scope.selectIndicator.name];
       $scope.hfaSel = 1;
@@ -66,6 +70,10 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
                   $scope.series = [];
                   $scope.labels = [];
                   $scope.Data = response.data.data;
+                  if ($scope.Data == null) {
+                        $window.alert("No regions!")
+                        $state.go('root.dashboard', { continent: "Africa", country: "Kenya", disease: $scope.disease, type: $scope.type, year: $scope.year });
+                  }else {
                   $scope.data = [onload($scope.ind, $scope.ind[0])];
                   $scope.seriesID[0] = [{ count: 0, name: $scope.ind[0].name }];
                   $scope.legend = ServiceData.getLegend($scope.disease, $scope.ind[0].index);
@@ -75,6 +83,7 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
                   // $scope.options.scales.yAxes[1].display = false;
                   // $scope.options.scales.yAxes[2].display = false;
                   $scope.isPendinggData = false;
+                  }
             });
       }
 
@@ -104,14 +113,14 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
       function onload(indicator, selind) {
 
             $scope.cahrtIndicator = indicator;
-            $scope.selectIndicator = selind;
+            $scope.selectedIndicator = $scope.selectIndicator = selind;
             $scope.multiselectData = indicator;
             oneData = [];
             $scope.labels.splice(0);
             var code = selind.code;
             var index = selind.index;
 
-
+            
             angular.forEach($scope.Data.regions, function (value, key) {
                   $scope.labels.push(value.name);
                   if (value.indexes[index].value == null) {
@@ -121,8 +130,8 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
                         oneData.push(value.indexes[index].value);
                   }
             })
+            
             return oneData;
-            updateMap();
       };
 
 
@@ -187,18 +196,18 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
 
             onItemDeselect: function (item) {
                   countIndicator--;
-                  console.log($scope.seriesID);
+
                   for (var i = 0; i < $scope.series.length; i++) {
                         if ($scope.series.length == 1) {
                               break
                         } else {
                               if ($scope.seriesID[i][0].name == item.name) {
                                     //  $scope.options.scales.yAxes[$scope.series.length - 1].display = false;
-                                    console.log($scope.seriesID[i][0].count, $scope.seriesID[i], $scope.series, i)
+                                   
                                     $scope.series.splice(i, 1);
                                     $scope.data.splice(i, 1);
                                     $scope.seriesID.splice(i, 1);
-                                    console.log($scope.seriesID);
+                                   
 
                               }
                         }
@@ -380,12 +389,12 @@ angular.module('sara').controller('DashboardCtrl', function ($scope, $rootScope,
             $scope.disease = $scope.selectedDisease;
             $scope.year = $scope.selectedYear;
 
-            $rootScope.disease = $scope.disease;
-            $rootScope.type = $scope.type;
-            $rootScope.year = $scope.year;
-            $rootScope.mode = $scope.mode;
-            $rootScope.country = $scope.country;
-            $rootScope.continent = $scope.continent;
+            // $rootScope.disease = $scope.disease;
+            // $rootScope.type = $scope.type;
+            // $rootScope.year = $scope.year;
+            // $rootScope.mode = $scope.mode;
+            // $rootScope.country = $scope.country;
+            // $rootScope.continent = $scope.continent;
 
             updateSate(true);
       }

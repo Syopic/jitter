@@ -12,24 +12,24 @@
             <div class="row gutter-xs">
               <div class="col-md-6">
                 <h5>Continent</h5>
-                <select class="form-control" ng-model="selectedContinent" ng-options="item.name for item in continents track by item.name"
+                <select class="form-control" ng-disabled="isPendinggData" ng-model="selectedContinent" ng-options="item.name for item in continents track by item.name"
                   value="{{selectedContinent.name}}"></select>
               </div>
               <div class="col-md-6">
                 <h5>Country</h5>
-                <select class="form-control" ng-model="selectedCountry" ng-options="item.name for item in countries track by item.name" value="{{selectedCountry.name}}"></select>
+                <select class="form-control" ng-disabled="isPendinggData" ng-model="selectedCountry" ng-options="item.name for item in countries track by item.name" value="{{selectedCountry.name}}"></select>
               </div>
               <div class="col-md-4">
                 <h5>HFA Type</h5>
-                <select class="form-control" ng-model="selectedHFAType" ng-options="item.name for item in hfaTypes track by item.name" value="{{selectedHFAType.name}}"></select>
+                <select class="form-control" ng-disabled="isPendinggData" ng-model="selectedHFAType" ng-options="item.name for item in hfaTypes track by item.name" value="{{selectedHFAType.name}}"></select>
               </div>
               <div class="col-md-4">
                 <h5>Disease</h5>
-                <select class="form-control" ng-model="selectedDisease" ng-options="item for item in diseases" value="{{selectedDisease}}"></select>
+                <select class="form-control" ng-disabled="isPendinggData" ng-model="selectedDisease" ng-options="item for item in diseases" value="{{selectedDisease}}"></select>
               </div>
               <div class="col-md-2">
                 <h5>Year</h5>
-                <select class="form-control" ng-model="selectedYear" ng-options="item for item in years" value="{{selectedYear}}"></select>
+                <select class="form-control"  ng-disabled="isPendinggData" ng-model="selectedYear" ng-options="item for item in years" value="{{selectedYear}}"></select>
               </div>
               <div class="col-md-2">
                 <h5>

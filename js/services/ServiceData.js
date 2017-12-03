@@ -152,15 +152,21 @@ var app = angular.module("sara").service('ServiceData', [function ServiceData() 
             Diseases: ["HIV", "TB", "Malaria"],
             Years: ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2020", "2021", "2022", "2023", "2024", "2025"],
         },
+
+        this.gColors = ['#ADE1FF', '#90CEF5', '#73BBEC', '#56A8E3', '#3995D9', '#1C82D0', '#006FC7'],
         this.getColor = function getColor(grades, d) {
+            if (grades && grades.length > 0 && d) {
             d *= 1.1;
-            return d > grades[6] ? '#85ADFF' :
-                d > grades[5] ? '#759DE9' :
-                    d > grades[4] ? '#658DD3' :
-                        d > grades[3] ? '#567EBD' :
-                            d > grades[2] ? '#466EA7' :
-                                d > grades[1] ? '#365E91' :
-                                    '#274F7C';
+            return d > grades[6].value ? this.gColors[6] :
+                d > grades[5].value ? this.gColors[5] :
+                    d > grades[4].value ? this.gColors[4] :
+                        d > grades[3].value ? this.gColors[3] :
+                            d > grades[2].value ? this.gColors[2] :
+                                d > grades[1].value ? this.gColors[1] :
+                                this.gColors[0];
+            } else {
+                return "#d2edfc";
+            }
 
         },
         this.getLegend = function getLegend(type, index) {
@@ -171,8 +177,8 @@ var app = angular.module("sara").service('ServiceData', [function ServiceData() 
                 endrange = startrange + value.colspan;
                 if (startrange <= index && endrange >= index) {
                     legend = value.name;
-                } else { startrange = endrange; }
-
+                } 
+                startrange = endrange;
             })
             return legend;
         }

@@ -4,29 +4,27 @@ angular.module('sara')
 
         var dTable = this;
 
-        // $scope.continent = $stateParams.continent ? $stateParams.continent : "Africa";
-        // $scope.country = $stateParams.country ? $stateParams.country : "Kenya";
-        // $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
-        // $scope.type = $stateParams.type ? $stateParams.type : "SARA";
-        // $scope.year = $stateParams.year ? $stateParams.year : "2010";
+
+
+        $scope.continent = $stateParams.continent ? $stateParams.continent : "Africa";
+        $scope.country = $stateParams.country ? $stateParams.country : "Kenya";
+        $scope.disease = $stateParams.disease ? $stateParams.disease : "HIV";
+        $scope.type = $stateParams.type ? $stateParams.type : "SARA";
+        $scope.year = $stateParams.year ? $stateParams.year : "2010";
         $scope.mode = $stateParams.mode ? $stateParams.mode : 1; //view mode 1 - edit, 0 - view
 
-        $scope.continent = $rootScope.continent ? $rootScope.continent : ($stateParams.continent ? $stateParams.continent : "Africa");
-        $scope.country = $rootScope.country ? $rootScope.country : ($stateParams.country ? $stateParams.country : "Malawi");
-        $scope.disease = $scope.disease ? $scope.disease : ($stateParams.disease ? $stateParams.disease : "HIV");
-        $scope.type = $rootScope.type ? $rootScope.type : ($stateParams.type ? $stateParams.type : "SARA");
-        $scope.year = $rootScope.year ? $rootScope.year : ($stateParams.year ? $stateParams.year : "2010");
+       
         $scope.years = ServiceData.collections.Years;
         $scope.selectedYear = $scope.year;
         $scope.selectedDisease = $scope.disease;
         $scope.selectedHFA = $scope.type;
 
-        $rootScope.disease = $scope.disease;
-        $rootScope.type = $scope.type;
-        $rootScope.year = $scope.year;
-        $rootScope.mode = $scope.mode;
-        $rootScope.country = $scope.country;
-        $rootScope.continent = $scope.continent;
+        // $rootScope.disease = $scope.disease;
+        // $rootScope.type = $scope.type;
+        // $rootScope.year = $scope.year;
+        // $rootScope.mode = $scope.mode;
+        // $rootScope.country = $scope.country;
+        // $rootScope.continent = $scope.continent;
 
         updateSate();
 
@@ -414,36 +412,14 @@ angular.module('sara')
             $scope.year = $scope.selectedYear;
             $scope.isSendingDataEnable = false;
 
-            $rootScope.disease = $scope.disease;
-            $rootScope.type = $scope.type;
-            $rootScope.year = $scope.year;
-            $rootScope.mode = $scope.mode;
-            $rootScope.country = $scope.country;
-            $rootScope.continent = $scope.continent;
+            // $rootScope.disease = $scope.disease;
+            // $rootScope.type = $scope.type;
+            // $rootScope.year = $scope.year;
+            // $rootScope.mode = $scope.mode;
+            // $rootScope.country = $scope.country;
+            // $rootScope.continent = $scope.continent;
 
             updateSate(true);
         };
-        // $scope.$watch('disease', function () {
-        //     $rootScope.disease = $scope.disease;
-        // })
-        // $scope.$watch('type', function () {
-        //     $rootScope.type = $scope.type;
-        // })
-        // $scope.$watch('year', function () {
-        //     $rootScope.year = $scope.year;
-        // })
-        // $scope.$watch('mode', function () {
-        //     $rootScope.mode = $scope.mode;
-        // })
-        // $scope.$watch('country', function () {
-        //     $rootScope.country = $scope.country;
-        // })
-        // $scope.$watch('continent', function () {
-        //     $rootScope.continent = $scope.continent;
-        // })
-
-
-
-
 
     });
