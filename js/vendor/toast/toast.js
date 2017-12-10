@@ -33,7 +33,7 @@
             'body-output-type': '', // Options: '', 'trustedHtml', 'template', 'templateWithData', 'directive'
             'body-template': 'toastBodyTmpl.html',
             'icon-class': 'toast-info',
-            'position-class': 'toast-top-right', // Options (see CSS):
+            'position-class': 'toast-bottom-right', // Options (see CSS):
             // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-center',
             // 'toast-top-left', 'toast-top-center', 'toast-top-right',
             // 'toast-bottom-left', 'toast-bottom-center', 'toast-bottom-right',

@@ -1,5 +1,5 @@
 "use strict";
-
+  
 function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
   $urlRouterProvider.otherwise("/datatable/Africa/Malawi/HIV/SARA/2010/1");
@@ -132,6 +132,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       resolve: {
         loadDatatables: function ($ocLazyLoad) {
           return $ocLazyLoad.load("datatables");
+        },
+        loadToast: function($ocLazyLoad) {
+          return $ocLazyLoad.load("toast");
         }
       }
     })

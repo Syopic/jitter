@@ -1,4 +1,1 @@
-angular.module('sara').controller('ContactsCtrl', ['$scope',  function ($scope) {
-      
-    }]);
-    
+angular.module("sara").controller("ContactsCtrl",["$scope",function(o){}]);
