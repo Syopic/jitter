@@ -1,1 +1,0 @@
-angular.module("sara").animation(".sidenav",function(){return{beforeAddClass:function(e,a,o){e.addClass(a),TweenLite.fromTo(e,1,{opacity:0},{opacity:1,ease:Power2.easeInOut})},beforeRemoveClass:function(e,a,o){e.removeClass(a),TweenLite.fromTo(e,1,{opacity:0},{opacity:1,ease:Power2.easeInOut})}}});
